@@ -12,7 +12,23 @@ con = sqlite3.connect(dbFile)
 
 
 cur = con.cursor()
-cur.execute("CREATE TABLE Grant (ProjectNumber INTEGER, Title TEXT, ResponsibleApplicant TEXT, FundingInstrument TEXT, FundingInstrumentHierarchy TEXT, Institution TEXT, InstitutionCountry TEXT, University TEXT, DisciplineNumber INTEGER, DisciplineName TEXT, DisciplineNameHierarchy TEXT, AllDisciplines TEXT, StartDate TEXT, EndDate TEXT, ApprovedAmount INTEGER, Keywords TEXT);")
+cur.execute("""CREATE TABLE Grant (
+    ProjectNumber INTEGER,
+    Title TEXT,
+    ResponsibleApplicant TEXT,
+    FundingInstrument TEXT,
+    FundingInstrumentHierarchy TEXT,
+    Institution TEXT,
+    InstitutionCountry TEXT,
+    University TEXT,
+    DisciplineNumber INTEGER,
+    DisciplineName TEXT,
+    DisciplineNameHierarchy TEXT,
+    AllDisciplines TEXT,
+    StartDate TEXT,
+    EndDate TEXT,
+    ApprovedAmount INTEGER,
+    Keywords TEXT);""")
 
 with open('Downloaded/P3_GrantExport.csv', 'r', encoding="utf-8-sig") as csvfile:
     csvreader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
@@ -23,7 +39,12 @@ con.commit()
 
 
 cur = con.cursor()
-cur.execute("CREATE TABLE Output (ProjectNumber INTEGER, Type TEXT, Title TEXT, Url TEXT, Year INTEGER);")
+cur.execute("""CREATE TABLE Output (
+    ProjectNumber INTEGER,
+    Type TEXT,
+    Title TEXT,
+    Url TEXT,
+    Year INTEGER);""")
 
 with open('Downloaded/P3_GrantOutputDataExport.csv', 'r', encoding="utf-8-sig") as csvfile:
     csvreader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
@@ -34,7 +55,31 @@ con.commit()
 
 
 cur = con.cursor()
-cur.execute("CREATE TABLE Publication (PublicationIDSNSF TEXT, ProjectNumber INTEGER, PeerReviewStatus TEXT, TypeOfPublication TEXT, TitleOfPublication TEXT, Authors TEXT, Status TEXT, PublicationYear, ISBN TEXT, DOI TEXT, ImportSource TEXT, OpenAccessStatus TEXT, OpenAccessType TEXT, OpenAccessURL TEXT, BookTitle TEXT, Publisher TEXT, Editors TEXT, JournalTitle TEXT, Volume TEXT, IssueOrNumber TEXT, PageFrom INTEGER, PageTo INTEGER, ProceedingTitle TEXT, ProceedingPlace TEXT, Abstract TEXT);")
+cur.execute("""CREATE TABLE Publication (
+    PublicationIDSNSF TEXT,
+    ProjectNumber INTEGER,
+    PeerReviewStatus TEXT,
+    TypeOfPublication TEXT,
+    TitleOfPublication TEXT,
+    Authors TEXT, Status TEXT,
+    PublicationYear,
+    ISBN TEXT,
+    DOI TEXT,
+    ImportSource TEXT,
+    OpenAccessStatus TEXT,
+    OpenAccessType TEXT,
+    OpenAccessURL TEXT,
+    BookTitle TEXT,
+    Publisher TEXT,
+    Editors TEXT,
+    JournalTitle TEXT,
+    Volume TEXT,
+    IssueOrNumber TEXT,
+    PageFrom INTEGER,
+    PageTo INTEGER,
+    ProceedingTitle TEXT,
+    ProceedingPlace TEXT,
+    Abstract TEXT);""")
 
 with open('Downloaded/P3_PublicationExport.csv', 'r', encoding="utf-8-sig") as csvfile:
     csvreader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
@@ -45,7 +90,13 @@ con.commit()
 
 
 cur = con.cursor()
-cur.execute("CREATE TABLE Collaboration (ProjectNumber INTEGER, GroupOrPerson TEXT, TypesOfCollaboration TEXT, Country TEXT, ProjectStartDate TEXT, ProjectEndDate TEXT);")
+cur.execute("""CREATE TABLE Collaboration (
+    ProjectNumber INTEGER,
+    GroupOrPerson TEXT,
+    TypesOfCollaboration TEXT,
+    Country TEXT,
+    ProjectStartDate TEXT,
+    ProjectEndDate TEXT);""")
 
 with open('Downloaded/P3_CollaborationExport.csv', 'r', encoding="utf-8-sig") as csvfile:
     csvreader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
