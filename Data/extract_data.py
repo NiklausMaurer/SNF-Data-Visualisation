@@ -44,7 +44,8 @@ cur.execute("""CREATE TABLE Output (
     Type TEXT,
     Title TEXT,
     Url TEXT,
-    Year INTEGER);""")
+    Year INTEGER,
+    FOREIGN KEY(ProjectNumber) REFERENCES Grant(ProjectNumber))""")
 
 with open('Downloaded/P3_GrantOutputDataExport.csv', 'r', encoding="utf-8-sig") as csvfile:
     csvreader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
@@ -79,7 +80,8 @@ cur.execute("""CREATE TABLE Publication (
     PageTo INTEGER,
     ProceedingTitle TEXT,
     ProceedingPlace TEXT,
-    Abstract TEXT);""")
+    Abstract TEXT,
+    FOREIGN KEY(ProjectNumber) REFERENCES Grant(ProjectNumber));""")
 
 with open('Downloaded/P3_PublicationExport.csv', 'r', encoding="utf-8-sig") as csvfile:
     csvreader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
@@ -96,7 +98,8 @@ cur.execute("""CREATE TABLE Collaboration (
     TypesOfCollaboration TEXT,
     Country TEXT,
     ProjectStartDate TEXT,
-    ProjectEndDate TEXT);""")
+    ProjectEndDate TEXT,
+    FOREIGN KEY(ProjectNumber) REFERENCES Grant(ProjectNumber));""")
 
 with open('Downloaded/P3_CollaborationExport.csv', 'r', encoding="utf-8-sig") as csvfile:
     csvreader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
