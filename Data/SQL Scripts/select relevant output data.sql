@@ -2,7 +2,8 @@
 
 
 CREATE TABLE Export AS 
-select		Output.*,
+select
+      Output.*,
 			Grant.DisciplineNameHierarchy,
 			substr(Grant.DisciplineNameHierarchy, 0,  instr(Grant.DisciplineNameHierarchy, ';')) as 'DisciplineLevel1',
 			substr(Grant.DisciplineNameHierarchy, instr(Grant.DisciplineNameHierarchy, ';') + 1, length(Grant.DisciplineNameHierarchy)) as 'DisciplineLevel2',
