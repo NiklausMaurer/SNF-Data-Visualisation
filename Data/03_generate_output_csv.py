@@ -31,7 +31,7 @@ with sqlite3.connect(dbFile) as con:
             inner join Grant on Grant.ProjectNumber = Output.ProjectNumber
 """)
 
-    csvWriter = csv.writer(open("Generated/Export.csv", "w", encoding="utf-8", newline=''))
+    csvWriter = csv.writer(open("Generated/Output.csv", "w", encoding="utf-8", newline=''))
 
     rowsCSV = list()
     for row in cur.fetchall():
