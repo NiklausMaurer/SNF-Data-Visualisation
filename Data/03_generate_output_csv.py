@@ -31,9 +31,29 @@ with sqlite3.connect(dbFile) as con:
             inner join Grant on Grant.ProjectNumber = Output.ProjectNumber
 """)
 
-    csvWriter = csv.writer(open("Generated/Output.csv", "w", encoding="utf-8", newline=''))
+    csvWriter = csv.writer(open("Generated/Output.csv", mode="w", encoding="utf-8", newline=''), delimiter=';', quotechar='"')
 
     rowsCSV = list()
+
+    rowsCSV.append(( "ProjectNumber",
+                    "Type",
+                    "Title",
+                    "Type",
+                    "Url",
+                    "Year",
+                    "DisciplineLevel1",
+                    "DisciplineLevel2",
+                    "DisciplineLevel3",
+                    "Institution",
+                    "FundingInstrumentLevel1",
+                    "FundingInstrumentLevel2",
+                    "FundingInstrumentLevel3",
+                    "StartDate",
+                    "EndDate",
+                    "ApprovedAmount"
+                    ))
+
+
     for row in cur.fetchall():
 
         fundingInstrumentHierarchy = row["FundingInstrumentHierarchy"].split(";")
