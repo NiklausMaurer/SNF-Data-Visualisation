@@ -1,125 +1,28 @@
-Output.Type;Output.Year;COUNT(*)
-Media relations: print media, online media;2001;2
-Media relations: print media, online media;2003;1
-Media relations: print media, online media;2004;2
-Media relations: print media, online media;2005;6
-Media relations: print media, online media;2006;1
-Media relations: print media, online media;2007;11
-Media relations: print media, online media;2008;16
-Media relations: print media, online media;2009;61
-Media relations: print media, online media;2010;181
-Media relations: print media, online media;2011;534
-Media relations: print media, online media;2012;805
-Media relations: print media, online media;2013;1084
-Media relations: print media, online media;2014;1015
-Media relations: print media, online media;2015;1349
-Media relations: print media, online media;2016;1263
-Media relations: print media, online media;2017;731
-Media relations: print media, online media;2018;33
-Media relations: print media, online media;;65
-Media relations: radio, television;2001;1
-Media relations: radio, television;2005;1
-Media relations: radio, television;2007;5
-Media relations: radio, television;2008;9
-Media relations: radio, television;2009;22
-Media relations: radio, television;2010;82
-Media relations: radio, television;2011;203
-Media relations: radio, television;2012;285
-Media relations: radio, television;2013;330
-Media relations: radio, television;2014;378
-Media relations: radio, television;2015;457
-Media relations: radio, television;2016;412
-Media relations: radio, television;2017;271
-Media relations: radio, television;2018;6
-Media relations: radio, television;;26
-New media (web, blogs, podcasts, news feeds etc.);2002;2
-New media (web, blogs, podcasts, news feeds etc.);2005;5
-New media (web, blogs, podcasts, news feeds etc.);2006;2
-New media (web, blogs, podcasts, news feeds etc.);2007;4
-New media (web, blogs, podcasts, news feeds etc.);2008;9
-New media (web, blogs, podcasts, news feeds etc.);2009;20
-New media (web, blogs, podcasts, news feeds etc.);2010;113
-New media (web, blogs, podcasts, news feeds etc.);2011;230
-New media (web, blogs, podcasts, news feeds etc.);2012;317
-New media (web, blogs, podcasts, news feeds etc.);2013;337
-New media (web, blogs, podcasts, news feeds etc.);2014;336
-New media (web, blogs, podcasts, news feeds etc.);2015;376
-New media (web, blogs, podcasts, news feeds etc.);2016;398
-New media (web, blogs, podcasts, news feeds etc.);2017;201
-New media (web, blogs, podcasts, news feeds etc.);2018;5
-New media (web, blogs, podcasts, news feeds etc.);;58
-Other activities;2006;1
-Other activities;2007;1
-Other activities;2008;1
-Other activities;2009;5
-Other activities;2010;19
-Other activities;2011;71
-Other activities;2012;93
-Other activities;2013;96
-Other activities;2014;108
-Other activities;2015;98
-Other activities;2016;88
-Other activities;2017;46
-Other activities;2018;2
-Other activities;;9
-Print (books, brochures, leaflets);2006;2
-Print (books, brochures, leaflets);2007;3
-Print (books, brochures, leaflets);2008;3
-Print (books, brochures, leaflets);2009;16
-Print (books, brochures, leaflets);2010;35
-Print (books, brochures, leaflets);2011;99
-Print (books, brochures, leaflets);2012;119
-Print (books, brochures, leaflets);2013;130
-Print (books, brochures, leaflets);2014;121
-Print (books, brochures, leaflets);2015;145
-Print (books, brochures, leaflets);2016;160
-Print (books, brochures, leaflets);2017;98
-Print (books, brochures, leaflets);2018;5
-Print (books, brochures, leaflets);;14
-Software;2010;1
-Software;2011;2
-Software;2012;8
-Software;2013;9
-Software;2014;8
-Software;2015;18
-Software;2016;31
-Software;2017;35
-Software;2018;3
-Software;;1
-Start-up;2008;1
-Start-up;2009;2
-Start-up;2010;3
-Start-up;2011;14
-Start-up;2012;9
-Start-up;2013;8
-Start-up;2014;10
-Start-up;2015;14
-Start-up;2016;16
-Start-up;2017;5
-Start-up;2018;1
-Talks/events/exhibitions;2005;1
-Talks/events/exhibitions;2006;1
-Talks/events/exhibitions;2007;9
-Talks/events/exhibitions;2008;14
-Talks/events/exhibitions;2009;55
-Talks/events/exhibitions;2010;201
-Talks/events/exhibitions;2011;514
-Talks/events/exhibitions;2012;639
-Talks/events/exhibitions;2013;652
-Talks/events/exhibitions;2014;755
-Talks/events/exhibitions;2015;857
-Talks/events/exhibitions;2016;712
-Talks/events/exhibitions;2017;409
-Talks/events/exhibitions;2018;16
-Talks/events/exhibitions;;60
-Video/Film;2009;2
-Video/Film;2010;13
-Video/Film;2011;12
-Video/Film;2012;37
-Video/Film;2013;32
-Video/Film;2014;60
-Video/Film;2015;62
-Video/Film;2016;72
-Video/Film;2017;49
-Video/Film;2018;4
-Video/Film;;3
+Year,Type,Count
+2015,"Media relations: print media, online media",1347
+2015,"Media relations: radio, television",457
+2015,"New media (web, blogs, podcasts, news feeds etc.)",376
+2015,Other activities,98
+2015,"Print (books, brochures, leaflets)",145
+2015,Software,18
+2015,Start-up,14
+2015,Talks/events/exhibitions,856
+2015,Video/Film,62
+2016,"Media relations: print media, online media",1262
+2016,"Media relations: radio, television",412
+2016,"New media (web, blogs, podcasts, news feeds etc.)",398
+2016,Other activities,88
+2016,"Print (books, brochures, leaflets)",160
+2016,Software,31
+2016,Start-up,16
+2016,Talks/events/exhibitions,712
+2016,Video/Film,72
+2017,"Media relations: print media, online media",723
+2017,"Media relations: radio, television",270
+2017,"New media (web, blogs, podcasts, news feeds etc.)",200
+2017,Other activities,46
+2017,"Print (books, brochures, leaflets)",98
+2017,Software,35
+2017,Start-up,5
+2017,Talks/events/exhibitions,406
+2017,Video/Film,49

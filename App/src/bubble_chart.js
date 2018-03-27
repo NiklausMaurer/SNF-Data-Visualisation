@@ -19,16 +19,16 @@ function bubbleChart() {
   var center = { x: width / 2, y: height / 2 };
 
   var yearCenters = {
-    2008: { x: width / 3, y: height / 2 },
-    2009: { x: width / 2, y: height / 2 },
-    2010: { x: 2 * width / 3, y: height / 2 }
+    2015: { x: width / 3, y: height / 2 },
+    2016: { x: width / 2, y: height / 2 },
+    2017: { x: 2 * width / 3, y: height / 2 }
   };
 
   // X locations of the year titles.
   var yearsTitleX = {
-    2008: 160,
-    2009: width / 2,
-    2010: width - 160
+    2015: 160,
+    2016: width / 2,
+    2017: width - 160
   };
 
   // @v4 strength to apply to the position forces
@@ -74,9 +74,18 @@ function bubbleChart() {
   // Nice looking colors - no reason to buck the trend
   // @v4 scales now have a flattened naming scheme
   var fillColor = d3.scaleOrdinal()
-    .domain(['low', 'medium', 'high'])
-    .range(['#d84b2a', '#beccae', '#7aa25c']);
-
+    .domain(["Media relations: print media, online media"
+    , "New media (web, blogs, podcasts, news feeds etc.)"
+    , "Media relations: radio, television"
+    , "Talks/events/exhibitions"
+    , "Print (books, brochures, leaflets)"
+    , "Other activities"
+    , "Video/Film"
+    , "Start-up"
+    , "Software"])
+    .range(['#92c0e0', '#2a8dd4', '#e6f2fa',
+            '#004d85', '#b1b1b1', '#e1e1e1',
+            '#663399', '#b95f00', '#F93']);
 
   /*
    * This data manipulation function takes the raw data from
@@ -93,7 +102,7 @@ function bubbleChart() {
   function createNodes(rawData) {
     // Use the max total_amount in the data as the max in the scale's domain
     // note we have to ensure the total_amount is a number.
-    var maxAmount = d3.max(rawData, function (d) { return +d.total_amount; });
+    var maxAmount = d3.max(rawData, function (d) { return +d.Count; });
 
     // Sizes bubbles based on area.
     // @v4: new flattened scale names.
@@ -107,13 +116,11 @@ function bubbleChart() {
     // working with data.
     var myNodes = rawData.map(function (d) {
       return {
-        id: d.id,
-        radius: radiusScale(+d.total_amount),
-        value: +d.total_amount,
-        name: d.grant_title,
-        org: d.organization,
-        group: d.group,
-        year: d.start_year,
+        id: d.Type + d.Year,
+        radius: radiusScale(parseInt(d.Count)),
+        value: parseInt(d.Count),
+        group: d.Type,
+        year: parseInt(d.Year),
         x: Math.random() * 900,
         y: Math.random() * 800
       };
@@ -374,7 +381,7 @@ function addCommas(nStr) {
 }
 
 // Load the data.
-d3.csv('data/gates_money.csv').then(display);
+d3.csv('data/OutputExport.csv').then(display);
 
 // setup the buttons.
 setupButtons();
