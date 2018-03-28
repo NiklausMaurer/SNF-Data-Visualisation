@@ -18,7 +18,7 @@ function bubbleChart(param) {
   // on which view mode is selected.
   var center = { x: width / 2, y: height / 2 };
 
-  var xAxis = DiscreteAxis(param.xAxis.levels, width);
+  var xAxis = DiscreteAxis(param.xAxis.levels, width, param.xAxis.padding);
 
   // @v4 strength to apply to the position forces
   var forceStrength = 0.03;
@@ -252,7 +252,7 @@ function bubbleChart(param) {
 
     years.enter().append('text')
       .attr('class', 'year')
-      .attr('x', function (d) { return xAxis.getCenterOffset(d); })
+      .attr('x', function (d) { return xAxis.getTitleOffset(d); })
       .attr('y', 40)
       .attr('text-anchor', 'middle')
       .text(function (d) { return d; });
@@ -321,7 +321,8 @@ var myBubbleChart = bubbleChart({
   height: 600,
   xAxis: {
     property: 'Year',
-    levels: [2015, 2016, 2017]
+    levels: [2015, 2016, 2017, 2018],
+    padding: 80
   }
 });
 
