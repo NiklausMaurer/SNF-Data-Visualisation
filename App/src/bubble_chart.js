@@ -18,7 +18,7 @@ function bubbleChart(param) {
   // on which view mode is selected.
   var center = { x: width / 2, y: height / 2 };
 
-  var xAxis = DiscreteAxis([2015, 2016, 2017], width);
+  var xAxis = DiscreteAxis(param.xAxis.levels, width);
 
   // @v4 strength to apply to the position forces
   var forceStrength = 0.03;
