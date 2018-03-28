@@ -6,8 +6,12 @@ DiscreteAxis = function(levels, size){
 
     var axis = Object();
 
-    axis.getOffset = function(level) {
-        return Math.round(columnWidth/2) + levels.indexOf(level) * columnWidth
+    axis.getCenterOffset = function(level) {
+        return Math.round(columnWidth/2) + levels.indexOf(level) * columnWidth;;
+    }
+
+    axis.getLevels = function() {
+        return levels;
     }
 
     return axis;    

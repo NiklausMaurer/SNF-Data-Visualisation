@@ -20,13 +20,6 @@ function bubbleChart(param) {
 
   var xAxis = DiscreteAxis([2015, 2016, 2017], width);
 
-  // X locations of the year titles.
-  var yearsTitleX = {
-    2015: 160,
-    2016: width / 2,
-    2017: width - 160
-  };
-
   // @v4 strength to apply to the position forces
   var forceStrength = 0.03;
 
@@ -205,7 +198,7 @@ function bubbleChart(param) {
    * x force.
    */
   function nodeYearPos(d) {
-    return xAxis.getOffset(d.year);
+    return xAxis.getCenterOffset(d.year);
   }
 
   /*
@@ -254,13 +247,12 @@ function bubbleChart(param) {
   function showYearTitles() {
     // Another way to do this would be to create
     // the year texts once and then just hide them.
-    var yearsData = d3.keys(yearsTitleX);
     var years = svg.selectAll('.year')
-      .data(yearsData);
+      .data(xAxis.getLevels());
 
     years.enter().append('text')
       .attr('class', 'year')
-      .attr('x', function (d) { return yearsTitleX[d]; })
+      .attr('x', function (d) { return xAxis.getCenterOffset(d); })
       .attr('y', 40)
       .attr('text-anchor', 'middle')
       .text(function (d) { return d; });
