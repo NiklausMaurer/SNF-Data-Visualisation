@@ -6,10 +6,10 @@
  * https://bost.ocks.org/mike/chart/
  *
  */
-function bubbleChart() {
+function bubbleChart(param) {
   // Constants for sizing
-  var width = 940;
-  var height = 600;
+  var width = param.width;
+  var height = param.height;
 
   // tooltip for mouseover functionality
   var tooltip = floatingTooltip('gates_tooltip', 240);
@@ -18,11 +18,7 @@ function bubbleChart() {
   // on which view mode is selected.
   var center = { x: width / 2, y: height / 2 };
 
-  var yearCenters = {
-    2015: { x: width / 3, y: height / 2 },
-    2016: { x: width / 2, y: height / 2 },
-    2017: { x: 2 * width / 3, y: height / 2 }
-  };
+  var xAxis = DiscreteAxis([2015, 2016, 2017], width);
 
   // X locations of the year titles.
   var yearsTitleX = {
@@ -108,7 +104,7 @@ function bubbleChart() {
     // @v4: new flattened scale names.
     var radiusScale = d3.scalePow()
       .exponent(0.5)
-      .range([2, 85])
+      .range([2, 70])
       .domain([0, maxAmount]);
 
     // Use map() to convert raw data into node data.
@@ -209,9 +205,8 @@ function bubbleChart() {
    * x force.
    */
   function nodeYearPos(d) {
-    return yearCenters[d.year].x;
+    return xAxis.getOffset(d.year);
   }
-
 
   /*
    * Sets visualization in "single group mode".
@@ -329,7 +324,14 @@ function bubbleChart() {
  * to create a new bubble chart instance, load the data, and display it.
  */
 
-var myBubbleChart = bubbleChart();
+var myBubbleChart = bubbleChart({
+  width: 960,
+  height: 600,
+  xAxis: {
+    property: 'Year',
+    levels: [2015, 2016, 2017]
+  }
+});
 
 /*
  * Function called once data is loaded from CSV.
