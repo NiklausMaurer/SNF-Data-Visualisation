@@ -1,4 +1,4 @@
-import sqlite3, csv
+import sqlite3, csv, uuid
  
 dbFile = "Generated/data.db"
 
@@ -20,16 +20,18 @@ with sqlite3.connect(dbFile) as con:
                 count(*) as Count
     from		Output
                 inner join Grant on Grant.ProjectNumber = Output.ProjectNumber
+    where		Output.Year between 2014 and 2017
     group by	Output.Type,
                 Output.Year,
                 Grant.DisciplineNameHierarchy
 """)
 
-    csvWriter = csv.writer(open("Generated/output_by_year_and_discipline.csv", mode="w", encoding="utf-8", newline=''), delimiter=';', quotechar='"')
+    csvWriter = csv.writer(open("Generated/output_by_year_and_discipline.csv", mode="w", encoding="utf-8", newline=''), delimiter=',', quotechar='"')
 
     rowsCSV = list()
 
-    rowsCSV.append(("Type",
+    rowsCSV.append(("Id",
+                    "Type",
                     "Year",
                     "Discipline",
                     "Count"
@@ -42,7 +44,8 @@ with sqlite3.connect(dbFile) as con:
         
         if(len(disciplineNameHierarchy)) < 2: continue
 
-        rowCSV = (  row["Type"],
+        rowCSV = (  uuid.uuid4().hex,
+                    row["Type"],
                     row["Year"],
                     disciplineNameHierarchy[1],
                     row["Count"]

@@ -4,7 +4,7 @@ a, a:visited, a:active {
 
 .container {
   max-width: 900px;
-  margin: auto;
+  margin: 40px;
 }
 
 .button {

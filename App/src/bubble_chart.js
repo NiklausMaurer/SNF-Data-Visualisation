@@ -97,7 +97,7 @@ function bubbleChart(param) {
     // @v4: new flattened scale names.
     var radiusScale = d3.scalePow()
       .exponent(0.5)
-      .range([2, 70])
+      .range([2, 40])
       .domain([0, maxAmount]);
 
     // Use map() to convert raw data into node data.
@@ -105,12 +105,12 @@ function bubbleChart(param) {
     // working with data.
     var myNodes = rawData.map(function (d) {
       return {
-        id: d.Type + d.Year,
+        id: d.Id,
         radius: radiusScale(parseInt(d.Count)),
         value: parseInt(d.Count),
         group: d.Type,
         year: parseInt(d.Year),
-        x: Math.random() * 900,
+        x: Math.random() * 1400,
         y: Math.random() * 800
       };
     });
@@ -317,12 +317,12 @@ function bubbleChart(param) {
  */
 
 var myBubbleChart = bubbleChart({
-  width: 960,
-  height: 600,
+  width: 1400,
+  height: 800,
   xAxis: {
     property: 'Year',
-    levels: [2015, 2016, 2017, 2018],
-    padding: 80
+    levels: [2014, 2015, 2016, 2017],
+    padding: 200
   }
 });
 
@@ -376,7 +376,7 @@ function addCommas(nStr) {
 }
 
 // Load the data.
-d3.csv('data/OutputExport.csv').then(display);
+d3.csv('data/output_by_year_and_discipline.csv').then(display);
 
 // setup the buttons.
 setupButtons();
