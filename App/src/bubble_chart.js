@@ -109,7 +109,7 @@ function bubbleChart(param) {
         radius: radiusScale(parseInt(d[param.radiusProperty])),
         value: parseInt(d[param.radiusProperty]),
         group: d["Type"],
-        year: parseInt(d["Year"]),
+        xLevel: parseInt(d["Year"]),
         x: Math.random() * 1400,
         y: Math.random() * 800
       };
@@ -198,7 +198,7 @@ function bubbleChart(param) {
    * x force.
    */
   function nodeXPos(d) {
-    return xAxis.getCenterOffset(d.year);
+    return xAxis.getCenterOffset(d.xLevel);
   }
 
   /*
@@ -274,7 +274,7 @@ function bubbleChart(param) {
                   addCommas(d.value) +
                   '</span><br/>' +
                   '<span class="name">Year: </span><span class="value">' +
-                  d.year +
+                  d.xLevel +
                   '</span>';
 
     tooltip.showTooltip(content, d3.event);
