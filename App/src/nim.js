@@ -1,8 +1,12 @@
 
 
-DiscreteAxis = function(levels, size, padding){
+DiscreteAxis = function(axisParam){
 
-    var columnWidth = Math.round((size - 2 * padding)/levels.length);
+    var levels = axisParam.levels;
+    var padding = axisParam.padding;
+    var length = axisParam.length;
+
+    var columnWidth = Math.round((length - 2 * padding)/levels.length);
 
     var axis = Object();
 

@@ -13,8 +13,8 @@ function bubbleChart(param) {
 
   var tooltip = floatingTooltip('gates_tooltip', 240);
 
-  var xAxis = DiscreteAxis(param.xAxis.levels, width, param.xAxis.padding);
-  var yAxis = DiscreteAxis(param.yAxis.levels, height, param.yAxis.padding);
+  var xAxis = DiscreteAxis(param.xAxis);
+  var yAxis = DiscreteAxis(param.yAxis);
 
   // @v4 strength to apply to the position forces
   var forceStrength = 0.029;
