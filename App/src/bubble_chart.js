@@ -331,6 +331,30 @@ var myBubbleChart = bubbleChart({
     caption: 'Jahr',
     levels: ['2014', '2015', '2016', '2017'],
     padding: 200
+  },
+  yAxis: {
+    property: 'Discipline',
+    caption: 'Forschungsdisziplin',
+    levels: ["Basic Biological Research"
+            ,"Basic Medical Sciences"
+            ,"Clinical Medicine"
+            ,"Experimental Medicine"
+            ,"General Biology"
+            ,"Preventive Medicine (Epidemiology/Early Diagnosis/Prevention)"
+            ,"Social Medicine"
+            ,"Art studies, musicology, theatre and film studies, architecture"
+            ,"Economics, law"
+            ,"Ethnology, social and human geography"
+            ,"Linguistics and literature, philosophy"
+            ,"Psychology, educational studies"
+            ,"Sociology, social work, political sciences, media and communication studies, health"
+            ,"Theology & religious studies, history, classical studies, archaeology, prehistory and early history"
+            ,"Chemistry"
+            ,"Earth Sciences"
+            ,"Engineering Sciences"
+            ,"Environmental Sciences"
+            ,"Physics"],
+    padding: 200
   }
 });
 
