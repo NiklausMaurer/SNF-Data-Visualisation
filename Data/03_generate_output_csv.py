@@ -14,67 +14,38 @@ with sqlite3.connect(dbFile) as con:
 
     cur = con.cursor()
     cur.execute("""
-    SELECT	Output.ProjectNumber,
-            Output.Type,
-            Output.Title,
-            Output.Url,
-            Output.Year,
-            Grant.DisciplineNameHierarchy,
-            Grant.DisciplineName,
-            Grant.Institution,
-            Grant.FundingInstrumentHierarchy,
-            Grant.FundingInstrument,
-            Grant.StartDate,
-            Grant.EndDate,
-            Grant.ApprovedAmount
-    FROM	Output
-            inner join Grant on Grant.ProjectNumber = Output.ProjectNumber
+    select		Output.Type,
+                Output.Year,
+                Grant.DisciplineNameHierarchy,
+                count(*) as Count
+    from		Output
+                inner join Grant on Grant.ProjectNumber = Output.ProjectNumber
+    group by	Output.Type,
+                Output.Year,
+                Grant.DisciplineNameHierarchy
 """)
 
-    csvWriter = csv.writer(open("Generated/Output.csv", mode="w", encoding="utf-8", newline=''), delimiter=';', quotechar='"')
+    csvWriter = csv.writer(open("Generated/output_by_year_and_discipline.csv", mode="w", encoding="utf-8", newline=''), delimiter=';', quotechar='"')
 
     rowsCSV = list()
 
-    rowsCSV.append(( "ProjectNumber",
-                    "Type",
-                    "Title",
-                    "Type",
-                    "Url",
+    rowsCSV.append(("Type",
                     "Year",
-                    "DisciplineLevel1",
-                    "DisciplineLevel2",
-                    "DisciplineLevel3",
-                    "Institution",
-                    "FundingInstrumentLevel1",
-                    "FundingInstrumentLevel2",
-                    "FundingInstrumentLevel3",
-                    "StartDate",
-                    "EndDate",
-                    "ApprovedAmount"
+                    "Discipline",
+                    "Count"
                     ))
 
 
     for row in cur.fetchall():
 
-        fundingInstrumentHierarchy = row["FundingInstrumentHierarchy"].split(";")
         disciplineNameHierarchy = row["DisciplineNameHierarchy"].split(";")
         
-        rowCSV = (  row["ProjectNumber"],
-                    row["Type"],
-                    row["Title"],
-                    row["Type"],
-                    row["Url"],
+        if(len(disciplineNameHierarchy)) < 2: continue
+
+        rowCSV = (  row["Type"],
                     row["Year"],
-                    disciplineNameHierarchy[0],
-                    disciplineNameHierarchy[1] if len(disciplineNameHierarchy) > 1 else "",
-                    row["DisciplineName"],
-                    row["Institution"],
-                    fundingInstrumentHierarchy[0],
-                    fundingInstrumentHierarchy[1] if len(fundingInstrumentHierarchy) > 1 else "",
-                    row["FundingInstrument"],
-                    row["StartDate"],
-                    row["EndDate"],
-                    row["ApprovedAmount"]
+                    disciplineNameHierarchy[1],
+                    row["Count"]
                     )
 
         rowsCSV.append(rowCSV)
