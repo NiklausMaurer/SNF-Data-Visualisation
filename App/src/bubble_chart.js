@@ -208,7 +208,7 @@ function bubbleChart(param) {
    * center of the visualization.
    */
   function groupBubbles() {
-    hideYearTitles();
+    hideXAxisTitles();
 
     // @v4 Reset the 'x' force to draw the bubbles to the center.
     simulation.force('x', d3.forceX().strength(forceStrength).x(center.x));
@@ -225,7 +225,7 @@ function bubbleChart(param) {
    * yearCenter of their data's year.
    */
   function splitBubbles() {
-    showYearTitles();
+    showXAxisTitles();
 
     // @v4 Reset the 'x' force to draw the bubbles to their year centers
     simulation.force('x', d3.forceX().strength(forceStrength).x(nodeXPos));
@@ -237,14 +237,14 @@ function bubbleChart(param) {
   /*
    * Hides Year title displays.
    */
-  function hideYearTitles() {
+  function hideXAxisTitles() {
     svg.selectAll('.year').remove();
   }
 
   /*
    * Shows Year title displays.
    */
-  function showYearTitles() {
+  function showXAxisTitles() {
     // Another way to do this would be to create
     // the year texts once and then just hide them.
     var years = svg.selectAll('.year')
