@@ -10,11 +10,6 @@ DiscreteAxis = function(levels, size, padding){
         return padding + Math.round(columnWidth/2) + levels.indexOf(level) * columnWidth;;
     }
 
-    axis.getTitleOffset = function(level) {
-        var columnWidth = Math.round(size/levels.length);
-        return Math.round(columnWidth/2) + levels.indexOf(level) * columnWidth;;
-    }
-
     axis.getLevels = function() {
         return levels;
     }

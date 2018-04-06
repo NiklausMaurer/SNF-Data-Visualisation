@@ -7,16 +7,11 @@
  *
  */
 function bubbleChart(param) {
-  // Constants for sizing
+
   var width = param.xAxis.length;
   var height = param.yAxis.length;
 
-  // tooltip for mouseover functionality
   var tooltip = floatingTooltip('gates_tooltip', 240);
-
-  // Locations to move bubbles towards, depending
-  // on which view mode is selected.
-  var center = { x: width / 2, y: height / 2 };
 
   var xAxis = DiscreteAxis(param.xAxis.levels, width, param.xAxis.padding);
   var yAxis = DiscreteAxis(param.yAxis.levels, height, param.yAxis.padding);
@@ -34,8 +29,8 @@ function bubbleChart(param) {
   //  add forces to it.
   var simulation = d3.forceSimulation()
     .velocityDecay(0.2)
-    .force('x', d3.forceX().strength(forceStrength).x(center.x))
-    .force('y', d3.forceY().strength(forceStrength).y(center.y))
+    .force('x', d3.forceX().strength(forceStrength).x(param.xAxis.center))
+    .force('y', d3.forceY().strength(forceStrength).y(param.yAxis.center))
     .force('collision', d3.forceCollide().radius(function(d) {
       return d.radius
     }).iterations(5))
@@ -201,8 +196,8 @@ function bubbleChart(param) {
     hideXAxisTitles();
 
     // @v4 Reset the 'x' force to draw the bubbles to the center.
-    simulation.force('x', d3.forceX().strength(forceStrength).x(center.x));
-    simulation.force('y', d3.forceY().strength(forceStrength).y(center.y));
+    simulation.force('x', d3.forceX().strength(forceStrength).x(param.xAxis.center));
+    simulation.force('y', d3.forceY().strength(forceStrength).y(param.yAxis.center));
 
     // @v4 We can reset the alpha value and restart the simulation
     simulation.alpha(1).restart();
@@ -330,7 +325,8 @@ var myBubbleChart = bubbleChart({
     caption: 'Jahr',
     levels: ['2014', '2015', '2016', '2017'],
     padding: 200,
-    length: 1400
+    length: 1400,
+    center: 400
   },
   yAxis: {
     property: 'Discipline',
@@ -355,7 +351,8 @@ var myBubbleChart = bubbleChart({
             ,"Environmental Sciences"
             ,"Physics"],
     padding: 50,
-    length: 2800
+    length: 2800,
+    center: 400
   }
 });
 
