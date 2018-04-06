@@ -194,7 +194,7 @@ function bubbleChart(param) {
   }
 
   /*
-   * Provides a x value for each node to be used with the split by year
+   * Provides a x value for each node to be used with the split by x-axis
    * x force.
    */
   function nodeXPos(d) {
@@ -203,7 +203,7 @@ function bubbleChart(param) {
 
   /*
    * Sets visualization in "single group mode".
-   * The year labels are hidden and the force layout
+   * The x-axis labels are hidden and the force layout
    * tick function is set to move all nodes to the
    * center of the visualization.
    */
@@ -219,15 +219,15 @@ function bubbleChart(param) {
 
 
   /*
-   * Sets visualization in "split by year mode".
-   * The year labels are shown and the force layout
+   * Sets visualization in "split by x-axis mode".
+   * The x-axis labels are shown and the force layout
    * tick function is set to move nodes to the
-   * yearCenter of their data's year.
+   * x-axisCenter of their data's x-axis.
    */
   function splitBubbles() {
     showXAxisTitles();
 
-    // @v4 Reset the 'x' force to draw the bubbles to their year centers
+    // @v4 Reset the 'x' force to draw the bubbles to their x-axis centers
     simulation.force('x', d3.forceX().strength(forceStrength).x(nodeXPos));
 
     // @v4 We can reset the alpha value and restart the simulation
@@ -235,18 +235,18 @@ function bubbleChart(param) {
   }
 
   /*
-   * Hides Year title displays.
+   * Hides x-axis title displays.
    */
   function hideXAxisTitles() {
     svg.selectAll('.year').remove();
   }
 
   /*
-   * Shows Year title displays.
+   * Shows x-axis title displays.
    */
   function showXAxisTitles() {
     // Another way to do this would be to create
-    // the year texts once and then just hide them.
+    // the x-axis texts once and then just hide them.
     var years = svg.selectAll('.year')
       .data(xAxis.getLevels());
 
@@ -294,9 +294,9 @@ function bubbleChart(param) {
   /*
    * Externally accessible function (this is attached to the
    * returned chart function). Allows the visualization to toggle
-   * between "single group" and "split by year" modes.
+   * between "single group" and "split by x-axis" modes.
    *
-   * displayName is expected to be a string and either 'year' or 'all'.
+   * displayName is expected to be a string and either 'x-axis' or 'all'.
    */
   chart.toggleDisplay = function (displayName) {
     if (displayName === 'year') {
