@@ -109,7 +109,7 @@ function bubbleChart(param) {
         radius: radiusScale(parseInt(d[param.radiusProperty])),
         value: parseInt(d[param.radiusProperty]),
         group: d["Type"],
-        xLevel: parseInt(d["Year"]),
+        xLevel: parseInt(d[param.xAxis.property]),
         x: Math.random() * 1400,
         y: Math.random() * 800
       };
