@@ -232,7 +232,7 @@ function bubbleChart(param) {
    * x-axisCenter of their data's x-axis.
    */
   function splitBubbles() {
-    showXAxisTitles();
+    showAxisTitles();
 
     // @v4 Reset the 'x' force to draw the bubbles to their x-axis centers
     simulation.force('x', d3.forceX().strength(forceStrength).x(nodeXPos));
@@ -247,22 +247,31 @@ function bubbleChart(param) {
    */
   function hideXAxisTitles() {
     svg.selectAll('.xAxisTitle').remove();
+    svg.selectAll('.yAxisTitle').remove();
   }
 
   /*
    * Shows x-axis title displays.
    */
-  function showXAxisTitles() {
+  function showAxisTitles() {
     // Another way to do this would be to create
     // the x-axis texts once and then just hide them.
-    var xTitles = svg.selectAll('.xAxisTitle')
-      .data(xAxis.getLevels());
+    var xTitles = svg.selectAll('.xAxisTitle').data(xAxis.getLevels());
 
     xTitles.enter().append('text')
       .attr('class', 'xAxisTitle')
-      .attr('x', function (d) { return xAxis.getTitleOffset(d); })
-      .attr('y', 40)
+      .attr('x', function (d) { return xAxis.getCenterOffset(d); })
+      .attr('y', 20)
       .attr('text-anchor', 'middle')
+      .text(function (d) { return d; });
+
+    var yTitles = svg.selectAll('.yAxisTitle').data(yAxis.getLevels());
+
+    yTitles.enter().append('text')
+      .attr('class', 'yAxisTitle')
+      .attr('x', 10)
+      .attr('y', function (d) { return yAxis.getCenterOffset(d); })
+      .attr('text-anchor', 'left')
       .text(function (d) { return d; });
   }
 

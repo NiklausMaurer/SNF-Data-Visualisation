@@ -40,6 +40,12 @@ a, a:visited, a:active {
   cursor: default;
 }
 
+.yAxisTitle {
+  font-size: 21px;
+  fill: #aaa;
+  cursor: default;
+}
+
 .tooltip {
 	position: absolute;
 	top: 100px;
