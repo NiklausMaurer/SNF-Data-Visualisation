@@ -19,6 +19,7 @@ function bubbleChart(param) {
   var center = { x: width / 2, y: height / 2 };
 
   var xAxis = DiscreteAxis(param.xAxis.levels, width, param.xAxis.padding);
+  var yAxis = DiscreteAxis(param.yAxis.levels, height, param.yAxis.padding);
 
   // @v4 strength to apply to the position forces
   var forceStrength = 0.03;
@@ -110,8 +111,9 @@ function bubbleChart(param) {
         value: parseInt(d[param.radiusProperty.name]),
         group: d["Type"],
         xLevel: d[param.xAxis.property],
+        yLevel: d[param.yAxis.property],
         x: Math.random() * 1400,
-        y: Math.random() * 800
+        y: Math.random() * 2000
       };
     });
 
@@ -201,6 +203,10 @@ function bubbleChart(param) {
     return xAxis.getCenterOffset(d.xLevel);
   }
 
+  function nodeYPos(d) {
+    return yAxis.getCenterOffset(d.yLevel);
+  }
+
   /*
    * Sets visualization in "single group mode".
    * The x-axis labels are hidden and the force layout
@@ -212,6 +218,7 @@ function bubbleChart(param) {
 
     // @v4 Reset the 'x' force to draw the bubbles to the center.
     simulation.force('x', d3.forceX().strength(forceStrength).x(center.x));
+    simulation.force('y', d3.forceY().strength(forceStrength).y(center.y));
 
     // @v4 We can reset the alpha value and restart the simulation
     simulation.alpha(1).restart();
@@ -229,6 +236,7 @@ function bubbleChart(param) {
 
     // @v4 Reset the 'x' force to draw the bubbles to their x-axis centers
     simulation.force('x', d3.forceX().strength(forceStrength).x(nodeXPos));
+    simulation.force('y', d3.forceY().strength(forceStrength).y(nodeYPos));
 
     // @v4 We can reset the alpha value and restart the simulation
     simulation.alpha(1).restart();
@@ -318,7 +326,7 @@ function bubbleChart(param) {
 
 var myBubbleChart = bubbleChart({
   width: 1400,
-  height: 800,
+  height: 2000,
   groupProperty: {
     caption: 'Art'
   },
