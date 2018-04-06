@@ -29,8 +29,8 @@ function bubbleChart(param) {
   //  add forces to it.
   var simulation = d3.forceSimulation()
     .velocityDecay(0.2)
-    .force('x', d3.forceX().strength(forceStrength).x(param.xAxis.center))
-    .force('y', d3.forceY().strength(forceStrength).y(param.yAxis.center))
+    .force('x', d3.forceX().strength(forceStrength).x(xAxis.getCenter()))
+    .force('y', d3.forceY().strength(forceStrength).y(yAxis.getCenter()))
     .force('collision', d3.forceCollide().radius(function(d) {
       return d.radius
     }).iterations(5))
@@ -196,8 +196,8 @@ function bubbleChart(param) {
     hideXAxisTitles();
 
     // @v4 Reset the 'x' force to draw the bubbles to the center.
-    simulation.force('x', d3.forceX().strength(forceStrength).x(param.xAxis.center));
-    simulation.force('y', d3.forceY().strength(forceStrength).y(param.yAxis.center));
+    simulation.force('x', d3.forceX().strength(forceStrength).x(xAxis.getCenter()));
+    simulation.force('y', d3.forceY().strength(forceStrength).y(yAxis.getCenter()));
 
     // @v4 We can reset the alpha value and restart the simulation
     simulation.alpha(1).restart();
