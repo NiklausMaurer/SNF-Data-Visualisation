@@ -267,13 +267,13 @@ function bubbleChart(param) {
     // change outline to indicate hover state.
     d3.select(this).attr('stroke', 'black');
 
-    var content = '<span class="name">Typ: </span><span class="value">' +
+    var content = '<span class="name">'+ param.groupProperty.caption +': </span><span class="value">' +
                   d.group +
                   '</span><br/>' +
-                  '<span class="name">Count: </span><span class="value">' +
+                  '<span class="name">'+ param.radiusProperty.caption +': </span><span class="value">' +
                   addCommas(d.value) +
                   '</span><br/>' +
-                  '<span class="name">Year: </span><span class="value">' +
+                  '<span class="name">'+ param.xAxis.caption +': </span><span class="value">' +
                   d.xLevel +
                   '</span>';
 
@@ -319,12 +319,16 @@ function bubbleChart(param) {
 var myBubbleChart = bubbleChart({
   width: 1400,
   height: 800,
+  groupProperty: {
+    caption: 'Art'
+  },
   radiusProperty: {
     name: 'Count',
     caption: 'Anzahl'
   },
   xAxis: {
     property: 'Year',
+    caption: 'Jahr',
     levels: ['2014', '2015', '2016', '2017'],
     padding: 200
   }
