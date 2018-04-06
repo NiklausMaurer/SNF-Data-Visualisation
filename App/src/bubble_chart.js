@@ -22,7 +22,7 @@ function bubbleChart(param) {
   var yAxis = DiscreteAxis(param.yAxis.levels, height, param.yAxis.padding);
 
   // @v4 strength to apply to the position forces
-  var forceStrength = 0.03;
+  var forceStrength = 0.029;
 
   // These will be set in create_nodes and create_vis
   var svg = null;
@@ -38,7 +38,7 @@ function bubbleChart(param) {
     .force('y', d3.forceY().strength(forceStrength).y(center.y))
     .force('collision', d3.forceCollide().radius(function(d) {
       return d.radius
-    }))
+    }).iterations(5))
     .on('tick', ticked);
 
   // @v4 Force starts up automatically,
