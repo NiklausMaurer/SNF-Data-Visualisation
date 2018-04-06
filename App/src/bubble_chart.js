@@ -8,8 +8,8 @@
  */
 function bubbleChart(param) {
   // Constants for sizing
-  var width = param.width;
-  var height = param.height;
+  var width = param.xAxis.length;
+  var height = param.yAxis.length;
 
   // tooltip for mouseover functionality
   var tooltip = floatingTooltip('gates_tooltip', 240);
@@ -112,8 +112,8 @@ function bubbleChart(param) {
         group: d["Type"],
         xLevel: d[param.xAxis.property],
         yLevel: d[param.yAxis.property],
-        x: Math.random() * 1400,
-        y: Math.random() * 2000
+        x: Math.random() * param.xAxis.length,
+        y: Math.random() * param.yAxis.length
       };
     });
 
@@ -325,8 +325,6 @@ function bubbleChart(param) {
  */
 
 var myBubbleChart = bubbleChart({
-  width: 1400,
-  height: 2000,
   groupProperty: {
     caption: 'Art'
   },
@@ -338,7 +336,8 @@ var myBubbleChart = bubbleChart({
     property: 'Year',
     caption: 'Jahr',
     levels: ['2014', '2015', '2016', '2017'],
-    padding: 200
+    padding: 200,
+    length: 1400
   },
   yAxis: {
     property: 'Discipline',
@@ -362,7 +361,8 @@ var myBubbleChart = bubbleChart({
             ,"Engineering Sciences"
             ,"Environmental Sciences"
             ,"Physics"],
-    padding: 200
+    padding: 200,
+    length: 2000
   }
 });
 
