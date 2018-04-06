@@ -238,7 +238,7 @@ function bubbleChart(param) {
    * Hides x-axis title displays.
    */
   function hideXAxisTitles() {
-    svg.selectAll('.year').remove();
+    svg.selectAll('.xAxisTitle').remove();
   }
 
   /*
@@ -247,11 +247,11 @@ function bubbleChart(param) {
   function showXAxisTitles() {
     // Another way to do this would be to create
     // the x-axis texts once and then just hide them.
-    var years = svg.selectAll('.year')
+    var xTitles = svg.selectAll('.xAxisTitle')
       .data(xAxis.getLevels());
 
-    years.enter().append('text')
-      .attr('class', 'year')
+    xTitles.enter().append('text')
+      .attr('class', 'xAxisTitle')
       .attr('x', function (d) { return xAxis.getTitleOffset(d); })
       .attr('y', 40)
       .attr('text-anchor', 'middle')

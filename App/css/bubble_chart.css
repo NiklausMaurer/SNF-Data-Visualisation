@@ -34,7 +34,7 @@ a, a:visited, a:active {
   margin-top: 10px;
 }
 
-.year {
+.xAxisTitle {
   font-size: 21px;
   fill: #aaa;
   cursor: default;
