@@ -69,12 +69,9 @@ function bubbleChart(param) {
    * array for each element in the rawData input.
    */
   function createNodes(rawData) {
-    // Use the max total_amount in the data as the max in the scale's domain
-    // note we have to ensure the total_amount is a number.
+    
     var maxAmount = d3.max(rawData, function (d) { return +d[param.radiusProperty.name]; });
 
-    // Sizes bubbles based on area.
-    // @v4: new flattened scale names.
     var radiusScale = d3.scalePow()
       .exponent(0.5)
       .range([2, 40])
@@ -102,19 +99,6 @@ function bubbleChart(param) {
     return myNodes;
   }
 
-  /*
-   * Main entry point to the bubble chart. This function is returned
-   * by the parent closure. It prepares the rawData for visualization
-   * and adds an svg element to the provided selector and starts the
-   * visualization creation process.
-   *
-   * selector is expected to be a DOM element or CSS selector that
-   * points to the parent element of the bubble chart. Inside this
-   * element, the code will add the SVG continer for the visualization.
-   *
-   * rawData is expected to be an array of data objects as provided by
-   * a d3 loading function like d3.csv.
-   */
   var chart = function chart(selector, rawData) {
     // convert raw data into nodes data
     nodes = createNodes(rawData);
@@ -140,7 +124,7 @@ function bubbleChart(param) {
       .attr('r', 0)
       .attr('fill', function (d) { return fillColor(d.group); })
       .attr('stroke', function (d) { return d3.rgb(fillColor(d.group)).darker(); })
-      .attr('stroke-width', 2)
+      .attr('stroke-width', 1.3)
       .on('mouseover', showDetail)
       .on('mouseout', hideDetail);
 
@@ -150,7 +134,7 @@ function bubbleChart(param) {
     // Fancy transition to make bubbles appear, ending with the
     // correct radius
     bubbles.transition()
-      .duration(2000)
+      .duration(1000)
       .attr('r', function (d) { return d.radius; });
 
     // Set the simulation's nodes to our newly created nodes array.
@@ -174,10 +158,6 @@ function bubbleChart(param) {
       .attr('cy', function (d) { return d.y; });
   }
 
-  /*
-   * Provides a x value for each node to be used with the split by x-axis
-   * x force.
-   */
   function nodeXPos(d) {
     return xAxis.getCenterOffset(d.xLevel);
   }
@@ -213,6 +193,13 @@ function bubbleChart(param) {
   function splitBubbles() {
     showAxisTitles();
 
+    svg.append("line")
+      .attr("x1", 50)
+      .attr("y1", 50)
+      .attr("x2", xAxis.getLength())
+      .attr("y2", 50)
+      .attr("style","stroke:rgb(255,0,0);stroke-width:2");
+
     // @v4 Reset the 'x' force to draw the bubbles to their x-axis centers
     simulation.force('x', d3.forceX().strength(forceStrength).x(nodeXPos));
     simulation.force('y', d3.forceY().strength(forceStrength).y(nodeYPos));
@@ -221,17 +208,11 @@ function bubbleChart(param) {
     simulation.alpha(1).restart();
   }
 
-  /*
-   * Hides x-axis title displays.
-   */
   function hideXAxisTitles() {
     svg.selectAll('.xAxisTitle').remove();
     svg.selectAll('.yAxisTitle').remove();
   }
 
-  /*
-   * Shows x-axis title displays.
-   */
   function showAxisTitles() {
     // Another way to do this would be to create
     // the x-axis texts once and then just hide them.

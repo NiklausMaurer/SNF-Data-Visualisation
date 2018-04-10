@@ -23,6 +23,14 @@ DiscreteAxis = function(axisParam){
         return levels;
     }
 
+    axis.getLength = function() {
+        return length;
+    }
+
+    axis.getColumnWidth = function() {
+        return columnWidth;
+    }
+
     return axis;    
 }
 
