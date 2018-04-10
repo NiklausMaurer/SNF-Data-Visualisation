@@ -17,7 +17,7 @@ function bubbleChart(param) {
   var yAxis = DiscreteAxis(param.yAxis);
 
   // @v4 strength to apply to the position forces
-  var forceStrength = 0.029;
+  var forceStrength = 0.0295;
 
   // These will be set in create_nodes and create_vis
   var svg = null;
