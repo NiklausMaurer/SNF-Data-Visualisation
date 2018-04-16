@@ -193,13 +193,6 @@ function bubbleChart(param) {
   function splitBubbles() {
     showAxisTitles();
 
-    svg.append("line")
-      .attr("x1", 50)
-      .attr("y1", 50)
-      .attr("x2", xAxis.getLength())
-      .attr("y2", 50)
-      .attr("style","stroke:rgb(255,0,0);stroke-width:2");
-
     // @v4 Reset the 'x' force to draw the bubbles to their x-axis centers
     simulation.force('x', d3.forceX().strength(forceStrength).x(nodeXPos));
     simulation.force('y', d3.forceY().strength(forceStrength).y(nodeYPos));
