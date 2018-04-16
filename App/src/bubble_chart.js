@@ -1,11 +1,4 @@
-/* bubbleChart creation function. Returns a function that will
- * instantiate a new bubble chart given a DOM element to display
- * it in and a dataset to visualize.
- *
- * Organization and style inspired by:
- * https://bost.ocks.org/mike/chart/
- *
- */
+
 function bubbleChart(param) {
 
   var width = param.xAxis.length;
@@ -16,32 +9,22 @@ function bubbleChart(param) {
   var xAxis = DiscreteAxis(param.xAxis);
   var yAxis = DiscreteAxis(param.yAxis);
 
-  // @v4 strength to apply to the position forces
   var forceStrength = 0.0295;
 
-  // These will be set in create_nodes and create_vis
   var svg = null;
   var bubbles = null;
   var nodes = [];
 
-  // Here we create a force layout and
-  // @v4 We create a force simulation now and
-  //  add forces to it.
   var simulation = d3.forceSimulation()
     .velocityDecay(0.2)
-    .force('x', d3.forceX().strength(forceStrength).x(xAxis.getCenter()))
-    .force('y', d3.forceY().strength(forceStrength).y(yAxis.getCenter()))
     .force('collision', d3.forceCollide().radius(function(d) {
       return d.radius
     }).iterations(5))
     .on('tick', ticked);
 
-  // @v4 Force starts up automatically,
-  //  which we don't want as there aren't any nodes yet.
+  // @v4 Force starts up automatically, which we don't want as there aren't any nodes yet.
   simulation.stop();
 
-  // Nice looking colors - no reason to buck the trend
-  // @v4 scales now have a flattened naming scheme
   var fillColor = d3.scaleOrdinal()
     .domain(["Media relations: print media, online media"
     , "New media (web, blogs, podcasts, news feeds etc.)"
@@ -56,18 +39,6 @@ function bubbleChart(param) {
             '#004d85', '#b1b1b1', '#e1e1e1',
             '#663399', '#b95f00', '#F93']);
 
-  /*
-   * This data manipulation function takes the raw data from
-   * the CSV file and converts it into an array of node objects.
-   * Each node will store data and visualization values to visualize
-   * a bubble.
-   *
-   * rawData is expected to be an array of data objects, read in from
-   * one of d3's loading functions like d3.csv.
-   *
-   * This function returns the new node array, with a node in that
-   * array for each element in the rawData input.
-   */
   function createNodes(rawData) {
     
     var maxAmount = d3.max(rawData, function (d) { return +d[param.radiusProperty.name]; });
@@ -86,8 +57,7 @@ function bubbleChart(param) {
         radius: radiusScale(parseInt(d[param.radiusProperty.name])),
         value: parseInt(d[param.radiusProperty.name]),
         group: d["Type"],
-        xLevel: d[param.xAxis.property],
-        yLevel: d[param.yAxis.property],
+        data: d,
         x: Math.random() * param.xAxis.length,
         y: Math.random() * param.yAxis.length
       };
@@ -142,7 +112,7 @@ function bubbleChart(param) {
     simulation.nodes(nodes);
 
     // Set initial layout to single group.
-    groupBubbles();
+    updateAxes();
   };
 
   /*
@@ -158,57 +128,22 @@ function bubbleChart(param) {
       .attr('cy', function (d) { return d.y; });
   }
 
-  function nodeXPos(d) {
-    return xAxis.getCenterOffset(d.xLevel);
-  }
+  function updateAxes() {
 
-  function nodeYPos(d) {
-    return yAxis.getCenterOffset(d.yLevel);
-  }
+    if(xAxis.getProperty() === 'None') svg.selectAll('.xAxisTitle').remove();
+    else showXAxisTitles();
+    
+    if(yAxis.getProperty() === 'None') svg.selectAll('.yAxisTitle').remove();
+    else showYAxisTitles();
+    
+    simulation.force('x', d3.forceX().strength(xAxis.getForceStrength(forceStrength)).x(xAxis.getNodeOffset));
+    simulation.force('y', d3.forceY().strength(yAxis.getForceStrength(forceStrength)).y(yAxis.getNodeOffset));
 
-  /*
-   * Sets visualization in "single group mode".
-   * The x-axis labels are hidden and the force layout
-   * tick function is set to move all nodes to the
-   * center of the visualization.
-   */
-  function groupBubbles() {
-    hideXAxisTitles();
-
-    // @v4 Reset the 'x' force to draw the bubbles to the center.
-    simulation.force('x', d3.forceX().strength(forceStrength).x(xAxis.getCenter()));
-    simulation.force('y', d3.forceY().strength(forceStrength).y(yAxis.getCenter()));
-
-    // @v4 We can reset the alpha value and restart the simulation
     simulation.alpha(1).restart();
   }
 
+  function showXAxisTitles() {
 
-  /*
-   * Sets visualization in "split by x-axis mode".
-   * The x-axis labels are shown and the force layout
-   * tick function is set to move nodes to the
-   * x-axisCenter of their data's x-axis.
-   */
-  function splitBubbles() {
-    showAxisTitles();
-
-    // @v4 Reset the 'x' force to draw the bubbles to their x-axis centers
-    simulation.force('x', d3.forceX().strength(forceStrength).x(nodeXPos));
-    simulation.force('y', d3.forceY().strength(forceStrength).y(nodeYPos));
-
-    // @v4 We can reset the alpha value and restart the simulation
-    simulation.alpha(1).restart();
-  }
-
-  function hideXAxisTitles() {
-    svg.selectAll('.xAxisTitle').remove();
-    svg.selectAll('.yAxisTitle').remove();
-  }
-
-  function showAxisTitles() {
-    // Another way to do this would be to create
-    // the x-axis texts once and then just hide them.
     var xTitles = svg.selectAll('.xAxisTitle').data(xAxis.getLevels());
 
     xTitles.enter().append('text')
@@ -217,6 +152,9 @@ function bubbleChart(param) {
       .attr('y', 20)
       .attr('text-anchor', 'middle')
       .text(function (d) { return d; });
+  }
+
+  function showYAxisTitles() {
 
     var yTitles = svg.selectAll('.yAxisTitle').data(yAxis.getLevels());
 
@@ -227,7 +165,6 @@ function bubbleChart(param) {
       .attr('text-anchor', 'left')
       .text(function (d) { return d; });
   }
-
 
   /*
    * Function called on mouseover to display the
@@ -270,10 +207,80 @@ function bubbleChart(param) {
    */
   chart.toggleDisplay = function (displayName) {
     if (displayName === 'year') {
-      splitBubbles();
-    } else {
-      groupBubbles();
+
+      xAxis = DiscreteAxis({
+        property: 'Year',
+        caption: 'Jahr',
+        levels: ['2014', '2015', '2016', '2017'],
+        padding: 150,
+        length: 1400,
+        center: 400
+      });
+
+      yAxis = DiscreteAxis({
+        property: 'None',
+        levels: ['Alle'],
+        padding: 50,
+        length: 2800,
+        center: 400
+      });
+
+    } else if(displayName === 'yearanddiscipline') {
+      xAxis = DiscreteAxis({
+        property: 'Year',
+        caption: 'Jahr',
+        levels: ['2014', '2015', '2016', '2017'],
+        padding: 150,
+        length: 1400,
+        center: 400
+      });
+
+      yAxis = DiscreteAxis({
+        property: 'Discipline',
+        caption: 'Forschungsdisziplin',
+        levels: ["Basic Biological Research"
+                ,"Basic Medical Sciences"
+                ,"Clinical Medicine"
+                ,"Experimental Medicine"
+                ,"General Biology"
+                ,"Preventive Medicine (Epidemiology/Early Diagnosis/Prevention)"
+                ,"Social Medicine"
+                ,"Art studies, musicology, theatre and film studies, architecture"
+                ,"Economics, law"
+                ,"Ethnology, social and human geography"
+                ,"Linguistics and literature, philosophy"
+                ,"Psychology, educational studies"
+                ,"Sociology, social work, political sciences, media and communication studies, health"
+                ,"Theology & religious studies, history, classical studies, archaeology, prehistory and early history"
+                ,"Chemistry"
+                ,"Earth Sciences"
+                ,"Engineering Sciences"
+                ,"Environmental Sciences"
+                ,"Physics"],
+        padding: 50,
+        length: 2800,
+        center: 400
+      });
     }
+    else {
+      xAxis = DiscreteAxis({
+        property: 'None',
+        levels: ['Alle'],
+        padding: 200,
+        length: 1400,
+        center: 400
+      });
+
+      yAxis = DiscreteAxis({
+        property: 'None',
+        levels: ['Alle'],
+        padding: 50,
+        length: 2800,
+        center: 400
+      });
+    }
+
+    updateAxes();
   };
 
 
@@ -295,35 +302,15 @@ var myBubbleChart = bubbleChart({
     caption: 'Anzahl'
   },
   xAxis: {
-    property: 'Year',
-    caption: 'Jahr',
-    levels: ['2014', '2015', '2016', '2017'],
+    property: 'None',
+    levels: ['Alle'],
     padding: 200,
     length: 1400,
     center: 400
   },
   yAxis: {
-    property: 'Discipline',
-    caption: 'Forschungsdisziplin',
-    levels: ["Basic Biological Research"
-            ,"Basic Medical Sciences"
-            ,"Clinical Medicine"
-            ,"Experimental Medicine"
-            ,"General Biology"
-            ,"Preventive Medicine (Epidemiology/Early Diagnosis/Prevention)"
-            ,"Social Medicine"
-            ,"Art studies, musicology, theatre and film studies, architecture"
-            ,"Economics, law"
-            ,"Ethnology, social and human geography"
-            ,"Linguistics and literature, philosophy"
-            ,"Psychology, educational studies"
-            ,"Sociology, social work, political sciences, media and communication studies, health"
-            ,"Theology & religious studies, history, classical studies, archaeology, prehistory and early history"
-            ,"Chemistry"
-            ,"Earth Sciences"
-            ,"Engineering Sciences"
-            ,"Environmental Sciences"
-            ,"Physics"],
+    property: 'None',
+    levels: ['Alle'],
     padding: 50,
     length: 2800,
     center: 400
