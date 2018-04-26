@@ -8,6 +8,22 @@ dbFile = "Generated/data.db"
 
 if os.path.isfile(dbFile): os.remove(dbFile)
 
+def getAmountCategory(approvedAmount):
+
+    try:
+        approvedAmount = float(approvedAmount)
+    except ValueError:
+        return "unknown"
+
+    if(approvedAmount <  1): return "0"
+    if(approvedAmount <  200000): return "1 - 200'000"
+    if(approvedAmount <  400000): return "200'000 - 400'000"
+    if(approvedAmount <  600000): return "400'000 - 600'000"
+    if(approvedAmount <  800000): return "600'000 - 800'000"
+    if(approvedAmount < 1000000): return "800'000 - 1'000'000"
+    return "1'000'000+"
+
+
 with sqlite3.connect(dbFile) as con:
 
     cur = con.cursor()
@@ -27,13 +43,23 @@ with sqlite3.connect(dbFile) as con:
         StartDate TEXT,
         EndDate TEXT,
         ApprovedAmount INTEGER,
-        Keywords TEXT);""")
+        Keywords TEXT,
+        Generated_Discipline TEXT,
+        Generated_AmountCategory TEXT);""")
 
     with open('Downloaded/P3_GrantExport.csv', 'r', encoding="utf-8-sig") as csvfile:
         csvreader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
-        to_db = [(row['Project Number'], row['Project Title'], row['Responsible Applicant'], row['Funding Instrument'], row['Funding Instrument Hierarchy'], row['Institution'], row['Institution Country'], row['University'], row['Discipline Number'], row['Discipline Name'], row['Discipline Name Hierarchy'], row['All disciplines'], row['Start Date'], row['End Date'], row['Approved Amount'], row['Keywords']) for row in csvreader]
 
-    cur.executemany("INSERT INTO Grant (ProjectNumber, Title, ResponsibleApplicant, FundingInstrument, FundingInstrumentHierarchy, Institution, InstitutionCountry, University, DisciplineNumber, DisciplineName, DisciplineNameHierarchy, AllDisciplines, StartDate, EndDate, ApprovedAmount, Keywords) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", to_db)
+        to_db = []
+        for row in csvreader:
+
+            generatedDiscipline = row['Discipline Name Hierarchy'].split(';')[0]
+            generatedAmountCategory = getAmountCategory(row['Approved Amount'])
+            
+            to_db.append((row['Project Number'],row['Project Title'], row['Responsible Applicant'], row['Funding Instrument'], row['Funding Instrument Hierarchy'], row['Institution'], row['Institution Country'], row['University'], row['Discipline Number'], row['Discipline Name'], row['Discipline Name Hierarchy'], row['All disciplines'], row['Start Date'], row['End Date'], row['Approved Amount'], row['Keywords'], generatedDiscipline, generatedAmountCategory))
+
+        
+    cur.executemany("INSERT INTO Grant (ProjectNumber, Title, ResponsibleApplicant, FundingInstrument, FundingInstrumentHierarchy, Institution, InstitutionCountry, University, DisciplineNumber, DisciplineName, DisciplineNameHierarchy, AllDisciplines, StartDate, EndDate, ApprovedAmount, Keywords, Generated_Discipline, Generated_AmountCategory) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", to_db)
     con.commit()
 
 
@@ -106,7 +132,4 @@ with sqlite3.connect(dbFile) as con:
 
     cur.executemany("INSERT INTO Collaboration (ProjectNumber, GroupOrPerson, TypesOfCollaboration, Country, ProjectStartDate, ProjectEndDate) VALUES (?, ?, ?, ?, ?, ?);", to_db)
     con.commit()
-
-
-    con.close()
 
