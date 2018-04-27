@@ -133,3 +133,21 @@ with sqlite3.connect(dbFile) as con:
     cur.executemany("INSERT INTO Collaboration (ProjectNumber, GroupOrPerson, TypesOfCollaboration, Country, ProjectStartDate, ProjectEndDate) VALUES (?, ?, ?, ?, ?, ?);", to_db)
     con.commit()
 
+
+    cur = con.cursor()
+    cur.execute("""CREATE TABLE Institution (
+        Number INTEGER,
+        ResearchInstitution TEXT,
+        ResearchInstitution_De TEXT,
+        ResearchInstitutionAbbr TEXT,
+        Type TEXT,
+        Type_De TEXT,
+        Proposed TEXT)
+        """)
+
+    with open('Additional/mapping_institutions_with_institution-types.csv', 'r', encoding="utf-8-sig") as csvfile:
+        csvreader = csv.DictReader(csvfile, delimiter=';')
+        to_db = [(row['Number'], row['ResearchInstitution'], row['ResearchInstitution_De'], row['ResearchInstitutionAbbr'], row['Type'], row['Type_De'], row['Proposition For You']) for row in csvreader]
+
+    cur.executemany("INSERT INTO Institution (Number, ResearchInstitution, ResearchInstitution_De, ResearchInstitutionAbbr, Type, Type_De, Proposed) VALUES (?, ?, ?, ?, ?, ?, ?);", to_db)
+    con.commit()
