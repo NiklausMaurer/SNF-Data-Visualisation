@@ -41,7 +41,7 @@ function bubbleChart(param) {
 
   function createNodes(rawData) {
     
-    var maxAmount = d3.max(rawData, function (d) { return +d[param.radiusProperty.name]; });
+    var maxAmount = d3.max(rawData, function (d) { return +d[param.areaProperty.name]; });
 
     var radiusScale = d3.scalePow()
       .exponent(0.5)
@@ -54,8 +54,8 @@ function bubbleChart(param) {
     var myNodes = rawData.map(function (d) {
       return {
         id: d.Id,
-        radius: radiusScale(parseInt(d[param.radiusProperty.name])),
-        value: parseInt(d[param.radiusProperty.name]),
+        radius: radiusScale(parseInt(d[param.areaProperty.name])),
+        value: parseInt(d[param.areaProperty.name]),
         group: d["Type"],
         data: d,
         x: Math.random() * param.xAxis.length,
@@ -177,7 +177,7 @@ function bubbleChart(param) {
     var content = '<span class="name">'+ param.groupProperty.caption +': </span><span class="value">' +
                   d.group +
                   '</span><br/>' +
-                  '<span class="name">'+ param.radiusProperty.caption +': </span><span class="value">' +
+                  '<span class="name">'+ param.areaProperty.caption +': </span><span class="value">' +
                   addCommas(d.value) +
                   '</span><br/>' +
                   '<span class="name">'+ param.xAxis.caption +': </span><span class="value">' +
@@ -279,7 +279,7 @@ var myBubbleChart = bubbleChart({
   groupProperty: {
     caption: 'Art'
   },
-  radiusProperty: {
+  areaProperty: {
     name: 'Count',
     caption: 'Anzahl'
   },
