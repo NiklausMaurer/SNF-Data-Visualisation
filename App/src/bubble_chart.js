@@ -209,11 +209,11 @@ function bubbleChart(param) {
     if (displayName === 'year') {
 
       xAxis = DiscreteAxis({
-        property: 'Year',
-        caption: 'Jahr',
-        levels: ['2014', '2015', '2016', '2017'],
+        property: 'InstitutionType',
+        caption: 'Institution',
+        levels: ['University','ETH Domain','UAS / UTE','Other'],
         padding: 150,
-        length: 1400,
+        length: 2000,
         center: 400
       });
 
@@ -227,38 +227,20 @@ function bubbleChart(param) {
 
     } else if(displayName === 'yearanddiscipline') {
       xAxis = DiscreteAxis({
-        property: 'Year',
-        caption: 'Jahr',
-        levels: ['2014', '2015', '2016', '2017'],
+        property: 'InstitutionType',
+        caption: 'Institution',
+        levels: ['University','ETH Domain','UAS / UTE','Other'],
         padding: 150,
-        length: 1400,
+        length: 2000,
         center: 400
       });
 
       yAxis = DiscreteAxis({
         property: 'Discipline',
         caption: 'Forschungsdisziplin',
-        levels: ["Basic Biological Research"
-                ,"Basic Medical Sciences"
-                ,"Clinical Medicine"
-                ,"Experimental Medicine"
-                ,"General Biology"
-                ,"Preventive Medicine (Epidemiology/Early Diagnosis/Prevention)"
-                ,"Social Medicine"
-                ,"Art studies, musicology, theatre and film studies, architecture"
-                ,"Economics, law"
-                ,"Ethnology, social and human geography"
-                ,"Linguistics and literature, philosophy"
-                ,"Psychology, educational studies"
-                ,"Sociology, social work, political sciences, media and communication studies, health"
-                ,"Theology & religious studies, history, classical studies, archaeology, prehistory and early history"
-                ,"Chemistry"
-                ,"Earth Sciences"
-                ,"Engineering Sciences"
-                ,"Environmental Sciences"
-                ,"Physics"],
+        levels: ['Biology and Medicine','Humanities and Social Sciences','Mathematics, Natural- and Engineering Sciences'],
         padding: 50,
-        length: 2800,
+        length: 2000,
         center: 400
       });
     }
@@ -305,7 +287,7 @@ var myBubbleChart = bubbleChart({
     property: 'None',
     levels: ['Alle'],
     padding: 200,
-    length: 1400,
+    length: 2000,
     center: 400
   },
   yAxis: {
@@ -367,7 +349,7 @@ function addCommas(nStr) {
 }
 
 // Load the data.
-d3.csv('data/output_by_year_and_discipline.csv').then(display);
+d3.csv('data/data.csv').then(display);
 
 // setup the buttons.
 setupButtons();
