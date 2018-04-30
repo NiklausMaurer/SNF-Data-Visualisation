@@ -14,40 +14,41 @@ with sqlite3.connect(dbFile) as con:
 
     cur = con.cursor()
     cur.execute("""
-    select		Output.Type,
-                Output.Year,
-                Grant.DisciplineNameHierarchy,
-                count(*) as Count
-    from		Output
-                inner join Grant on Grant.ProjectNumber = Output.ProjectNumber
-    where		Output.Year between 2014 and 2017
-    group by	Output.Type,
-                Output.Year,
-                Grant.DisciplineNameHierarchy
+select		Output.Type,
+			Grant.Generated_Discipline as Discipline,
+			Grant.Generated_AmountCategory as AmountCatecory,
+			Institution.Proposed as InstitutionType,
+			count(*) as Count
+from		Output
+			inner join Grant on Grant.ProjectNumber = Output.ProjectNumber
+			inner join Institution on Institution.ResearchInstitution = Grant.University
+where		Grant.Generated_AmountCategory != 'unknown'
+group by	Output.Type,
+			Grant.Generated_Discipline,
+			Grant.Generated_AmountCategory,
+			Grant.DisciplineName
 """)
 
-    csvWriter = csv.writer(open("Generated/output_by_year_and_discipline.csv", mode="w", encoding="utf-8", newline=''), delimiter=',', quotechar='"')
+    csvWriter = csv.writer(open("Generated/data.csv", mode="w", encoding="utf-8", newline=''), delimiter=',', quotechar='"')
 
     rowsCSV = list()
 
     rowsCSV.append(("Id",
                     "Type",
-                    "Year",
                     "Discipline",
+                    "AmountCatecory",
+                    "InstitutionType",
                     "Count"
                     ))
 
 
     for row in cur.fetchall():
 
-        disciplineNameHierarchy = row["DisciplineNameHierarchy"].split(";")
-        
-        if(len(disciplineNameHierarchy)) < 2: continue
-
         rowCSV = (  uuid.uuid4().hex,
                     row["Type"],
-                    row["Year"],
-                    disciplineNameHierarchy[1],
+                    row["Discipline"],
+                    row["AmountCatecory"],
+                    row["InstitutionType"],
                     row["Count"]
                     )
 
