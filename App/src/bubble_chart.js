@@ -207,20 +207,15 @@ function bubbleChart(param) {
     tooltip.hideTooltip();
   }
 
-  /*
-   * Externally accessible function (this is attached to the
-   * returned chart function). Allows the visualization to toggle
-   * between "single group" and "split by x-axis" modes.
-   *
-   * displayName is expected to be a string and either 'x-axis' or 'all'.
-   */
   chart.setXAxis = function (property) {
-
     xAxis = axisFactory.getAxis(property);
-
     updateAxes();
   };
 
+  chart.setYAxis = function (property) {
+    yAxis = axisFactory.getAxis(property);
+    updateAxes();
+  };
 
   // return the chart function from closure.
   return chart;
@@ -263,10 +258,24 @@ function setupButtons() {
       return d;
     });
 
-    d3.select('#selectXAxis')
-      .on('change', function(){
-        myBubbleChart.setXAxis(this.value);
-      });
+  d3.select('#selectXAxis')
+    .on('change', function(){
+      myBubbleChart.setXAxis(this.value);
+    });
+
+    d3.select('#selectYAxis')
+    .selectAll("option")
+    .data(['none', 'Discipline', 'InstitutionType'])
+    .enter()
+    .append('option')
+    .text(function(d) {
+      return d;
+    });
+
+  d3.select('#selectYAxis')
+    .on('change', function(){
+      myBubbleChart.setYAxis(this.value);
+    });
 
 }
 
