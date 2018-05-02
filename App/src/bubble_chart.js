@@ -189,12 +189,18 @@ function bubbleChart(param) {
     var content = '<span class="name">'+ param.groupProperty.caption +': </span><span class="value">' +
                   d.group +
                   '</span><br/>' +
+                  '<span class="name">Discipline: </span><span class="value">' +
+                  d.data.Discipline +
+                  '</span><br/>' +
+                  '<span class="name">Funding size: </span><span class="value">' +
+                  d.data.AmountCatecory +
+                  '</span><br/>' +
+                  '<span class="name">Institution type: </span><span class="value">' +
+                  d.data.InstitutionType +
+                  '</span><br/>' +
                   '<span class="name">'+ param.areaProperty.caption +': </span><span class="value">' +
                   addCommas(d.value) +
-                  '</span><br/>' +
-                  '<span class="name">'+ param.xAxis.caption +': </span><span class="value">' +
-                  d.xLevel +
-                  '</span>';
+                  '</span><br/>';
 
     tooltip.showTooltip(content, d3.event);
   }
