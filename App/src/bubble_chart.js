@@ -1,14 +1,14 @@
 
 function bubbleChart(param) {
 
-  var width = param.xAxis.length;
-  var height = param.yAxis.length;
-
   var tooltip = floatingTooltip('gates_tooltip', 240);
 
   var axisFactory = AxisFactory();
-  var xAxis = DiscreteAxis(param.xAxis);
-  var yAxis = DiscreteAxis(param.yAxis);
+  var xAxis = axisFactory.getAxis('none');
+  var yAxis = axisFactory.getAxis('none');
+
+  var width = xAxis.getLength();
+  var height = yAxis.getLength();
 
   var forceStrength = 0.0295;
 
@@ -59,8 +59,8 @@ function bubbleChart(param) {
         value: parseInt(d[param.areaProperty.name]),
         group: d["Type"],
         data: d,
-        x: Math.random() * param.xAxis.length,
-        y: Math.random() * param.yAxis.length
+        x: Math.random() * xAxis.getLength(),
+        y: Math.random() * yAxis.getLength()
       };
     });
 
@@ -208,48 +208,20 @@ function bubbleChart(param) {
    */
   chart.toggleDisplay = function (displayName) {
 
-    
-
     if (displayName === 'year') {
 
       xAxis = axisFactory.getAxis('InstitutionType');
-
-      yAxis = DiscreteAxis({
-        property: 'None',
-        levels: ['Alle'],
-        padding: 50,
-        length: 2800,
-        center: 400
-      });
+      yAxis = axisFactory.getAxis('none');
 
     } else if(displayName === 'yearanddiscipline') {
-      xAxis = DiscreteAxis({
-        property: 'InstitutionType',
-        caption: 'Institution',
-        levels: ['University','ETH Domain','UAS / UTE','Other'],
-        padding: 150,
-        length: 2000,
-        center: 400
-      });
 
+      xAxis = axisFactory.getAxis('InstitutionType');
       yAxis = axisFactory.getAxis('Discipline');
-    }
-    else {
-      xAxis = DiscreteAxis({
-        property: 'None',
-        levels: ['Alle'],
-        padding: 200,
-        length: 1400,
-        center: 400
-      });
 
-      yAxis = DiscreteAxis({
-        property: 'None',
-        levels: ['Alle'],
-        padding: 50,
-        length: 2800,
-        center: 400
-      });
+    } else {
+
+      xAxis = axisFactory.getAxis('none');
+      yAxis = axisFactory.getAxis('none');
     }
 
     updateAxes();
@@ -272,20 +244,6 @@ var myBubbleChart = bubbleChart({
   areaProperty: {
     name: 'Count',
     caption: 'Anzahl'
-  },
-  xAxis: {
-    property: 'None',
-    levels: ['Alle'],
-    padding: 200,
-    length: 2000,
-    center: 400
-  },
-  yAxis: {
-    property: 'None',
-    levels: ['Alle'],
-    padding: 50,
-    length: 2800,
-    center: 400
   }
 });
 

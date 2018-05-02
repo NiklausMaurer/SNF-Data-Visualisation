@@ -70,6 +70,13 @@ AxisFactory = function() {
             padding: 150,
             length: 2000,
             center: 400
+          }),
+        none: DiscreteAxis({
+            property: 'None',
+            levels: ['Alle'],
+            padding: 50,
+            length: 2800,
+            center: 400
           })
     }
 
