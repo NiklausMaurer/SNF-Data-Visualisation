@@ -71,6 +71,14 @@ AxisFactory = function() {
             length: 2000,
             center: 400
           }),
+        AmountCatecory: DiscreteAxis({
+            property: 'AmountCatecory',
+            caption: 'Funding size',
+            levels: ["1 - 200'000","200'000 - 400'000","800'000 - 1'000'000","400'000 - 600'000","1'000'000+","600'000 - 800'000"],
+            padding: 50,
+            length: 2000,
+            center: 400
+        }),
         none: DiscreteAxis({
             property: 'None',
             levels: ['Alle'],
