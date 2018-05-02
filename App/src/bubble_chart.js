@@ -149,8 +149,6 @@ function bubbleChart(param) {
 
     xTitles.attr('class', 'xAxisTitle')
       .attr('x', function (d) { return xAxis.getCenterOffset(d); })
-      .attr('y', 20)
-      .attr('text-anchor', 'middle')
       .text(function (d) { return d; });
 
     xTitles.exit().remove();
@@ -166,6 +164,11 @@ function bubbleChart(param) {
   function showYAxisTitles() {
 
     var yTitles = svg.selectAll('.yAxisTitle').data(yAxis.getLevels());
+
+    yTitles.attr('y', function (d) { return yAxis.getCenterOffset(d); })
+      .text(function (d) { return d; });
+
+    yTitles.exit().remove();
 
     yTitles.enter().append('text')
       .attr('class', 'yAxisTitle')
@@ -220,11 +223,6 @@ function bubbleChart(param) {
   // return the chart function from closure.
   return chart;
 }
-
-/*
- * Below is the initialization code as well as some helper functions
- * to create a new bubble chart instance, load the data, and display it.
- */
 
 var myBubbleChart = bubbleChart({
   groupProperty: {
