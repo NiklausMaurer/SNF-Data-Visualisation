@@ -6,6 +6,7 @@ function bubbleChart(param) {
 
   var tooltip = floatingTooltip('gates_tooltip', 240);
 
+  var axisFactory = AxisFactory();
   var xAxis = DiscreteAxis(param.xAxis);
   var yAxis = DiscreteAxis(param.yAxis);
 
@@ -206,6 +207,9 @@ function bubbleChart(param) {
    * displayName is expected to be a string and either 'x-axis' or 'all'.
    */
   chart.toggleDisplay = function (displayName) {
+
+    
+
     if (displayName === 'year') {
 
       xAxis = DiscreteAxis({
@@ -235,14 +239,7 @@ function bubbleChart(param) {
         center: 400
       });
 
-      yAxis = DiscreteAxis({
-        property: 'Discipline',
-        caption: 'Forschungsdisziplin',
-        levels: ['Biology and Medicine','Humanities and Social Sciences','Mathematics, Natural- and Engineering Sciences'],
-        padding: 50,
-        length: 2000,
-        center: 400
-      });
+      yAxis = axisFactory.getAxis('Discipline');
     }
     else {
       xAxis = DiscreteAxis({

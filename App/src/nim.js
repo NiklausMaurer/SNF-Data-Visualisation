@@ -51,3 +51,25 @@ DiscreteAxis = function(axisParam){
     return axis;    
 }
 
+
+AxisFactory = function() {
+
+    var supportedAxes = {
+        Discipline: DiscreteAxis({
+            property: 'Discipline',
+            caption: 'Forschungsdisziplin',
+            levels: ['Biology and Medicine','Humanities and Social Sciences','Mathematics, Natural- and Engineering Sciences'],
+            padding: 50,
+            length: 2000,
+            center: 400
+          })
+    }
+
+    var axisFactory = Object();
+
+    axisFactory.getAxis = function(property) {
+        return supportedAxes[property]
+    }
+
+    return axisFactory;
+}
