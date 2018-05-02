@@ -147,6 +147,14 @@ function bubbleChart(param) {
 
     var xTitles = svg.selectAll('.xAxisTitle').data(xAxis.getLevels());
 
+    xTitles.attr('class', 'xAxisTitle')
+      .attr('x', function (d) { return xAxis.getCenterOffset(d); })
+      .attr('y', 20)
+      .attr('text-anchor', 'middle')
+      .text(function (d) { return d; });
+
+    xTitles.exit().remove();
+
     xTitles.enter().append('text')
       .attr('class', 'xAxisTitle')
       .attr('x', function (d) { return xAxis.getCenterOffset(d); })
@@ -206,23 +214,9 @@ function bubbleChart(param) {
    *
    * displayName is expected to be a string and either 'x-axis' or 'all'.
    */
-  chart.toggleDisplay = function (displayName) {
+  chart.setXAxis = function (property) {
 
-    if (displayName === 'year') {
-
-      xAxis = axisFactory.getAxis('InstitutionType');
-      yAxis = axisFactory.getAxis('none');
-
-    } else if(displayName === 'yearanddiscipline') {
-
-      xAxis = axisFactory.getAxis('InstitutionType');
-      yAxis = axisFactory.getAxis('Discipline');
-
-    } else {
-
-      xAxis = axisFactory.getAxis('none');
-      yAxis = axisFactory.getAxis('none');
-    }
+    xAxis = axisFactory.getAxis(property);
 
     updateAxes();
   };
@@ -259,24 +253,21 @@ function display(data) {
  * Sets up the layout buttons to allow for toggling between view modes.
  */
 function setupButtons() {
-  d3.select('#toolbar')
-    .selectAll('.button')
-    .on('click', function () {
-      // Remove active class from all buttons
-      d3.selectAll('.button').classed('active', false);
-      // Find the button just clicked
-      var button = d3.select(this);
 
-      // Set it as the active button
-      button.classed('active', true);
-
-      // Get the id of the button
-      var buttonId = button.attr('id');
-
-      // Toggle the bubble chart based on
-      // the currently clicked button.
-      myBubbleChart.toggleDisplay(buttonId);
+  d3.select('#selectXAxis')
+    .selectAll("option")
+    .data(['none', 'Discipline', 'InstitutionType'])
+    .enter()
+    .append('option')
+    .text(function(d) {
+      return d;
     });
+
+    d3.select('#selectXAxis')
+      .on('change', function(){
+        myBubbleChart.setXAxis(this.value);
+      });
+
 }
 
 /*
