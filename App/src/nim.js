@@ -61,7 +61,7 @@ AxisFactory = function() {
             levels: ['Biology and Medicine','Humanities and Social Sciences','Mathematics, Natural- and Engineering Sciences'],
             padding: 50,
             length: 2000,
-            center: 400
+            center: 500
           }),
         InstitutionType: DiscreteAxis({
             property: 'InstitutionType',
@@ -69,7 +69,7 @@ AxisFactory = function() {
             levels: ['University','ETH Domain','UAS / UTE','Other'],
             padding: 150,
             length: 2000,
-            center: 400
+            center: 500
           }),
         AmountCatecory: DiscreteAxis({
             property: 'AmountCatecory',
@@ -77,14 +77,14 @@ AxisFactory = function() {
             levels: ["1 - 200'000","200'000 - 400'000","800'000 - 1'000'000","400'000 - 600'000","1'000'000+","600'000 - 800'000"],
             padding: 50,
             length: 2000,
-            center: 400
+            center: 500
         }),
         none: DiscreteAxis({
             property: 'None',
             levels: ['Alle'],
             padding: 50,
-            length: 2800,
-            center: 400
+            length: 2000,
+            center: 500
           })
     }
 
