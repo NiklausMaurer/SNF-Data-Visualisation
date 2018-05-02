@@ -212,14 +212,7 @@ function bubbleChart(param) {
 
     if (displayName === 'year') {
 
-      xAxis = DiscreteAxis({
-        property: 'InstitutionType',
-        caption: 'Institution',
-        levels: ['University','ETH Domain','UAS / UTE','Other'],
-        padding: 150,
-        length: 2000,
-        center: 400
-      });
+      xAxis = axisFactory.getAxis('InstitutionType');
 
       yAxis = DiscreteAxis({
         property: 'None',

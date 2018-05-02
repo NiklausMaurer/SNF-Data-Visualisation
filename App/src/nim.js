@@ -62,6 +62,14 @@ AxisFactory = function() {
             padding: 50,
             length: 2000,
             center: 400
+          }),
+        InstitutionType: DiscreteAxis({
+            property: 'InstitutionType',
+            caption: 'Institution',
+            levels: ['University','ETH Domain','UAS / UTE','Other'],
+            padding: 150,
+            length: 2000,
+            center: 400
           })
     }
 
