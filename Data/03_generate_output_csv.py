@@ -23,10 +23,12 @@ from		Output
 			inner join Grant on Grant.ProjectNumber = Output.ProjectNumber
 			inner join Institution on Institution.ResearchInstitution = Grant.University
 where		Grant.Generated_AmountCategory != 'unknown'
+			and Grant.Generated_Discipline != ''
+			and Grant.Generated_AmountCategory != 0
 group by	Output.Type,
 			Grant.Generated_Discipline,
 			Grant.Generated_AmountCategory,
-			Grant.DisciplineName
+			Institution.Proposed
 """)
 
     csvWriter = csv.writer(open("Generated/data.csv", mode="w", encoding="utf-8", newline=''), delimiter=',', quotechar='"')
