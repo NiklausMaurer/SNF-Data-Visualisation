@@ -7,8 +7,8 @@ function bubbleChart(param) {
   var xAxis = axisFactory.getAxis('none');
   var yAxis = axisFactory.getAxis('none');
 
-  var width = xAxis.getLength();
-  var height = yAxis.getLength();
+  var width = 2000;
+  var height = 2000;
 
   var forceStrength = 0.0295;
 
@@ -46,7 +46,7 @@ function bubbleChart(param) {
 
     var radiusScale = d3.scalePow()
       .exponent(0.5)
-      .range([2, 40])
+      .range([2, 30])
       .domain([0, maxAmount]);
 
     // Use map() to convert raw data into node data.
