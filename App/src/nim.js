@@ -54,14 +54,15 @@ DiscreteAxis = function(axisParam){
 
 AxisFactory = function() {
 
-    var supportedAxes = {
+    var supportedXAxes = {
         Discipline: DiscreteAxis({
             property: 'Discipline',
             caption: 'Forschungsdisziplin',
             levels: ['Biology and Medicine','Humanities and Social Sciences','Mathematics, Natural- and Engineering Sciences'],
             padding: 50,
             length: 1200,
-            center: 300
+            center: 300,
+            orientation: 'x'
           }),
         InstitutionType: DiscreteAxis({
             property: 'InstitutionType',
@@ -69,7 +70,8 @@ AxisFactory = function() {
             levels: ['University','ETH Domain','UAS / UTE','Other'],
             padding: 50,
             length: 1200,
-            center: 300
+            center: 300,
+            orientation: 'x'
           }),
         AmountCatecory: DiscreteAxis({
             property: 'AmountCatecory',
@@ -77,21 +79,65 @@ AxisFactory = function() {
             levels: ["1 - 200'000","200'000 - 400'000","800'000 - 1'000'000","400'000 - 600'000","1'000'000+","600'000 - 800'000"],
             padding: 50,
             length: 1200,
-            center: 300
+            center: 300,
+            orientation: 'x'
         }),
         none: DiscreteAxis({
             property: 'None',
             levels: ['Alle'],
             padding: 50,
             length: 1200,
-            center: 300
+            center: 300,
+            orientation: 'x'
+          })
+    }
+
+    var supportedYAxes = {
+        Discipline: DiscreteAxis({
+            property: 'Discipline',
+            caption: 'Forschungsdisziplin',
+            levels: ['Biology and Medicine','Humanities and Social Sciences','Mathematics, Natural- and Engineering Sciences'],
+            padding: 50,
+            length: 1200,
+            center: 300,
+            orientation: 'y'
+          }),
+        InstitutionType: DiscreteAxis({
+            property: 'InstitutionType',
+            caption: 'Institution',
+            levels: ['University','ETH Domain','UAS / UTE','Other'],
+            padding: 50,
+            length: 1200,
+            center: 300,
+            orientation: 'y'
+          }),
+        AmountCatecory: DiscreteAxis({
+            property: 'AmountCatecory',
+            caption: 'Funding size',
+            levels: ["1 - 200'000","200'000 - 400'000","800'000 - 1'000'000","400'000 - 600'000","1'000'000+","600'000 - 800'000"],
+            padding: 50,
+            length: 1200,
+            center: 300,
+            orientation: 'y'
+        }),
+        none: DiscreteAxis({
+            property: 'None',
+            levels: ['Alle'],
+            padding: 50,
+            length: 1200,
+            center: 300,
+            orientation: 'y'
           })
     }
 
     var axisFactory = Object();
 
-    axisFactory.getAxis = function(property) {
-        return supportedAxes[property]
+    axisFactory.getXAxis = function(property) {
+        return supportedXAxes[property]
+    }
+
+    axisFactory.getYAxis = function(property) {
+        return supportedYAxes[property]
     }
 
     return axisFactory;

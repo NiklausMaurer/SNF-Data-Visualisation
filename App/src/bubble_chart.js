@@ -4,8 +4,8 @@ function bubbleChart(param) {
   var tooltip = floatingTooltip('gates_tooltip', 240);
 
   var axisFactory = AxisFactory();
-  var xAxis = axisFactory.getAxis('none');
-  var yAxis = axisFactory.getAxis('none');
+  var xAxis = axisFactory.getXAxis('none');
+  var yAxis = axisFactory.getYAxis('none');
 
   var width = 2000;
   var height = 2000;
@@ -217,12 +217,12 @@ function bubbleChart(param) {
   }
 
   chart.setXAxis = function (property) {
-    xAxis = axisFactory.getAxis(property);
+    xAxis = axisFactory.getXAxis(property);
     updateAxes();
   };
 
   chart.setYAxis = function (property) {
-    yAxis = axisFactory.getAxis(property);
+    yAxis = axisFactory.getYAxis(property);
     updateAxes();
   };
 
