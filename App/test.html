@@ -7,7 +7,7 @@
   
 let width = window.innerWidth,
     height = window.innerHeight,
-    padding = 1.5, // separation between same-color nodes
+    padding = 0.1, // separation between same-color nodes
     clusterPadding = 6, // separation between different-color nodes
     maxRadius = 12;
 
@@ -97,7 +97,7 @@ const removeAll = () => {
   const node = svg.selectAll("circle").remove();
 }
   
-function drawNodes(targetCenter) {
+function drawNodes() {
     
   const node = svg.selectAll("circle")
     .data(nodes)
@@ -113,11 +113,11 @@ function drawNodes(targetCenter) {
   
   const force = d3.forceSimulation()
   // keep entire simulation balanced around screen center
-  .force('center', d3.forceCenter(targetCenter.x, targetCenter.y))
+  .force('center', d3.forceCenter(300, 300))
 
   // cluster by section
   .force('cluster', cluster()
-    .strength(0.2))
+    .strength(0.3))
 
   // apply collision with padding
   .force('collide', d3.forceCollide(d => d.radius + padding)
@@ -128,37 +128,7 @@ function drawNodes(targetCenter) {
 }
 
   
-const targets = [{x: 120, y: 200}, {x: 350, y: 300}, {x: 600, y: 100}];	
-  
-const drawTargets = () => {
-  
-  svg.selectAll("rect")
-    .data(targets)
-  .enter().append("rect")
-  	.attr("width", 5)
-  	.attr("height", 5)
-  	.attr("x", function(d) { return d.x; })
-    .attr("y", function(d) { return d.y; })
-    .style("fill", "red");
-} 
-  
-const draw = () => {
-  drawTargets();
-  let count = 1;
-  const moveTarget = () => {
-    removeAll();
-    nodes = getNodes();
-    drawNodes(targets[count]);
-    count++;
-    if (count > 2) count = 0;
-    //
-    
-  }
-  setInterval(moveTarget, 1500)
-}
-
-draw();
-
+drawNodes();
 
 
   
