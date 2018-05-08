@@ -5,6 +5,7 @@ DiscreteAxis = function(axisParam){
     var length = axisParam.length;
     var center = axisParam.center;
     var property = axisParam.property;
+    var orientation = axisParam.orientation;
 
     var columnWidth = Math.round((length - 2 * padding)/levels.length);
 
@@ -38,9 +39,58 @@ DiscreteAxis = function(axisParam){
         return property;
     }
 
+    function getAdditonalNodeXOffset(nodeGroupProperty) {
+        switch(nodeGroupProperty) {
+            case "Media relations: print media, online media":
+                return 1;
+            case "New media (web, blogs, podcasts, news feeds etc.)":
+                return 0.77;
+            case "Media relations: radio, television":
+                return 0.17;
+            case "Talks/events/exhibitions":
+                return -0.5;
+            case "Print (books, brochures, leaflets)":
+                return -0.94;
+            case "Other activities":
+                return -0.94;
+            case "Video/Film":
+                return -0.5;
+            case "Start-up":
+                return 0.17;
+            case "Software":
+                return 0.77;
+        }
+    }
+
+    function getAdditonalNodeYOffset(nodeGroupProperty) {
+        switch(nodeGroupProperty) {
+            case "Media relations: print media, online media":
+                return 0;
+            case "New media (web, blogs, podcasts, news feeds etc.)":
+                return 0.64;
+            case "Media relations: radio, television":
+                return 0.98;
+            case "Talks/events/exhibitions":
+                return 0.87;
+            case "Print (books, brochures, leaflets)":
+                return 0.34;
+            case "Other activities":
+                return -0.34
+            case "Video/Film":
+                return -0.87;
+            case "Start-up":
+                return -0.98;
+            case "Software":
+                return -0.64;
+        }
+    }
+
     axis.getNodeOffset = function(d) {
         if(property === 'None') return center;
-        return getCenterOffset(d.data[property]);
+
+        if(orientation === 'x') return getCenterOffset(d.data[property]) /*+ getAdditonalNodeXOffset(d.group) * 90*/;
+        else if(orientation === 'y') return getCenterOffset(d.data[property]) /*+ getAdditonalNodeYOffset(d.group) * 90*/;
+        else throw 'orientation ' + orientation + ' is not supported.'
     }
 
     axis.getForceStrength = function(s) {
@@ -76,7 +126,7 @@ AxisFactory = function() {
         AmountCatecory: DiscreteAxis({
             property: 'AmountCatecory',
             caption: 'Funding size',
-            levels: ["1 - 200'000","200'000 - 400'000","800'000 - 1'000'000","400'000 - 600'000","1'000'000+","600'000 - 800'000"],
+            levels: ["1 - 200'000","200'000 - 400'000","400'000 - 600'000","600'000 - 800'000","800'000 - 1'000'000","1'000'000+"],
             padding: 50,
             length: 1200,
             center: 300,
@@ -114,9 +164,9 @@ AxisFactory = function() {
         AmountCatecory: DiscreteAxis({
             property: 'AmountCatecory',
             caption: 'Funding size',
-            levels: ["1 - 200'000","200'000 - 400'000","800'000 - 1'000'000","400'000 - 600'000","1'000'000+","600'000 - 800'000"],
+            levels: ["1 - 200'000","200'000 - 400'000","400'000 - 600'000","600'000 - 800'000","800'000 - 1'000'000","1'000'000+"],
             padding: 50,
-            length: 1200,
+            length: 1600,
             center: 300,
             orientation: 'y'
         }),
