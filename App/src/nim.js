@@ -94,8 +94,8 @@ DiscreteAxis = function(axisParam){
     }
 
     axis.getForceStrength = function(s) {
-        if(property === 'None') return s / 2.1;
-        return s * 2.2;
+        if(property === 'None') return s / 1;
+        return s * 1;
     }
 
     return axis;    

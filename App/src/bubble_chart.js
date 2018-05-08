@@ -10,32 +10,79 @@ function bubbleChart(param) {
   var width = 2000;
   var height = 2000;
 
-  var forceStrength = 0.0295;
+  var forceStrength = 0.02;
+  var clusterForceStrength = 0.8;
 
   var svg = null;
   var bubbles = null;
   var nodes = [];
+  var doClustering = true;
+
+  var types = ["Media relations: print media, online media"
+  , "New media (web, blogs, podcasts, news feeds etc.)"
+  , "Media relations: radio, television"
+  , "Talks/events/exhibitions"
+  , "Print (books, brochures, leaflets)"
+  , "Other activities"
+  , "Video/Film"
+  , "Start-up"
+  , "Software"];
+
+  const clusters = new Array(types.length);
+
+  const cluster = () => {
+    var nodes,
+      strength = 0.3;
+    function force (alpha) {
+      // scale + curve alpha value
+      if(!doClustering) return;
+
+      alpha *= clusterForceStrength * alpha;
+
+      nodes.forEach(function(d) {
+        var cluster = clusters[d.cluster];
+        if (cluster === d) return;
+        
+        let x = d.x - cluster.x,
+          y = d.y - cluster.y,
+          l = Math.sqrt(x * x + y * y),
+          r = d.radius + cluster.radius;
+  
+        if (l != r) {
+          l = (l - r) / l * alpha;
+          d.x -= x *= l;
+          d.y -= y *= l;
+          cluster.x += x;
+          cluster.y += y;
+        }
+      });
+    }
+  
+    force.initialize = function (_) {
+      nodes = _;
+    }
+  
+    force.strength = _ => {
+      strength = _ == null ? strength : _;
+      return force;
+    };
+  
+    return force;
+  }
 
   var simulation = d3.forceSimulation()
     .velocityDecay(0.2)
     .force('collision', d3.forceCollide().radius(function(d) {
       return d.radius
-    }).iterations(5))
+    }).iterations(15))
+    .force('cluster', cluster().strength(clusterForceStrength))
     .on('tick', ticked);
 
   // @v4 Force starts up automatically, which we don't want as there aren't any nodes yet.
   simulation.stop();
 
   var fillColor = d3.scaleOrdinal()
-    .domain(["Media relations: print media, online media"
-    , "New media (web, blogs, podcasts, news feeds etc.)"
-    , "Media relations: radio, television"
-    , "Talks/events/exhibitions"
-    , "Print (books, brochures, leaflets)"
-    , "Other activities"
-    , "Video/Film"
-    , "Start-up"
-    , "Software"])
+    .domain(types)
     .range(['#92c0e0', '#2a8dd4', '#e6f2fa',
             '#004d85', '#b1b1b1', '#e1e1e1',
             '#663399', '#b95f00', '#F93']);
@@ -52,16 +99,21 @@ function bubbleChart(param) {
     // Use map() to convert raw data into node data.
     // Checkout http://learnjsdata.com/ for more on
     // working with data.
-    var myNodes = rawData.map(function (d) {
-      return {
-        id: d.Id,
-        radius: radiusScale(parseInt(d[param.areaProperty.name])),
-        value: parseInt(d[param.areaProperty.name]),
-        group: d["Type"],
-        data: d,
-        x: Math.random() * xAxis.getLength(),
-        y: Math.random() * yAxis.getLength()
-      };
+    var myNodes = rawData.map(function (data) {
+      let i = types.indexOf(data["Type"]),
+          r = radiusScale(parseInt(data[param.areaProperty.name])),
+          d = {
+            id: data.Id,
+            radius: r,
+            value: parseInt(data[param.areaProperty.name]),
+            group: data["Type"],
+            cluster: i,
+            data: data,
+            x: 300 + Math.cos(i / 9 * 2 * Math.PI) * 400 + 20 * Math.random(),
+            y: 300 + Math.sin(i / 9 * 2 * Math.PI) * 400 + 20 * Math.random()
+          };
+      if (!clusters[i] || (r > clusters[i].radius)) clusters[i] = d;
+      return d;
     });
 
     // sort them to prevent occlusion of smaller nodes.
@@ -137,6 +189,11 @@ function bubbleChart(param) {
     if(yAxis.getProperty() === 'None') svg.selectAll('.yAxisTitle').remove();
     else showYAxisTitles();
     
+    if(xAxis.getProperty() !== 'None' || yAxis.getProperty() !== 'None') {
+      doClustering = false;
+      forceStrength = 0.03;
+    }
+
     simulation.force('x', d3.forceX().strength(xAxis.getForceStrength(forceStrength)).x(xAxis.getNodeOffset));
     simulation.force('y', d3.forceY().strength(yAxis.getForceStrength(forceStrength)).y(yAxis.getNodeOffset));
 
