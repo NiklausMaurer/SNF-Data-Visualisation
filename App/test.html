@@ -14,8 +14,12 @@ let width = window.innerWidth,
 const n = 200, // total number of nodes
     m = 9; // number of distinct clusters
 
-const color = d3.scaleSequential(d3.interpolateRainbow)
-    .domain(d3.range(m));
+const color = d3.scaleOrdinal()
+    .domain(d3.range(m))
+    .range(['#92c0e0', '#2a8dd4', '#e6f2fa',
+            '#004d85', '#b1b1b1', '#e1e1e1',
+            '#663399', '#b95f00', '#F93']);
+
 
 // The largest node for each cluster.
 const clusters = new Array(m);
