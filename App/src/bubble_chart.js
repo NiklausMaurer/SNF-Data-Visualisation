@@ -78,7 +78,6 @@ function bubbleChart(param) {
     .force('cluster', cluster().strength(clusterForceStrength))
     .on('tick', ticked);
 
-  // @v4 Force starts up automatically, which we don't want as there aren't any nodes yet.
   simulation.stop();
 
   var fillColor = d3.scaleOrdinal()
@@ -96,9 +95,6 @@ function bubbleChart(param) {
       .range([2, 25])
       .domain([1, maxAmount]);
 
-    // Use map() to convert raw data into node data.
-    // Checkout http://learnjsdata.com/ for more on
-    // working with data.
     var myNodes = rawData.map(function (data) {
       let i = types.indexOf(data["Type"]),
           r = radiusScale(parseInt(data[param.areaProperty.name])),
@@ -123,25 +119,17 @@ function bubbleChart(param) {
   }
 
   var chart = function chart(selector, rawData) {
-    // convert raw data into nodes data
+
     nodes = createNodes(rawData);
 
-    // Create a SVG element inside the provided selector
-    // with desired size.
     svg = d3.select(selector)
       .append('svg')
       .attr('width', width)
       .attr('height', height);
 
-    // Bind nodes data to what will become DOM elements to represent them.
     bubbles = svg.selectAll('.bubble')
       .data(nodes, function (d) { return d.id; });
 
-    // Create new circle elements each with class `bubble`.
-    // There will be one circle.bubble for each object in the nodes array.
-    // Initially, their radius (r attribute) will be 0.
-    // @v4 Selections are immutable, so lets capture the
-    //  enter selection to apply our transtition to below.
     var bubblesE = bubbles.enter().append('circle')
       .classed('bubble', true)
       .attr('r', 0)
@@ -151,30 +139,17 @@ function bubbleChart(param) {
       .on('mouseover', showDetail)
       .on('mouseout', hideDetail);
 
-    // @v4 Merge the original empty selection and the enter selection
     bubbles = bubbles.merge(bubblesE);
 
-    // Fancy transition to make bubbles appear, ending with the
-    // correct radius
     bubbles.transition()
       .duration(1000)
       .attr('r', function (d) { return d.radius; });
 
-    // Set the simulation's nodes to our newly created nodes array.
-    // @v4 Once we set the nodes, the simulation will start running automatically!
     simulation.nodes(nodes);
 
-    // Set initial layout to single group.
     updateAxes();
   };
 
-  /*
-   * Callback function that is called after every tick of the
-   * force simulation.
-   * Here we do the acutal repositioning of the SVG circles
-   * based on the current x and y values of their bound node data.
-   * These x and y values are modified by the force simulation.
-   */
   function ticked() {
     bubbles
       .attr('cx', function (d) { return d.x; })
@@ -235,12 +210,8 @@ function bubbleChart(param) {
       .text(function (d) { return d; });
   }
 
-  /*
-   * Function called on mouseover to display the
-   * details of a bubble in the tooltip.
-   */
   function showDetail(d) {
-    // change outline to indicate hover state.
+
     d3.select(this).attr('stroke', 'black');
 
     var content = '<span class="name">'+ param.groupProperty.caption +': </span><span class="value">' +
@@ -262,11 +233,7 @@ function bubbleChart(param) {
     tooltip.showTooltip(content, d3.event);
   }
 
-  /*
-   * Hides tooltip
-   */
   function hideDetail(d) {
-    // reset outline
     d3.select(this)
       .attr('stroke', d3.rgb(fillColor(d.group)).darker());
 
@@ -283,7 +250,6 @@ function bubbleChart(param) {
     updateAxes();
   };
 
-  // return the chart function from closure.
   return chart;
 }
 
@@ -297,17 +263,10 @@ var myBubbleChart = bubbleChart({
   }
 });
 
-/*
- * Function called once data is loaded from CSV.
- * Calls bubble chart function to display inside #vis div.
- */
 function display(data) {
   myBubbleChart('#vis', data);
 }
 
-/*
- * Sets up the layout buttons to allow for toggling between view modes.
- */
 function setupButtons() {
 
   d3.select('#selectXAxis')
@@ -340,10 +299,6 @@ function setupButtons() {
 
 }
 
-/*
- * Helper function to convert a number into a string
- * and add commas to it to improve presentation.
- */
 function addCommas(nStr) {
   nStr += '';
   var x = nStr.split('.');
@@ -357,8 +312,7 @@ function addCommas(nStr) {
   return x1 + x2;
 }
 
-// Load the data.
+
 d3.csv('data/data.csv').then(display);
 
-// setup the buttons.
 setupButtons();
