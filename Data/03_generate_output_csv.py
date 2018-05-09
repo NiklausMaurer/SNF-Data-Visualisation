@@ -18,6 +18,7 @@ select		Output.Type,
 			Grant.Generated_Discipline as Discipline,
 			Grant.Generated_AmountCategory as AmountCatecory,
 			Institution.Proposed as InstitutionType,
+			Grant.Generated_FundingInstrument as FundingInstrument,
 			count(*) as Count
 from		Output
 			inner join Grant on Grant.ProjectNumber = Output.ProjectNumber
@@ -28,7 +29,8 @@ where		Grant.Generated_AmountCategory != 'unknown'
 group by	Output.Type,
 			Grant.Generated_Discipline,
 			Grant.Generated_AmountCategory,
-			Institution.Proposed
+			Institution.Proposed,
+			Grant.Generated_FundingInstrument
 """)
 
     csvWriter = csv.writer(open("Generated/data.csv", mode="w", encoding="utf-8", newline=''), delimiter=',', quotechar='"')
@@ -40,6 +42,7 @@ group by	Output.Type,
                     "Discipline",
                     "AmountCatecory",
                     "InstitutionType",
+                    "FundingInstrument",
                     "Count"
                     ))
 
@@ -51,6 +54,7 @@ group by	Output.Type,
                     row["Discipline"],
                     row["AmountCatecory"],
                     row["InstitutionType"],
+                    row["FundingInstrument"],
                     row["Count"]
                     )
 

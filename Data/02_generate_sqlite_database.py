@@ -45,7 +45,8 @@ with sqlite3.connect(dbFile) as con:
         ApprovedAmount INTEGER,
         Keywords TEXT,
         Generated_Discipline TEXT,
-        Generated_AmountCategory TEXT);""")
+        Generated_AmountCategory TEXT,
+        Generated_FundingInstrument TEXT);""")
 
     with open('Downloaded/P3_GrantExport.csv', 'r', encoding="utf-8-sig") as csvfile:
         csvreader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
@@ -55,11 +56,14 @@ with sqlite3.connect(dbFile) as con:
 
             generatedDiscipline = row['Discipline Name Hierarchy'].split(';')[0]
             generatedAmountCategory = getAmountCategory(row['Approved Amount'])
+            generatedFundingInstrument = row['Funding Instrument Hierarchy'].split(';')[0]
+            if(generatedFundingInstrument == ''):
+                generatedFundingInstrument = 'Unknown'
             
-            to_db.append((row['Project Number'],row['Project Title'], row['Responsible Applicant'], row['Funding Instrument'], row['Funding Instrument Hierarchy'], row['Institution'], row['Institution Country'], row['University'], row['Discipline Number'], row['Discipline Name'], row['Discipline Name Hierarchy'], row['All disciplines'], row['Start Date'], row['End Date'], row['Approved Amount'], row['Keywords'], generatedDiscipline, generatedAmountCategory))
+            to_db.append((row['Project Number'],row['Project Title'], row['Responsible Applicant'], row['Funding Instrument'], row['Funding Instrument Hierarchy'], row['Institution'], row['Institution Country'], row['University'], row['Discipline Number'], row['Discipline Name'], row['Discipline Name Hierarchy'], row['All disciplines'], row['Start Date'], row['End Date'], row['Approved Amount'], row['Keywords'], generatedDiscipline, generatedAmountCategory, generatedFundingInstrument))
 
         
-    cur.executemany("INSERT INTO Grant (ProjectNumber, Title, ResponsibleApplicant, FundingInstrument, FundingInstrumentHierarchy, Institution, InstitutionCountry, University, DisciplineNumber, DisciplineName, DisciplineNameHierarchy, AllDisciplines, StartDate, EndDate, ApprovedAmount, Keywords, Generated_Discipline, Generated_AmountCategory) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", to_db)
+    cur.executemany("INSERT INTO Grant (ProjectNumber, Title, ResponsibleApplicant, FundingInstrument, FundingInstrumentHierarchy, Institution, InstitutionCountry, University, DisciplineNumber, DisciplineName, DisciplineNameHierarchy, AllDisciplines, StartDate, EndDate, ApprovedAmount, Keywords, Generated_Discipline, Generated_AmountCategory, Generated_FundingInstrument) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", to_db)
     con.commit()
 
 
