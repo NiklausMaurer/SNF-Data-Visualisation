@@ -18,15 +18,7 @@ function bubbleChart(param) {
   var nodes = [];
   var doClustering = true;
 
-  var types = ["Media relations: print media, online media"
-  , "New media (web, blogs, podcasts, news feeds etc.)"
-  , "Media relations: radio, television"
-  , "Talks/events/exhibitions"
-  , "Print (books, brochures, leaflets)"
-  , "Other activities"
-  , "Video/Film"
-  , "Start-up"
-  , "Software"];
+  var types = ["Media relations: print media, online media", "New media (web, blogs, podcasts, news feeds etc.)", "Media relations: radio, television", "Talks/events/exhibitions", "Print (books, brochures, leaflets)", "Other activities", "Video/Film", "Start-up", "Software"];
 
   const clusters = new Array(types.length);
 
@@ -82,9 +74,7 @@ function bubbleChart(param) {
 
   var fillColor = d3.scaleOrdinal()
     .domain(types)
-    .range(['#92c0e0', '#2a8dd4', '#e6f2fa',
-            '#004d85', '#b1b1b1', '#e1e1e1',
-            '#663399', '#b95f00', '#F93']);
+    .range(['#92c0e0', '#2a8dd4', '#e6f2fa', '#004d85', '#b1b1b1', '#e1e1e1', '#663399', '#b95f00', '#F93']);
 
   function createNodes(rawData) {
     
@@ -112,9 +102,7 @@ function bubbleChart(param) {
       return d;
     });
 
-    // sort them to prevent occlusion of smaller nodes.
     myNodes.sort(function (a, b) { return b.value - a.value; });
-
     return myNodes;
   }
 
@@ -251,7 +239,7 @@ function bubbleChart(param) {
   };
 
   return chart;
-}
+} // buubleChart
 
 var myBubbleChart = bubbleChart({
   groupProperty: {
