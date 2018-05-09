@@ -17,6 +17,7 @@ function bubbleChart(param) {
   var bubbles = null;
   var nodes = [];
   var doClustering = true;
+  var clusterManager = ClusterManager();
 
   var types = ["Media relations: print media, online media", "New media (web, blogs, podcasts, news feeds etc.)", "Media relations: radio, television", "Talks/events/exhibitions", "Print (books, brochures, leaflets)", "Other activities", "Video/Film", "Start-up", "Software"];
 
@@ -103,6 +104,7 @@ function bubbleChart(param) {
     });
 
     myNodes.sort(function (a, b) { return b.value - a.value; });
+
     return myNodes;
   }
 
@@ -200,30 +202,40 @@ function bubbleChart(param) {
 
   function showDetail(d) {
 
-    d3.select(this).attr('stroke', 'black');
+    var nodesInSameCluster = clusterManager.getNodesInSameCluster(d, xAxis.getProperty(), yAxis.getProperty());
+    nodesInSameCluster.attr('stroke', 'black');
+
+    var totalCount = 0;
+    nodesInSameCluster.each(function(d) {
+      totalCount += d.value;
+    })
 
     var content = '<span class="name">'+ param.groupProperty.caption +': </span><span class="value">' +
                   d.group +
-                  '</span><br/>' +
-                  '<span class="name">Discipline: </span><span class="value">' +
-                  d.data.Discipline +
-                  '</span><br/>' +
-                  '<span class="name">Funding size: </span><span class="value">' +
-                  d.data.AmountCatecory +
-                  '</span><br/>' +
-                  '<span class="name">Institution type: </span><span class="value">' +
-                  d.data.InstitutionType +
-                  '</span><br/>' +
-                  '<span class="name">'+ param.areaProperty.caption +': </span><span class="value">' +
-                  addCommas(d.value) +
                   '</span><br/>';
+
+    if(xAxis.getProperty() != 'None' && xAxis.getProperty() != 'Type') {
+      content += '<span class="name">' + xAxis.getProperty() + ': </span><span class="value">' +
+                    d.data[xAxis.getProperty()] +
+                  '</span><br/>'
+    }
+
+    if(yAxis.getProperty() != 'None' && yAxis.getProperty() !== xAxis.getProperty()) {
+      content += '<span class="name">' + yAxis.getProperty() + ': </span><span class="value">' +
+                    d.data[yAxis.getProperty()] +
+                  '</span><br/>'
+    }
+
+    content +=  '<span class="name">'+ param.areaProperty.caption +' Total: </span><span class="value">' +
+                  addCommas(totalCount) +
+                '</span><br/>';
 
     tooltip.showTooltip(content, d3.event);
   }
 
   function hideDetail(d) {
-    d3.select(this)
-      .attr('stroke', d3.rgb(fillColor(d.group)).darker());
+
+    clusterManager.getNodesInSameCluster(d, xAxis.getProperty(), yAxis.getProperty()).attr('stroke', d3.rgb(fillColor(d.group)).darker());
 
     tooltip.hideTooltip();
   }
