@@ -312,7 +312,7 @@ function setupButtons() {
 
   d3.select('#selectXAxis')
     .selectAll("option")
-    .data(['none', 'Discipline', 'InstitutionType','AmountCatecory'])
+    .data(['none', 'Discipline', 'InstitutionType', 'FundingInstrument', 'AmountCatecory'])
     .enter()
     .append('option')
     .text(function(d) {
@@ -326,7 +326,7 @@ function setupButtons() {
 
     d3.select('#selectYAxis')
     .selectAll("option")
-    .data(['none', 'Discipline', 'InstitutionType', 'AmountCatecory'])
+    .data(['none', 'Discipline', 'InstitutionType', 'FundingInstrument', 'AmountCatecory'])
     .enter()
     .append('option')
     .text(function(d) {

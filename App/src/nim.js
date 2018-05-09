@@ -132,6 +132,15 @@ AxisFactory = function() {
             center: 300,
             orientation: 'x'
         }),
+        FundingInstrument: DiscreteAxis({
+            property: 'FundingInstrument',
+            caption: 'Funding Instrument',
+            levels: ["Careers","Infrastructure","Programmes","Project funding","Science communication","Unknown"],
+            padding: 50,
+            length: 1600,
+            center: 300,
+            orientation: 'x'
+        }),
         none: DiscreteAxis({
             property: 'None',
             levels: ['Alle'],
@@ -169,6 +178,15 @@ AxisFactory = function() {
             length: 1600,
             center: 300,
             orientation: 'y'
+        }),
+        FundingInstrument: DiscreteAxis({
+            property: 'FundingInstrument',
+            caption: 'Funding Instrument',
+            levels: ["Careers","Infrastructure","Programmes","Project funding","Science communication","Unknown"],
+            padding: 50,
+            length: 1600,
+            center: 300,
+            orientation: 'x'
         }),
         none: DiscreteAxis({
             property: 'None',
