@@ -203,7 +203,8 @@ function bubbleChart(param) {
   function showDetail(d) {
 
     var nodesInSameCluster = clusterManager.getNodesInSameCluster(d, xAxis.getProperty(), yAxis.getProperty());
-    nodesInSameCluster.attr('stroke', 'black');
+    nodesInSameCluster.attr('stroke', 'black')
+                      .attr('fill', d3.rgb(fillColor(d.group)).darker());
 
     var totalCount = 0;
     nodesInSameCluster.each(function(d) {
@@ -235,7 +236,9 @@ function bubbleChart(param) {
 
   function hideDetail(d) {
 
-    clusterManager.getNodesInSameCluster(d, xAxis.getProperty(), yAxis.getProperty()).attr('stroke', d3.rgb(fillColor(d.group)).darker());
+    clusterManager.getNodesInSameCluster(d, xAxis.getProperty(), yAxis.getProperty())
+      .attr('stroke', d3.rgb(fillColor(d.group)).darker())
+      .attr('fill', d3.rgb(fillColor(d.group)));
 
     tooltip.hideTooltip();
   }
