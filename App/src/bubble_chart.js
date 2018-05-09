@@ -93,8 +93,8 @@ function bubbleChart(param) {
 
     var radiusScale = d3.scalePow()
       .exponent(0.5)
-      .range([2, 30])
-      .domain([0, maxAmount]);
+      .range([2, 25])
+      .domain([1, maxAmount]);
 
     // Use map() to convert raw data into node data.
     // Checkout http://learnjsdata.com/ for more on
@@ -312,7 +312,7 @@ function setupButtons() {
 
   d3.select('#selectXAxis')
     .selectAll("option")
-    .data(['none', 'Discipline', 'InstitutionType', 'FundingInstrument', 'AmountCatecory'])
+    .data(['none', 'Discipline', 'InstitutionType', 'FundingInstrument', 'AmountCatecory', 'Type'])
     .enter()
     .append('option')
     .text(function(d) {
@@ -326,7 +326,7 @@ function setupButtons() {
 
     d3.select('#selectYAxis')
     .selectAll("option")
-    .data(['none', 'Discipline', 'InstitutionType', 'FundingInstrument', 'AmountCatecory'])
+    .data(['none', 'Discipline', 'InstitutionType', 'FundingInstrument', 'AmountCatecory', 'Type'])
     .enter()
     .append('option')
     .text(function(d) {

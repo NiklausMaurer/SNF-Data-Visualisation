@@ -141,6 +141,15 @@ AxisFactory = function() {
             center: 300,
             orientation: 'x'
         }),
+        Type: DiscreteAxis({
+            property: 'Type',
+            caption: 'Type',
+            levels: ["Media relations: print media, online media", "Software", "Media relations: radio, television","New media (web, blogs, podcasts, news feeds etc.)","Other activities","Print (books, brochures, leaflets)","Start-up","Talks/events/exhibitions","Video/Film"],
+            padding: 50,
+            length: 1600,
+            center: 300,
+            orientation: 'x'
+        }),
         none: DiscreteAxis({
             property: 'None',
             levels: ['Alle'],
@@ -183,6 +192,15 @@ AxisFactory = function() {
             property: 'FundingInstrument',
             caption: 'Funding Instrument',
             levels: ["Careers","Infrastructure","Programmes","Project funding","Science communication","Unknown"],
+            padding: 50,
+            length: 1600,
+            center: 300,
+            orientation: 'x'
+        }),
+        Type: DiscreteAxis({
+            property: 'Type',
+            caption: 'Type',
+            levels: ["Media relations: print media, online media", "Software", "Media relations: radio, television","New media (web, blogs, podcasts, news feeds etc.)","Other activities","Print (books, brochures, leaflets)","Start-up","Talks/events/exhibitions","Video/Film"],
             padding: 50,
             length: 1600,
             center: 300,
