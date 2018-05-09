@@ -26,6 +26,7 @@ from		Output
 where		Grant.Generated_AmountCategory != 'unknown'
 			and Grant.Generated_Discipline != ''
 			and Grant.Generated_AmountCategory != 0
+			and Output.Year between 2011 and 2018
 group by	Output.Type,
 			Grant.Generated_Discipline,
 			Grant.Generated_AmountCategory,
