@@ -17,13 +17,11 @@ ClusterManager = function() {
 
     manager.getNodesInSameCluster = function(node, xProperty, yProperty) {
         
-        if(nodesCache === null) nodesCache = d3.selectAll('circle');
-
-        var nodesInSameCluster = nodesCache.filter(function(d) {return d.group == node.group;})
-
         var cacheKey = generateCacheKey(node, xProperty, yProperty);
         if(cacheKey in clusterCache) return clusterCache[cacheKey];
 
+        if(nodesCache === null) nodesCache = d3.selectAll('circle');
+        var nodesInSameCluster = nodesCache.filter(function(d) {return d.group == node.group;})
         if(xProperty !== 'none') nodesInSameCluster = nodesInSameCluster.filter(n => n.data[xProperty] === node.data[xProperty]);
         if(yProperty !== 'none') nodesInSameCluster = nodesInSameCluster.filter(n => n.data[yProperty] === node.data[yProperty]);
 
@@ -34,10 +32,10 @@ ClusterManager = function() {
 
     manager.getClusterNode = function(node, xProperty, yProperty) {
         
-        var nodesInSameCluster = this.getNodesInSameCluster(node, xProperty, yProperty);
-
         var cacheKey = generateCacheKey(node, xProperty, yProperty);
         if(cacheKey in clusterNodeCache) return clusterNodeCache[cacheKey];
+
+        var nodesInSameCluster = this.getNodesInSameCluster(node, xProperty, yProperty);
         
         var clusterNode = null;
         nodesInSameCluster.each(function(d) {
