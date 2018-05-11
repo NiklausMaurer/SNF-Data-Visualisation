@@ -6,24 +6,27 @@ ClusterManager = function() {
     var clusterCache = new Array();
     var clusterNodeCache = new Array();
 
-    function generateCacheKey(node, xProperty, yProperty)
+    function generateCacheKey(node, properties)
     {
-        var cacheKey = node.group + xProperty + yProperty;
-        if(xProperty !== 'None') cacheKey += node.data[xProperty];
-        if(yProperty !== 'None') cacheKey += node.data[yProperty];
+        var cacheKey = node.group + properties[0] + properties[1];
+        if(properties[0] !== 'None') cacheKey += node.data[properties[0]];
+        if(properties[1] !== 'None') cacheKey += node.data[properties[1]];
 
         return cacheKey;
     }
 
     manager.getNodesInSameCluster = function(node, xProperty, yProperty) {
         
-        var cacheKey = generateCacheKey(node, xProperty, yProperty);
+        var properties = [xProperty, yProperty];
+        properties.sort();
+
+        var cacheKey = generateCacheKey(node, properties);
         if(cacheKey in clusterCache) return clusterCache[cacheKey];
 
         if(nodesCache === null) nodesCache = d3.selectAll('circle');
         var nodesInSameCluster = nodesCache.filter(function(d) {return d.group == node.group;})
-        if(xProperty !== 'none') nodesInSameCluster = nodesInSameCluster.filter(n => n.data[xProperty] === node.data[xProperty]);
-        if(yProperty !== 'none') nodesInSameCluster = nodesInSameCluster.filter(n => n.data[yProperty] === node.data[yProperty]);
+        if(xProperty !== 'none') nodesInSameCluster = nodesInSameCluster.filter(n => n.data[properties[0]] === node.data[properties[0]]);
+        if(yProperty !== 'none') nodesInSameCluster = nodesInSameCluster.filter(n => n.data[properties[1]] === node.data[properties[1]]);
 
         clusterCache[cacheKey] = nodesInSameCluster;
 
@@ -32,10 +35,13 @@ ClusterManager = function() {
 
     manager.getClusterNode = function(node, xProperty, yProperty) {
         
-        var cacheKey = generateCacheKey(node, xProperty, yProperty);
+        var properties = [xProperty, yProperty];
+        properties.sort();
+
+        var cacheKey = generateCacheKey(node, properties);
         if(cacheKey in clusterNodeCache) return clusterNodeCache[cacheKey];
 
-        var nodesInSameCluster = this.getNodesInSameCluster(node, xProperty, yProperty);
+        var nodesInSameCluster = this.getNodesInSameCluster(node, properties[0], properties[1]);
         
         var clusterNode = null;
         nodesInSameCluster.each(function(d) {
