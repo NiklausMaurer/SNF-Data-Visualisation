@@ -21,8 +21,6 @@ function bubbleChart(param) {
 
   var types = ["Media relations: print media, online media", "New media (web, blogs, podcasts, news feeds etc.)", "Media relations: radio, television", "Talks/events/exhibitions", "Print (books, brochures, leaflets)", "Other activities", "Video/Film", "Start-up", "Software"];
 
-  const clusters = new Array(types.length);
-
   const cluster = () => {
     var nodes,
       strength = 0.3;
@@ -33,7 +31,7 @@ function bubbleChart(param) {
       alpha *= clusterForceStrength * alpha;
 
       nodes.forEach(function(d) {
-        var cluster = clusters[d.cluster];
+        var cluster = clusterManager.getClusterNode(d);
         if (cluster === d) return;
         
         let x = d.x - cluster.x,
@@ -99,7 +97,6 @@ function bubbleChart(param) {
             x: 300 + Math.cos(i / 9 * 2 * Math.PI) * 400 + 20 * Math.random(),
             y: 300 + Math.sin(i / 9 * 2 * Math.PI) * 400 + 20 * Math.random()
           };
-      if (!clusters[i] || (r > clusters[i].radius)) clusters[i] = d;
       return d;
     });
 
