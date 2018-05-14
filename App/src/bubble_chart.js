@@ -10,7 +10,7 @@ function bubbleChart(param) {
   var width = 2000;
   var height = 2000;
 
-  var forceStrength = 0.02;
+  var forceStrength = 0.032;
   var clusterForceStrength = 0.8;
 
   var svg = null;
@@ -19,13 +19,14 @@ function bubbleChart(param) {
   var doClustering = true;
   var clusterManager = ClusterManager();
 
-  var types = ["Media relations: print media, online media", "New media (web, blogs, podcasts, news feeds etc.)", "Media relations: radio, television", "Talks/events/exhibitions", "Print (books, brochures, leaflets)", "Other activities", "Video/Film", "Start-up", "Software"];
+  var alpha = 0.3;
+  var laterAlpha = 1;
 
-  const clusters = new Array(types.length);
+  var types = ["Media relations: print media, online media", "New media (web, blogs, podcasts, news feeds etc.)", "Media relations: radio, television", "Talks/events/exhibitions", "Print (books, brochures, leaflets)", "Other activities", "Video/Film", "Start-up", "Software"];
 
   const cluster = () => {
     var nodes,
-      strength = 0.3;
+      strength = 0.4;
     function force (alpha) {
       // scale + curve alpha value
       if(!doClustering) return;
@@ -33,7 +34,7 @@ function bubbleChart(param) {
       alpha *= clusterForceStrength * alpha;
 
       nodes.forEach(function(d) {
-        var cluster = clusters[d.cluster];
+        var cluster = clusterManager.getClusterNode(d);
         if (cluster === d) return;
         
         let x = d.x - cluster.x,
@@ -64,7 +65,7 @@ function bubbleChart(param) {
   }
 
   var simulation = d3.forceSimulation()
-    .velocityDecay(0.2)
+    .velocityDecay(0.15)
     .force('collision', d3.forceCollide().radius(function(d) {
       return d.radius
     }).iterations(15))
@@ -96,10 +97,9 @@ function bubbleChart(param) {
             group: data["Type"],
             cluster: i,
             data: data,
-            x: 300 + Math.cos(i / 9 * 2 * Math.PI) * 400 + 20 * Math.random(),
-            y: 300 + Math.sin(i / 9 * 2 * Math.PI) * 400 + 20 * Math.random()
+            x: xAxis.getCenter() + Math.cos(i / 9 * 2 * Math.PI) * 800 + Math.random(),
+            y: yAxis.getCenter() + Math.sin(i / 9 * 2 * Math.PI) * 800 + Math.random()
           };
-      if (!clusters[i] || (r > clusters[i].radius)) clusters[i] = d;
       return d;
     });
 
@@ -126,6 +126,8 @@ function bubbleChart(param) {
       .attr('fill', function (d) { return fillColor(d.group); })
       .attr('stroke', function (d) { return d3.rgb(fillColor(d.group)).darker(); })
       .attr('stroke-width', 1.3)
+      .attr('cx', function (d) { return d.x; })
+      .attr('cy', function (d) { return d.y; })
       .on('mouseover', showDetail)
       .on('mouseout', hideDetail);
 
@@ -162,7 +164,8 @@ function bubbleChart(param) {
     simulation.force('x', d3.forceX().strength(xAxis.getForceStrength(forceStrength)).x(xAxis.getNodeOffset));
     simulation.force('y', d3.forceY().strength(yAxis.getForceStrength(forceStrength)).y(yAxis.getNodeOffset));
 
-    simulation.alpha(1).restart();
+    simulation.alpha(alpha).restart();
+    alpha = laterAlpha;
   }
 
   function showXAxisTitles() {
@@ -203,7 +206,8 @@ function bubbleChart(param) {
   function showDetail(d) {
 
     var nodesInSameCluster = clusterManager.getNodesInSameCluster(d, xAxis.getProperty(), yAxis.getProperty());
-    nodesInSameCluster.attr('stroke', 'black');
+    nodesInSameCluster.attr('stroke', 'black')
+                      .attr('fill', d3.rgb(fillColor(d.group)).darker());
 
     var totalCount = 0;
     nodesInSameCluster.each(function(d) {
@@ -235,7 +239,9 @@ function bubbleChart(param) {
 
   function hideDetail(d) {
 
-    clusterManager.getNodesInSameCluster(d, xAxis.getProperty(), yAxis.getProperty()).attr('stroke', d3.rgb(fillColor(d.group)).darker());
+    clusterManager.getNodesInSameCluster(d, xAxis.getProperty(), yAxis.getProperty())
+      .attr('stroke', d3.rgb(fillColor(d.group)).darker())
+      .attr('fill', d3.rgb(fillColor(d.group)));
 
     tooltip.hideTooltip();
   }
