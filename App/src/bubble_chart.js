@@ -150,13 +150,13 @@ function bubbleChart(param) {
 
   function updateAxes() {
 
-    if(xAxis.getProperty() === 'None') svg.selectAll('.xAxisTitle').remove();
+    if(xAxis.getProperty() === 'none') svg.selectAll('.xAxisTitle').remove();
     else showXAxisTitles();
     
-    if(yAxis.getProperty() === 'None') svg.selectAll('.yAxisTitle').remove();
+    if(yAxis.getProperty() === 'none') svg.selectAll('.yAxisTitle').remove();
     else showYAxisTitles();
     
-    if(xAxis.getProperty() !== 'None' || yAxis.getProperty() !== 'None') {
+    if(xAxis.getProperty() !== 'none' || yAxis.getProperty() !== 'none') {
       doClustering = false;
       forceStrength = 0.03;
     }
@@ -218,13 +218,13 @@ function bubbleChart(param) {
                   d.group +
                   '</span><br/>';
 
-    if(xAxis.getProperty() != 'None' && xAxis.getProperty() != 'Type') {
+    if(xAxis.getProperty() != 'none' && xAxis.getProperty() != 'Type') {
       content += '<span class="name">' + xAxis.getProperty() + ': </span><span class="value">' +
                     d.data[xAxis.getProperty()] +
                   '</span><br/>'
     }
 
-    if(yAxis.getProperty() != 'None' && yAxis.getProperty() !== xAxis.getProperty()) {
+    if(yAxis.getProperty() != 'none' && yAxis.getProperty() !== xAxis.getProperty()) {
       content += '<span class="name">' + yAxis.getProperty() + ': </span><span class="value">' +
                     d.data[yAxis.getProperty()] +
                   '</span><br/>'
@@ -296,12 +296,15 @@ function setupButtons() {
 
     d3.select('#selectYAxis')
     .selectAll("option")
-    .data(['none', 'Discipline', 'InstitutionType', 'FundingInstrument', 'AmountCatecory', 'Type'])
+    .data(Object.keys(axisFactory.getSupportedYAxes()))
     .enter()
     .append('option')
-    .text(function(d) {
-      return d;
-    });
+    .text(function(key){
+      return axisFactory.getYAxis(key).getCaption();
+    })
+	.attr('value', function(key){
+		return axisFactory.getYAxis(key).getProperty();
+	});
 
   d3.select('#selectYAxis')
     .on('change', function(){
