@@ -154,7 +154,7 @@ AxisFactory = function() {
             property: 'Type',
             caption: 'Output-Typ',
             levels: ["Media relations: print media, online media", "Software", "Media relations: radio, television","New media (web, blogs, podcasts, news feeds etc.)","Other activities","Print (books, brochures, leaflets)","Start-up","Talks/events/exhibitions","Video/Film"],
-			levelscaption: ["Medienarbeit: Printmedien, Onlinemedien", "Software", "Medienarbeit: Radio, Fernsehen","Neue Medien (Web, Blogs, Podcasts, Newsfeed etc.)","Andere Aktivitäten","Druck (Bücher, Broschüren)","Start-up","Vorträge/Events/Ausstellungen","Video und Film"]
+			levelscaption: ["Medienarbeit: Printmedien, Onlinemedien", "Software", "Medienarbeit: Radio, Fernsehen","Neue Medien (Web, Blogs, Podcasts, Newsfeed etc.)","Andere Aktivitäten","Druck (Bücher, Broschüren)","Start-up","Vorträge/Events/Ausstellungen","Video und Film"],
             padding: 50,
             length: 1600,
             center: 300,
@@ -215,7 +215,7 @@ AxisFactory = function() {
             property: 'Type',
             caption: 'Output-Typ',
             levels: ["Media relations: print media, online media", "Software", "Media relations: radio, television","New media (web, blogs, podcasts, news feeds etc.)","Other activities","Print (books, brochures, leaflets)","Start-up","Talks/events/exhibitions","Video/Film"],
-			levelscaption: ["Medienarbeit: Printmedien, Onlinemedien", "Software", "Medienarbeit: Radio, Fernsehen","Neue Medien (Web, Blogs, Podcasts, Newsfeed etc.)","Andere Aktivitäten","Druck (Bücher, Broschüren)","Start-up","Vorträge/Events/Ausstellungen","Video und Film"]
+			levelscaption: ["Medienarbeit: Printmedien, Onlinemedien", "Software", "Medienarbeit: Radio, Fernsehen","Neue Medien (Web, Blogs, Podcasts, Newsfeed etc.)","Andere Aktivitäten","Druck (Bücher, Broschüren)","Start-up","Vorträge/Events/Ausstellungen","Video und Film"],
             padding: 50,
             length: 1600,
             center: 300,
