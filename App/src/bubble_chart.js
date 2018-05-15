@@ -325,6 +325,9 @@ function setupButtons() {
     })
     .attr('value', function(key){
       return axisFactory.getXAxis(key).getProperty();
+    })
+    .attr('selected', function(key){
+      return key === 'none';
     });
 
   d3.select('#selectXAxis')
@@ -340,9 +343,12 @@ function setupButtons() {
     .text(function(key){
       return axisFactory.getYAxis(key).getCaption();
     })
-	.attr('value', function(key){
-		return axisFactory.getYAxis(key).getProperty();
-	});
+    .attr('value', function(key){
+      return axisFactory.getYAxis(key).getProperty();
+    })
+    .attr('selected', function(key){
+      return key === 'none';
+    });
 
   d3.select('#selectYAxis')
     .on('change', function(){
