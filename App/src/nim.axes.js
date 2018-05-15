@@ -6,6 +6,7 @@ DiscreteAxis = function(axisParam){
     var center = axisParam.center;
     var property = axisParam.property;
     var orientation = axisParam.orientation;
+    var caption = axisParam.caption;
 
     var columnWidth = Math.round((length - 2 * padding)/levels.length);
 
@@ -37,6 +38,10 @@ DiscreteAxis = function(axisParam){
 
     axis.getProperty = function() {
         return property;
+    }
+
+    axis.getCaption = function() {
+        return caption;
     }
 
     function getAdditonalNodeXOffset(nodeGroupProperty) {
@@ -224,6 +229,10 @@ AxisFactory = function() {
 
     axisFactory.getYAxis = function(property) {
         return supportedYAxes[property]
+    }
+
+    axisFactory.getSupportedXAxes = function() {
+        return supportedXAxes;
     }
 
     return axisFactory;

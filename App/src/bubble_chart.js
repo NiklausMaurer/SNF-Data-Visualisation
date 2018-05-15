@@ -275,13 +275,18 @@ function display(data) {
 
 function setupButtons() {
 
+  var axisFactory = AxisFactory();
+
   d3.select('#selectXAxis')
     .selectAll("option")
-    .data(['none', 'Discipline', 'InstitutionType', 'FundingInstrument', 'AmountCatecory', 'Type'])
+    .data(Object.keys(axisFactory.getSupportedXAxes()))
     .enter()
     .append('option')
-    .text(function(d) {
-      return d;
+    .text(function(key){
+      return axisFactory.getXAxis(key).getCaption();
+    })
+    .attr('value', function(key){
+      return axisFactory.getXAxis(key).getProperty();
     });
 
   d3.select('#selectXAxis')
