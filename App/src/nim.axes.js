@@ -6,6 +6,7 @@ DiscreteAxis = function(axisParam){
     var center = axisParam.center;
     var property = axisParam.property;
     var orientation = axisParam.orientation;
+    var caption = axisParam.caption;
 
     var columnWidth = Math.round((length - 2 * padding)/levels.length);
 
@@ -37,6 +38,10 @@ DiscreteAxis = function(axisParam){
 
     axis.getProperty = function() {
         return property;
+    }
+
+    axis.getCaption = function() {
+        return caption;
     }
 
     function getAdditonalNodeXOffset(nodeGroupProperty) {
@@ -86,7 +91,7 @@ DiscreteAxis = function(axisParam){
     }
 
     axis.getNodeOffset = function(d) {
-        if(property === 'None') return center;
+        if(property === 'none') return center;
 
         if(orientation === 'x') return getCenterOffset(d.data[property]) /*+ getAdditonalNodeXOffset(d.group) * 90*/;
         else if(orientation === 'y') return getCenterOffset(d.data[property]) /*+ getAdditonalNodeYOffset(d.group) * 90*/;
@@ -94,7 +99,7 @@ DiscreteAxis = function(axisParam){
     }
 
     axis.getForceStrength = function(s) {
-        if(property === 'None') return s / 1;
+        if(property === 'none') return s / 1;
         return s * 1;
     }
 
@@ -109,6 +114,7 @@ AxisFactory = function() {
             property: 'Discipline',
             caption: 'Forschungsdisziplin',
             levels: ['Biology and Medicine','Humanities and Social Sciences','Mathematics, Natural- and Engineering Sciences'],
+			levelscaption: ['Biologie und Medizin','Geistes- und Sozialwissenschaften','Mathematik, Natur- und Ingenieurwissenschaften'],
             padding: 50,
             length: 1200,
             center: 300,
@@ -118,6 +124,7 @@ AxisFactory = function() {
             property: 'InstitutionType',
             caption: 'Institution',
             levels: ['University','ETH Domain','UAS / UTE','Other'],
+			levelscaption: ['Universitäten','ETH-Bereich','Fachhochschulen und Pädagogische Hochschulen','Andere'],
             padding: 50,
             length: 1200,
             center: 300,
@@ -125,8 +132,9 @@ AxisFactory = function() {
           }),
         AmountCatecory: DiscreteAxis({
             property: 'AmountCatecory',
-            caption: 'Funding size',
+            caption: 'Bewilligte Mittel (CHF)',
             levels: ["1 - 200'000","200'000 - 400'000","400'000 - 600'000","600'000 - 800'000","800'000 - 1'000'000","1'000'000+"],
+			levelscaption: ["1 - 200'000","200'000 - 400'000","400'000 - 600'000","600'000 - 800'000","800'000 - 1'000'000","1'000'000+"],
             padding: 50,
             length: 1200,
             center: 300,
@@ -134,8 +142,9 @@ AxisFactory = function() {
         }),
         FundingInstrument: DiscreteAxis({
             property: 'FundingInstrument',
-            caption: 'Funding Instrument',
+            caption: 'Förderungskategorie',
             levels: ["Careers","Infrastructure","Programmes","Project funding","Science communication","Unknown"],
+			levelscaption: ["Karrieren","Infrastrukturen","Programme","Projektförderung","Wissenschaftskommunikation","Unbekannt"],
             padding: 50,
             length: 1600,
             center: 300,
@@ -143,15 +152,16 @@ AxisFactory = function() {
         }),
         Type: DiscreteAxis({
             property: 'Type',
-            caption: 'Type',
+            caption: 'Output-Typ',
             levels: ["Media relations: print media, online media", "Software", "Media relations: radio, television","New media (web, blogs, podcasts, news feeds etc.)","Other activities","Print (books, brochures, leaflets)","Start-up","Talks/events/exhibitions","Video/Film"],
+			levelscaption: ["Medienarbeit: Printmedien, Onlinemedien", "Software", "Medienarbeit: Radio, Fernsehen","Neue Medien (Web, Blogs, Podcasts, Newsfeed etc.)","Andere Aktivitäten","Druck (Bücher, Broschüren)","Start-up","Vorträge/Events/Ausstellungen","Video und Film"],
             padding: 50,
             length: 1600,
             center: 300,
             orientation: 'x'
         }),
         none: DiscreteAxis({
-            property: 'None',
+            property: 'none',
             levels: ['Alle'],
             padding: 50,
             length: 1200,
@@ -165,6 +175,7 @@ AxisFactory = function() {
             property: 'Discipline',
             caption: 'Forschungsdisziplin',
             levels: ['Biology and Medicine','Humanities and Social Sciences','Mathematics, Natural- and Engineering Sciences'],
+			levelscaption: ['Biologie und Medizin','Geistes- und Sozialwissenschaften','Mathematik, Natur- und Ingenieurwissenschaften'],
             padding: 50,
             length: 1200,
             center: 300,
@@ -174,6 +185,7 @@ AxisFactory = function() {
             property: 'InstitutionType',
             caption: 'Institution',
             levels: ['University','ETH Domain','UAS / UTE','Other'],
+			levelscaption: ['Universitäten','ETH-Bereich','Fachhochschulen und Pädagogische Hochschulen','Andere'],
             padding: 50,
             length: 1200,
             center: 300,
@@ -181,8 +193,9 @@ AxisFactory = function() {
           }),
         AmountCatecory: DiscreteAxis({
             property: 'AmountCatecory',
-            caption: 'Funding size',
+            caption: 'Bewilligte Mittel (CHF)',
             levels: ["1 - 200'000","200'000 - 400'000","400'000 - 600'000","600'000 - 800'000","800'000 - 1'000'000","1'000'000+"],
+			levelscaption: ["1 - 200'000","200'000 - 400'000","400'000 - 600'000","600'000 - 800'000","800'000 - 1'000'000","1'000'000+"],
             padding: 50,
             length: 1600,
             center: 300,
@@ -190,8 +203,9 @@ AxisFactory = function() {
         }),
         FundingInstrument: DiscreteAxis({
             property: 'FundingInstrument',
-            caption: 'Funding Instrument',
+            caption: 'Förderungskategorie',
             levels: ["Careers","Infrastructure","Programmes","Project funding","Science communication","Unknown"],
+			levelscaption: ["Karrieren","Infrastrukturen","Programme","Projektförderung","Wissenschaftskommunikation","Unbekannt"],
             padding: 50,
             length: 1600,
             center: 300,
@@ -199,15 +213,16 @@ AxisFactory = function() {
         }),
         Type: DiscreteAxis({
             property: 'Type',
-            caption: 'Type',
+            caption: 'Output-Typ',
             levels: ["Media relations: print media, online media", "Software", "Media relations: radio, television","New media (web, blogs, podcasts, news feeds etc.)","Other activities","Print (books, brochures, leaflets)","Start-up","Talks/events/exhibitions","Video/Film"],
+			levelscaption: ["Medienarbeit: Printmedien, Onlinemedien", "Software", "Medienarbeit: Radio, Fernsehen","Neue Medien (Web, Blogs, Podcasts, Newsfeed etc.)","Andere Aktivitäten","Druck (Bücher, Broschüren)","Start-up","Vorträge/Events/Ausstellungen","Video und Film"],
             padding: 50,
             length: 1600,
             center: 300,
             orientation: 'x'
         }),
         none: DiscreteAxis({
-            property: 'None',
+            property: 'none',
             levels: ['Alle'],
             padding: 50,
             length: 1200,
@@ -226,5 +241,13 @@ AxisFactory = function() {
         return supportedYAxes[property]
     }
 
+    axisFactory.getSupportedXAxes = function() {
+        return supportedXAxes;
+    }
+	
+	axisFactory.getSupportedYAxes = function() {
+		return supportedYAxes;
+	}
+	
     return axisFactory;
 }

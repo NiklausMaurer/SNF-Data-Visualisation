@@ -150,13 +150,13 @@ function bubbleChart(param) {
 
   function updateAxes() {
 
-    if(xAxis.getProperty() === 'None') svg.selectAll('.xAxisTitle').remove();
+    if(xAxis.getProperty() === 'none') svg.selectAll('.xAxisTitle').remove();
     else showXAxisTitles();
     
-    if(yAxis.getProperty() === 'None') svg.selectAll('.yAxisTitle').remove();
+    if(yAxis.getProperty() === 'none') svg.selectAll('.yAxisTitle').remove();
     else showYAxisTitles();
     
-    if(xAxis.getProperty() !== 'None' || yAxis.getProperty() !== 'None') {
+    if(xAxis.getProperty() !== 'none' || yAxis.getProperty() !== 'none') {
       doClustering = false;
       forceStrength = 0.03;
     }
@@ -167,6 +167,39 @@ function bubbleChart(param) {
     simulation.alpha(alpha).restart();
     alpha = laterAlpha;
   }
+
+  function wrap(text, width) {
+    text.each(function () {
+        var text = d3.select(this),
+            words = text.text().split(/\s+/).reverse(),
+            word,
+            line = [],
+            lineNumber = 0,
+            lineHeight = 1.1, // ems
+            x = text.attr("x"),
+            y = text.attr("y"),
+            dy = 0, //parseFloat(text.attr("dy")),
+            tspan = text.text(null)
+                        .append("tspan")
+                        .attr("x", x)
+                        .attr("y", y)
+                        .attr("dy", dy + "em");
+        while (word = words.pop()) {
+            line.push(word);
+            tspan.text(line.join(" "));
+            if (tspan.node().getComputedTextLength() > width) {
+                line.pop();
+                tspan.text(line.join(" "));
+                line = [word];
+                tspan = text.append("tspan")
+                            .attr("x", x)
+                            .attr("y", y)
+                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                            .text(word);
+            }
+        }
+    });
+}
 
   function showXAxisTitles() {
 
@@ -184,11 +217,14 @@ function bubbleChart(param) {
       .attr('y', 20)
       .attr('text-anchor', 'middle')
       .text(function (d) { return d; });
+
+    wrap(xTitles, 3);
   }
 
   function showYAxisTitles() {
 
     var yTitles = svg.selectAll('.yAxisTitle').data(yAxis.getLevels());
+    wrap(yTitles, 5)
 
     yTitles.attr('y', function (d) { return yAxis.getCenterOffset(d); })
       .text(function (d) { return d; });
@@ -201,6 +237,8 @@ function bubbleChart(param) {
       .attr('y', function (d) { return yAxis.getCenterOffset(d); })
       .attr('text-anchor', 'left')
       .text(function (d) { return d; });
+
+    wrap(yTitles, 5);
   }
 
   function showDetail(d) {
@@ -218,13 +256,13 @@ function bubbleChart(param) {
                   d.group +
                   '</span><br/>';
 
-    if(xAxis.getProperty() != 'None' && xAxis.getProperty() != 'Type') {
+    if(xAxis.getProperty() != 'none' && xAxis.getProperty() != 'Type') {
       content += '<span class="name">' + xAxis.getProperty() + ': </span><span class="value">' +
                     d.data[xAxis.getProperty()] +
                   '</span><br/>'
     }
 
-    if(yAxis.getProperty() != 'None' && yAxis.getProperty() !== xAxis.getProperty()) {
+    if(yAxis.getProperty() != 'none' && yAxis.getProperty() !== xAxis.getProperty()) {
       content += '<span class="name">' + yAxis.getProperty() + ': </span><span class="value">' +
                     d.data[yAxis.getProperty()] +
                   '</span><br/>'
@@ -275,13 +313,21 @@ function display(data) {
 
 function setupButtons() {
 
+  var axisFactory = AxisFactory();
+
   d3.select('#selectXAxis')
     .selectAll("option")
-    .data(['none', 'Discipline', 'InstitutionType', 'FundingInstrument', 'AmountCatecory', 'Type'])
+    .data(Object.keys(axisFactory.getSupportedXAxes()))
     .enter()
     .append('option')
-    .text(function(d) {
-      return d;
+    .text(function(key){
+      return axisFactory.getXAxis(key).getCaption();
+    })
+    .attr('value', function(key){
+      return axisFactory.getXAxis(key).getProperty();
+    })
+    .attr('selected', function(key){
+      return key === 'none';
     });
 
   d3.select('#selectXAxis')
@@ -291,11 +337,17 @@ function setupButtons() {
 
     d3.select('#selectYAxis')
     .selectAll("option")
-    .data(['none', 'Discipline', 'InstitutionType', 'FundingInstrument', 'AmountCatecory', 'Type'])
+    .data(Object.keys(axisFactory.getSupportedYAxes()))
     .enter()
     .append('option')
-    .text(function(d) {
-      return d;
+    .text(function(key){
+      return axisFactory.getYAxis(key).getCaption();
+    })
+    .attr('value', function(key){
+      return axisFactory.getYAxis(key).getProperty();
+    })
+    .attr('selected', function(key){
+      return key === 'none';
     });
 
   d3.select('#selectYAxis')
