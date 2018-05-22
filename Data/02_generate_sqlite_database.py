@@ -20,8 +20,7 @@ def getAmountCategory(approvedAmount):
     if(approvedAmount <  400000): return "200'000 - 400'000"
     if(approvedAmount <  600000): return "400'000 - 600'000"
     if(approvedAmount <  800000): return "600'000 - 800'000"
-    if(approvedAmount < 1000000): return "800'000 - 1'000'000"
-    return "1'000'000+"
+    return "800'000+"
 
 
 with sqlite3.connect(dbFile) as con:
@@ -81,42 +80,6 @@ with sqlite3.connect(dbFile) as con:
         to_db = [(row['Project Number'], row['Output Type'], row['Output Title'], row['Url'], row['Year']) for row in csvreader]
 
     cur.executemany("INSERT INTO Output (ProjectNumber, Type, Title, Url, Year) VALUES (?, ?, ?, ?, ?);", to_db)
-    con.commit()
-
-
-    cur = con.cursor()
-    cur.execute("""CREATE TABLE Publication (
-        PublicationIDSNSF TEXT,
-        ProjectNumber INTEGER,
-        PeerReviewStatus TEXT,
-        TypeOfPublication TEXT,
-        TitleOfPublication TEXT,
-        Authors TEXT, Status TEXT,
-        PublicationYear,
-        ISBN TEXT,
-        DOI TEXT,
-        ImportSource TEXT,
-        OpenAccessStatus TEXT,
-        OpenAccessType TEXT,
-        OpenAccessURL TEXT,
-        BookTitle TEXT,
-        Publisher TEXT,
-        Editors TEXT,
-        JournalTitle TEXT,
-        Volume TEXT,
-        IssueOrNumber TEXT,
-        PageFrom INTEGER,
-        PageTo INTEGER,
-        ProceedingTitle TEXT,
-        ProceedingPlace TEXT,
-        Abstract TEXT,
-        FOREIGN KEY(ProjectNumber) REFERENCES Grant(ProjectNumber));""")
-
-    with open('Downloaded/P3_PublicationExport.csv', 'r', encoding="utf-8-sig") as csvfile:
-        csvreader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
-        to_db = [(row['Publication ID SNSF'], row['Project Number'], row['Peer Review Status'], row['Type of Publication'], row['Title of Publication'], row['Authors'], row['Status'], row['Publication Year'], row['ISBN'], row['DOI'], row['Import Source'], row['Open Access Status'], row['Open Access Type'], row['Open Access URL'], row['Book Title'], row['Publisher'], row['Editors'], row['Journal Title'], row['Volume'], row['Issue / Number'], row['Page from'], row['Page to'], row['Proceeding Title'], row['Proceeding Place'], row['Abstract']) for row in csvreader]
-
-    cur.executemany("INSERT INTO Publication (PublicationIDSNSF, ProjectNumber, PeerReviewStatus, TypeOfPublication, TitleOfPublication, Authors, Status, PublicationYear, ISBN, DOI, ImportSource, OpenAccessStatus, OpenAccessType, OpenAccessURL, BookTitle, Publisher, Editors, JournalTitle, Volume, IssueOrNumber, PageFrom, PageTo, ProceedingTitle, ProceedingPlace, Abstract) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", to_db)
     con.commit()
 
 
