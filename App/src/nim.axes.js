@@ -169,7 +169,6 @@ AxisFactory = function() {
             orientation: 'x'
           })
     }
-
     var supportedYAxes = {
         Discipline: DiscreteAxis({
             property: 'Discipline',
