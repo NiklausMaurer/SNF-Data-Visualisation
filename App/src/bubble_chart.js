@@ -127,8 +127,8 @@ function bubbleChart(param) {
             group: data["Type"],
             cluster: i,
             data: data,
-            x: xAxis.getCenter() + Math.cos(i / 9 * 2 * Math.PI) * 800 + Math.random(),
-            y: yAxis.getCenter() + Math.sin(i / 9 * 2 * Math.PI) * 800 + Math.random()
+            x: xAxis.getCenter() + Math.cos(((i + 2) % 9) / 9 * 2 * Math.PI) * 800 + Math.random(),
+            y: yAxis.getCenter() + Math.sin(((i + 2) % 9) / 9 * 2 * Math.PI) * 800 + Math.random()
           };
       return d;
     });
