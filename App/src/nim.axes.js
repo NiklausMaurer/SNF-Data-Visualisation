@@ -14,7 +14,8 @@ DiscreteAxis = function(axisParam){
     var axis = Object();
 
     var getCenterOffset = function(level) {
-        return padding + Math.round(columnWidth/2) + levelvalues.indexOf(level) * columnWidth;
+        if(orientation == 'y') return padding + Math.round(columnWidth/2) + levelvalues.indexOf(level) * columnWidth;
+        else return center -  Math.round((length - 2 * padding) / 2) + Math.round(columnWidth/2) + levelvalues.indexOf(level) * columnWidth;
     }
 
     axis.getCenterOffset = function(level) {
@@ -121,7 +122,7 @@ AxisFactory = function() {
             ],
             padding: 50,
             length: 1200,
-            center: 300,
+            center: 1000,
             orientation: 'x'
           }),
         InstitutionType: DiscreteAxis({
@@ -135,7 +136,7 @@ AxisFactory = function() {
             ],
             padding: 50,
             length: 1200,
-            center: 300,
+            center: 1000,
             orientation: 'x'
           }),
         AmountCatecory: DiscreteAxis({
@@ -151,7 +152,7 @@ AxisFactory = function() {
             ],
             padding: 50,
             length: 1200,
-            center: 300,
+            center: 1000,
             orientation: 'x'
         }),
         FundingInstrument: DiscreteAxis({
@@ -167,7 +168,7 @@ AxisFactory = function() {
             ],
             padding: 50,
             length: 1600,
-            center: 300,
+            center: 1000,
             orientation: 'x'
         }),
         Type: DiscreteAxis({
@@ -186,7 +187,7 @@ AxisFactory = function() {
             ],
             padding: 50,
             length: 1600,
-            center: 300,
+            center: 1000,
             orientation: 'x'
         }),
         none: DiscreteAxis({
@@ -194,7 +195,7 @@ AxisFactory = function() {
             levels: ['Alle'],
             padding: 50,
             length: 1200,
-            center: 600,
+            center: 1000,
             orientation: 'x'
           })
     }
