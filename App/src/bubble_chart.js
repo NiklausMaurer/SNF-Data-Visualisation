@@ -311,8 +311,38 @@ function display(data) {
   myBubbleChart('#vis', data);
 }
 
+/*! Buttons */
+
+
+ 
+      
+
 function setupButtons() {
 
+	d3.select('#software')
+    	.on('change', function(){
+			var softwareBubbles =  d3.selectAll('circle')
+								   .filter(function(d) {return d.group == 'Software'});	
+		if(this.checked) softwareBubbles.attr("visibility", "visible");
+		else {
+			softwareBubbles.attr("visibility", "hidden");
+			softwareBubbles.attr("schubidu", function (d){return d.radius});
+			softwareBubbles.each(function(d){d.radius = 0;});
+		}
+    });
+		
+	d3.select('#mediarelation1')
+    	.on('change', function(){
+			var mediarelation1Bubbles =  d3.selectAll('circle')
+								   .filter(function(d) {return d.group == "Media relations: print media, online media"});	
+		if(this.checked) mediarelation1Bubbles.attr("visibility", "visible");
+		else {
+			mediarelation1Bubbles.attr("visibility", "hidden");
+			mediarelation1Bubbles.attr("schubidu", function (d){return d.radius});
+			mediarelation1Bubbles.attr("radius",0);
+		}
+    });
+	
   var axisFactory = AxisFactory();
 
   d3.select('#selectXAxis')
@@ -374,3 +404,4 @@ function addCommas(nStr) {
 d3.csv('data/data.csv').then(display);
 
 setupButtons();
+
