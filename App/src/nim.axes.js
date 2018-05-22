@@ -122,7 +122,7 @@ AxisFactory = function() {
             ],
             padding: 50,
             length: 1200,
-            center: 1000,
+            center: 800,
             orientation: 'x'
           }),
         InstitutionType: DiscreteAxis({
@@ -136,7 +136,7 @@ AxisFactory = function() {
             ],
             padding: 50,
             length: 1200,
-            center: 1000,
+            center: 800,
             orientation: 'x'
           }),
         AmountCatecory: DiscreteAxis({
@@ -152,7 +152,7 @@ AxisFactory = function() {
             ],
             padding: 50,
             length: 1200,
-            center: 1000,
+            center: 800,
             orientation: 'x'
         }),
         FundingInstrument: DiscreteAxis({
@@ -168,7 +168,7 @@ AxisFactory = function() {
             ],
             padding: 50,
             length: 1600,
-            center: 1000,
+            center: 800,
             orientation: 'x'
         }),
         Type: DiscreteAxis({
@@ -187,7 +187,7 @@ AxisFactory = function() {
             ],
             padding: 50,
             length: 1600,
-            center: 1000,
+            center: 800,
             orientation: 'x'
         }),
         none: DiscreteAxis({
