@@ -184,11 +184,11 @@ AxisFactory = function() {
                 {value: 'Software', caption: 'Software'},
                 {value: 'Media relations: radio, television', caption: 'Radio und Fernsehen'},
                 {value: 'New media (web, blogs, podcasts, news feeds etc.)', caption: 'Neue Medien'},
-                {value: 'Other activities', caption: 'Andere'},
                 {value: 'Print (books, brochures, leaflets)', caption: 'Druckerzeugnisse'},
                 {value: 'Start-up', caption: 'Start-up\'s'},
                 {value: 'Talks/events/exhibitions', caption: 'Events'},
-                {value: 'Video/Film', caption: 'Video und Film'}
+                {value: 'Video/Film', caption: 'Video und Film'},
+                {value: 'Other activities', caption: 'Andere'}
             ],
             padding: 50,
             length: 1600,
@@ -268,15 +268,15 @@ AxisFactory = function() {
             property: 'Type',
             caption: 'Output-Typ',
             levels: [
-                {value: 'Media relations: print media, online media', caption: 'Print- und Onlinemedien'},
+                {value: 'Media relations: print media, online media', caption: 'Medienarbeit'},
                 {value: 'Software', caption: 'Software'},
                 {value: 'Media relations: radio, television', caption: 'Radio und Fernsehen'},
-                {value: 'New media (web, blogs, podcasts, news feeds etc.)', caption: 'Web, Blogs, Podcasts, Newsfeed'},
-                {value: 'Other activities', caption: 'Andere'},
-                {value: 'Print (books, brochures, leaflets)', caption: 'Bücher und Broschüren'},
+                {value: 'New media (web, blogs, podcasts, news feeds etc.)', caption: 'Neue Medien'},
+                {value: 'Print (books, brochures, leaflets)', caption: 'Druckerzeugnisse'},
                 {value: 'Start-up', caption: 'Start-up\'s'},
-                {value: 'Talks/events/exhibitions', caption: 'Vorträge, Events und Ausstellungen'},
-                {value: 'Video/Film', caption: 'Video und Film'}
+                {value: 'Talks/events/exhibitions', caption: 'Events'},
+                {value: 'Video/Film', caption: 'Video und Film'},
+                {value: 'Other activities', caption: 'Andere'}
             ],
             padding: 50,
             length: 1600,
