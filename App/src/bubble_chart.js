@@ -206,17 +206,17 @@ function bubbleChart(param) {
     var xTitles = svg.selectAll('.xAxisTitle').data(xAxis.getLevels());
 
     xTitles.attr('class', 'xAxisTitle')
-      .attr('x', function (d) { return xAxis.getCenterOffset(d); })
-      .text(function (d) { return d; });
+      .attr('x', function (d) { return xAxis.getCenterOffset(d.value); })
+      .text(function (d) { return d.caption; });
 
     xTitles.exit().remove();
 
     xTitles.enter().append('text')
       .attr('class', 'xAxisTitle')
-      .attr('x', function (d) { return xAxis.getCenterOffset(d); })
+      .attr('x', function (d) { return xAxis.getCenterOffset(d.value); })
       .attr('y', 20)
       .attr('text-anchor', 'middle')
-      .text(function (d) { return d; });
+      .text(function (d) { return d.caption; });
 
     wrap(xTitles, 3);
   }
@@ -226,17 +226,17 @@ function bubbleChart(param) {
     var yTitles = svg.selectAll('.yAxisTitle').data(yAxis.getLevels());
     wrap(yTitles, 5)
 
-    yTitles.attr('y', function (d) { return yAxis.getCenterOffset(d); })
-      .text(function (d) { return d; });
+    yTitles.attr('y', function (d) { return yAxis.getCenterOffset(d.value); })
+      .text(function (d) { return d.caption; });
 
     yTitles.exit().remove();
 
     yTitles.enter().append('text')
       .attr('class', 'yAxisTitle')
       .attr('x', 10)
-      .attr('y', function (d) { return yAxis.getCenterOffset(d); })
+      .attr('y', function (d) { return yAxis.getCenterOffset(d.value); })
       .attr('text-anchor', 'left')
-      .text(function (d) { return d; });
+      .text(function (d) { return d.caption; });
 
     wrap(yTitles, 5);
   }

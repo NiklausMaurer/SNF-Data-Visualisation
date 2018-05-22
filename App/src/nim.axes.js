@@ -26,7 +26,7 @@ DiscreteAxis = function(axisParam){
     }
 
     axis.getLevels = function() {
-        return levelvalues;
+        return levels;
     }
 
     axis.getLength = function() {
