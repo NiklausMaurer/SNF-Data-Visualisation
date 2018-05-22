@@ -194,7 +194,7 @@ AxisFactory = function() {
             levels: ['Alle'],
             padding: 50,
             length: 1200,
-            center: 300,
+            center: 600,
             orientation: 'x'
           })
     }
@@ -256,7 +256,7 @@ AxisFactory = function() {
             padding: 50,
             length: 1600,
             center: 300,
-            orientation: 'x'
+            orientation: 'y'
         }),
         Type: DiscreteAxis({
             property: 'Type',
@@ -275,7 +275,7 @@ AxisFactory = function() {
             padding: 50,
             length: 1600,
             center: 300,
-            orientation: 'x'
+            orientation: 'y'
         }),
         none: DiscreteAxis({
             property: 'none',

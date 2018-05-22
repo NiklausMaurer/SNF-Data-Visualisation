@@ -2,19 +2,16 @@ a, a:visited, a:active {
   color: #444;
 }
 
-.container {
-  max-width: 900px;
+.bubblechartcontainer {
   margin: 40px;
 }
 
 #vis {
-  width: 940px;
-  height: 600px;
   clear: both;
   margin-bottom: 10px;
 }
 
-#toolbar {
+#bubblecharttoolbar {
   margin-top: 10px;
 }
 
