@@ -37,8 +37,8 @@ function bubbleChart(param) {
   var xAxis = axisFactory.getXAxis('none');
   var yAxis = axisFactory.getYAxis('none');
 
-  var width = 2000;
-  var height = 2000;
+  var width = 1600;
+  var height = 1600;
 
   var forceStrength = 0.032;
   var clusterForceStrength = 0.8;

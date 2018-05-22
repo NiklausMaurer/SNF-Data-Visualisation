@@ -3,6 +3,7 @@ a, a:visited, a:active {
 }
 
 .bubblechartcontainer {
+	position: relative;
   margin: 40px;
 }
 

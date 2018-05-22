@@ -195,7 +195,7 @@ AxisFactory = function() {
             levels: ['Alle'],
             padding: 50,
             length: 1200,
-            center: 1000,
+            center: 800,
             orientation: 'x'
           })
     }
