@@ -311,12 +311,6 @@ function display(data) {
   myBubbleChart('#vis', data);
 }
 
-/*! Buttons */
-
-
- 
-      
-
 function setupButtons() {
 
 	d3.select('#software')
