@@ -197,40 +197,7 @@ function bubbleChart(param) {
     simulation.alpha(alpha).restart();
     alpha = laterAlpha;
   }
-
-  function wrap(text, width) {
-    text.each(function () {
-        var text = d3.select(this),
-            words = text.text().split(/\s+/).reverse(),
-            word,
-            line = [],
-            lineNumber = 0,
-            lineHeight = 1.1, // ems
-            x = text.attr("x"),
-            y = text.attr("y"),
-            dy = 0, //parseFloat(text.attr("dy")),
-            tspan = text.text(null)
-                        .append("tspan")
-                        .attr("x", x)
-                        .attr("y", y)
-                        .attr("dy", dy + "em");
-        while (word = words.pop()) {
-            line.push(word);
-            tspan.text(line.join(" "));
-            if (tspan.node().getComputedTextLength() > width) {
-                line.pop();
-                tspan.text(line.join(" "));
-                line = [word];
-                tspan = text.append("tspan")
-                            .attr("x", x)
-                            .attr("y", y)
-                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
-                            .text(word);
-            }
-        }
-    });
-}
-
+  
   function showXAxisTitles() {
 
     var xTitles = svg.selectAll('.xAxisTitle').data(xAxis.getLevels());
@@ -247,8 +214,6 @@ function bubbleChart(param) {
       .attr('y', 20)
       .attr('text-anchor', 'middle')
       .text(function (d) { return d.caption; });
-
-    wrap(xTitles, 3);
   }
 
   function showYAxisTitles() {
@@ -267,8 +232,6 @@ function bubbleChart(param) {
       .attr('y', function (d) { return yAxis.getCenterOffset(d.value); })
       .attr('text-anchor', 'left')
       .text(function (d) { return d.caption; });
-
-    wrap(yTitles, 5);
   }
 
   function showDetail(d) {
@@ -286,13 +249,13 @@ function bubbleChart(param) {
                   d.group +
                   '</span><br/>';
 
-    if(xAxis.getProperty() != 'none' && xAxis.getProperty() != 'Type') {
+    if(xAxis.getProperty() !== 'none' && xAxis.getProperty() !== 'Type') {
       content += '<span class="name">' + xAxis.getProperty() + ': </span><span class="value">' +
                     d.data[xAxis.getProperty()] +
                   '</span><br/>'
     }
 
-    if(yAxis.getProperty() != 'none' && yAxis.getProperty() !== xAxis.getProperty()) {
+    if(yAxis.getProperty() !== 'none' && yAxis.getProperty() !== xAxis.getProperty()) {
       content += '<span class="name">' + yAxis.getProperty() + ': </span><span class="value">' +
                     d.data[yAxis.getProperty()] +
                   '</span><br/>'

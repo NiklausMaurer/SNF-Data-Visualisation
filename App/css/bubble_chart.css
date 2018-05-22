@@ -16,13 +16,13 @@ a, a:visited, a:active {
 }
 
 .xAxisTitle {
-  font-size: 19px;
+  font-size: 17px;
   fill: #444 ;
   cursor: default;
 }
 
 .yAxisTitle {
-  font-size: 19px;
+  font-size: 17px;
   fill: #444;
   cursor: default;
 }
