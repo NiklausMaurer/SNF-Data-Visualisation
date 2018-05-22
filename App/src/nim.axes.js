@@ -8,6 +8,7 @@ DiscreteAxis = function(axisParam){
     var orientation = axisParam.orientation;
     var caption = axisParam.caption;
     var levelvalues = levels.map(function(l){return l.value;});
+    var levelcaptions = levels.map(function(l){return l.caption;});
 
     var columnWidth = Math.round((length - 2 * padding)/levels.length);
 
@@ -44,6 +45,10 @@ DiscreteAxis = function(axisParam){
 
     axis.getCaption = function() {
         return caption;
+    }
+
+    axis.getLevelCaption = function(d) {
+        return levelcaptions[levelvalues.indexOf(d.data[property])];
     }
 
     function getAdditonalNodeXOffset(nodeGroupProperty) {
