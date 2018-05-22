@@ -213,7 +213,7 @@ AxisFactory = function() {
                 {value: 'Mathematics, Natural- and Engineering Sciences', caption: 'Mathematik, Natur- und Ingenieurwissenschaften'}
             ],
             padding: 50,
-            length: 1200,
+            length: 600,
             center: 300,
             orientation: 'y'
           }),
@@ -227,7 +227,7 @@ AxisFactory = function() {
                 {value: 'Other', caption: 'Andere'}
             ],
             padding: 50,
-            length: 1200,
+            length: 850,
             center: 300,
             orientation: 'y'
           }),
@@ -242,7 +242,7 @@ AxisFactory = function() {
                 {value: '800\'000+', caption: '800\'000+'}
             ],
             padding: 50,
-            length: 1600,
+            length: 900,
             center: 300,
             orientation: 'y'
         }),
@@ -258,26 +258,7 @@ AxisFactory = function() {
                 {value: 'Unknown', caption: 'Unbekannt'}
             ],
             padding: 50,
-            length: 1600,
-            center: 300,
-            orientation: 'y'
-        }),
-        Type: DiscreteAxis({
-            property: 'Type',
-            caption: 'Output-Typ',
-            levels: [
-                {value: 'Media relations: print media, online media', caption: 'Medienarbeit'},
-                {value: 'Software', caption: 'Software'},
-                {value: 'Media relations: radio, television', caption: 'Radio und Fernsehen'},
-                {value: 'New media (web, blogs, podcasts, news feeds etc.)', caption: 'Neue Medien'},
-                {value: 'Print (books, brochures, leaflets)', caption: 'Druckerzeugnisse'},
-                {value: 'Start-up', caption: 'Start-up\'s'},
-                {value: 'Talks/events/exhibitions', caption: 'Events'},
-                {value: 'Video/Film', caption: 'Video und Film'},
-                {value: 'Other activities', caption: 'Andere'}
-            ],
-            padding: 50,
-            length: 1600,
+            length: 1000,
             center: 300,
             orientation: 'y'
         }),
