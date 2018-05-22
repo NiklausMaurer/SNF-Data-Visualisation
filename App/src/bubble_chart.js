@@ -311,7 +311,22 @@ function display(data) {
   myBubbleChart('#vis', data);
 }
 
+/*! Buttons */
+
+
+ 
+      
+
 function setupButtons() {
+
+	d3.select('#mediarelation1')
+    	.on('change', function(){
+			var softwareBubbles =  d3.selectAll('circle')
+								   .filter(function(d) {return d.group == 'Software'});	
+		if(this.checked) softwareBubbles.attr("visibility", "visible");
+		else softwareBubbles.attr("visibility", "hidden");
+    });
+		
 
   var axisFactory = AxisFactory();
 
@@ -374,3 +389,4 @@ function addCommas(nStr) {
 d3.csv('data/data.csv').then(display);
 
 setupButtons();
+
