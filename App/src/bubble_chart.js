@@ -197,7 +197,7 @@ function bubbleChart(param) {
     simulation.alpha(alpha).restart();
     alpha = laterAlpha;
   }
-  
+
   function showXAxisTitles() {
 
     var xTitles = svg.selectAll('.xAxisTitle').data(xAxis.getLevels());
@@ -219,7 +219,6 @@ function bubbleChart(param) {
   function showYAxisTitles() {
 
     var yTitles = svg.selectAll('.yAxisTitle').data(yAxis.getLevels());
-    wrap(yTitles, 5)
 
     yTitles.attr('y', function (d) { return yAxis.getCenterOffset(d.value); })
       .text(function (d) { return d.caption; });
@@ -246,18 +245,18 @@ function bubbleChart(param) {
     })
 
     var content = '<span class="name">'+ param.groupProperty.caption +': </span><span class="value">' +
-                  d.group +
+                  axisFactory.getXAxis('Type').getLevelCaption(d) +
                   '</span><br/>';
 
     if(xAxis.getProperty() !== 'none' && xAxis.getProperty() !== 'Type') {
-      content += '<span class="name">' + xAxis.getProperty() + ': </span><span class="value">' +
-                    d.data[xAxis.getProperty()] +
+      content += '<span class="name">' + xAxis.getCaption() + ': </span><span class="value">' +
+                    xAxis.getLevelCaption(d) +
                   '</span><br/>'
     }
 
     if(yAxis.getProperty() !== 'none' && yAxis.getProperty() !== xAxis.getProperty()) {
-      content += '<span class="name">' + yAxis.getProperty() + ': </span><span class="value">' +
-                    d.data[yAxis.getProperty()] +
+      content += '<span class="name">' + yAxis.getCaption() + ': </span><span class="value">' +
+                    yAxis.getLevelCaption(d) +
                   '</span><br/>'
     }
 
