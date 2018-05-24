@@ -312,11 +312,22 @@ function bubbleChart(param) {
 
     bubbles = bubbles.merge(bubblesE);
 
+    var maxAmount = d3.max(nodes, function (d) { return d.value; });
+
+    var radiusScale = d3.scalePow()
+      .exponent(0.5)
+      .range([2, 25])
+      .domain([1, maxAmount]);
+
+    bubbles.each(function(d) {d.radius = radiusScale(d.data['Count'])})
+
     bubbles.transition()
       .duration(1000)
       .attr('r', function (d) { return d.radius; });
 
     simulation.nodes(nodes);
+
+    simulation.alpha(alpha).restart();
   }
 
   return chart;
