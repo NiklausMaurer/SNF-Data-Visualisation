@@ -290,9 +290,9 @@ function bubbleChart(param) {
     updateAxes();
   };
 
-  chart.displaySoftwareOnly = function() {
+  chart.displayTypes = function(typesfilter) {
 
-    nodes = nodesBackup.filter(x => x.data['Type'] === 'Software')
+    nodes = nodesBackup.filter(x => typesfilter.includes(x.data['Type']));
 
     bubbles = svg.selectAll('.bubble')
       .data(nodes, function (d) { return d.id; });
@@ -351,7 +351,12 @@ function setupButtons() {
 
   d3.select("#softwareonly")
       .on('click', function(){
-          myBubbleChart.displaySoftwareOnly();
+          myBubbleChart.displayTypes(['Software']);
+      })
+
+  d3.select("#showall")
+      .on('click', function(){
+          myBubbleChart.displayTypes(["Media relations: print media, online media", "New media (web, blogs, podcasts, news feeds etc.)", "Media relations: radio, television", "Talks/events/exhibitions", "Print (books, brochures, leaflets)", "Other activities", "Video/Film", "Start-up", "Software"]);
       })
 
 	d3.select('#software')
