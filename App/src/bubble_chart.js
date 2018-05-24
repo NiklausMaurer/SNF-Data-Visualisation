@@ -45,6 +45,7 @@ function bubbleChart(param) {
 
   var svg = null;
   var bubbles = null;
+  var nodesBackup = [];
   var nodes = [];
   var doClustering = true;
   var clusterManager = ClusterManager();
@@ -126,9 +127,7 @@ function bubbleChart(param) {
             value: parseInt(data[param.areaProperty.name]),
             group: data["Type"],
             cluster: i,
-            data: data,
-            x: xAxis.getCenter() + Math.cos(((i + 2) % 9) / 9 * 2 * Math.PI) * 800 + Math.random(),
-            y: yAxis.getCenter() + Math.sin(((i + 2) % 9) / 9 * 2 * Math.PI) * 800 + Math.random()
+            data: data
           };
       return d;
     });
@@ -138,11 +137,24 @@ function bubbleChart(param) {
     return myNodes;
   }
 
-  var chart = function chart(selector, rawData) {
+  var chart = function chart(rawData) {
 
-    nodes = createNodes(rawData);
+    nodesBackup = createNodes(rawData);
+    nodes = nodesBackup.slice();
 
-    svg = d3.select(selector)
+    initializeBubbles();
+
+    updateAxes();
+  } // chart;
+
+  function ticked() {
+    bubbles 
+      .attr('cx', function (d) { return d.x; })
+      .attr('cy', function (d) { return d.y; });
+  }
+
+  function initializeBubbles() {
+    svg = d3.select('#vis')
       .append('svg')
       .attr('width', width)
       .attr('height', height);
@@ -156,8 +168,8 @@ function bubbleChart(param) {
       .attr('fill', function (d) { return fillColor(d.group); })
       .attr('stroke', function (d) { return d3.rgb(fillColor(d.group)).darker(); })
       .attr('stroke-width', 1.3)
-      .attr('cx', function (d) { return d.x; })
-      .attr('cy', function (d) { return d.y; })
+      .attr('cx', function (d) { return d.x = xAxis.getCenter() + Math.cos(((types.indexOf(d.group) + 2) % 9) / 9 * 2 * Math.PI) * 800 + Math.random(); })
+      .attr('cy', function (d) { return d.y = yAxis.getCenter() + Math.sin(((types.indexOf(d.group) + 2) % 9) / 9 * 2 * Math.PI) * 800 + Math.random(); })
       .on('mouseover', showDetail)
       .on('mouseout', hideDetail);
 
@@ -168,14 +180,6 @@ function bubbleChart(param) {
       .attr('r', function (d) { return d.radius; });
 
     simulation.nodes(nodes);
-
-    updateAxes();
-  };
-
-  function ticked() {
-    bubbles
-      .attr('cx', function (d) { return d.x; })
-      .attr('cy', function (d) { return d.y; });
   }
 
   function updateAxes() {
@@ -286,6 +290,35 @@ function bubbleChart(param) {
     updateAxes();
   };
 
+  chart.displaySoftwareOnly = function() {
+
+    nodes = nodesBackup.filter(x => x.data['Type'] === 'Software')
+
+    bubbles = svg.selectAll('.bubble')
+      .data(nodes, function (d) { return d.id; });
+
+    var bubblesE = bubbles.enter().append('circle')
+      .classed('bubble', true)
+      .attr('r', 0)
+      .attr('fill', function (d) { return fillColor(d.group); })
+      .attr('stroke', function (d) { return d3.rgb(fillColor(d.group)).darker(); })
+      .attr('stroke-width', 1.3)
+      .attr('cx', function (d) { return d.x = xAxis.getCenter() + Math.cos(((types.indexOf(d.group) + 2) % 9) / 9 * 2 * Math.PI) * 800 + Math.random(); })
+      .attr('cy', function (d) { return d.y = yAxis.getCenter() + Math.sin(((types.indexOf(d.group) + 2) % 9) / 9 * 2 * Math.PI) * 800 + Math.random(); })
+      .on('mouseover', showDetail)
+      .on('mouseout', hideDetail);
+
+    bubbles.exit().remove();
+
+    bubbles = bubbles.merge(bubblesE);
+
+    bubbles.transition()
+      .duration(1000)
+      .attr('r', function (d) { return d.radius; });
+
+    simulation.nodes(nodes);
+  }
+
   return chart;
 } // buubleChart
 
@@ -300,10 +333,15 @@ var myBubbleChart = bubbleChart({
 });
 
 function display(data) {
-  myBubbleChart('#vis', data);
+  myBubbleChart(data);
 }
 
 function setupButtons() {
+
+  d3.select("#softwareonly")
+      .on('click', function(){
+          myBubbleChart.displaySoftwareOnly();
+      })
 
 	d3.select('#software')
     	.on('change', function(){
