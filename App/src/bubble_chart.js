@@ -349,6 +349,12 @@ function setupButtons() {
   d3.select('#selectXAxis')
     .on('change', function(){
       myBubbleChart.setXAxis(this.value);
+      if(this.value == 'none') {
+        d3.select('#selectYAxis').attr('disabled', true);
+        d3.select('#selectYAxis').property('value', 'none') ;
+        myBubbleChart.setYAxis('none');
+      }
+      else d3.select('#selectYAxis').attr('disabled', null);
     });
 
     d3.select('#selectYAxis')
