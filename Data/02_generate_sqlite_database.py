@@ -57,7 +57,7 @@ with sqlite3.connect(dbFile) as con:
             generatedAmountCategory = getAmountCategory(row['Approved Amount'])
             generatedFundingInstrument = row['Funding Instrument Hierarchy'].split(';')[0]
             if(generatedFundingInstrument == ''):
-                generatedFundingInstrument = 'Unknown'
+                generatedFundingInstrument = row['Funding Instrument']
             
             to_db.append((row['Project Number'],row['Project Title'], row['Responsible Applicant'], row['Funding Instrument'], row['Funding Instrument Hierarchy'], row['Institution'], row['Institution Country'], row['University'], row['Discipline Number'], row['Discipline Name'], row['Discipline Name Hierarchy'], row['All disciplines'], row['Start Date'], row['End Date'], row['Approved Amount'], row['Keywords'], generatedDiscipline, generatedAmountCategory, generatedFundingInstrument))
 

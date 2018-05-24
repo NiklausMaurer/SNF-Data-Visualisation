@@ -167,8 +167,7 @@ AxisFactory = function() {
                 {value: 'Infrastructure', caption: 'Infrastruktur'},
                 {value: 'Programmes', caption: 'Programme'},
                 {value: 'Project funding', caption: 'Projektförderung'},
-                {value: 'Science communication', caption: 'Wissenschaftskommunikation'},
-                {value: 'Unknown', caption: 'Unbekannt'}
+                {value: 'Science communication', caption: 'Wissenschaftskommunikation'}
             ],
             padding: 50,
             length: 1600,
@@ -254,8 +253,7 @@ AxisFactory = function() {
                 {value: 'Infrastructure', caption: 'Infrastruktur'},
                 {value: 'Programmes', caption: 'Programme'},
                 {value: 'Project funding', caption: 'Projektförderung'},
-                {value: 'Science communication', caption: 'Wissenschaftskommunikation'},
-                {value: 'Unknown', caption: 'Unbekannt'}
+                {value: 'Science communication', caption: 'Wissenschaftskommunikation'}
             ],
             padding: 50,
             length: 1000,
