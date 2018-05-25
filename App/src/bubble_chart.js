@@ -356,10 +356,6 @@ function setupButtons() {
 	  }
       );
 	
-
-
-	
-	
   var axisFactory = AxisFactory();
 
   d3.select('#selectXAxis')
