@@ -348,40 +348,18 @@ function display(data) {
 }
 
 function setupButtons() {
-
-  d3.select("#softwareonly")
+	
+  d3.select("#medienarbeit")
       .on('click', function(){
-          myBubbleChart.displayTypes(['Software']);
-      })
+	  console.log('ok');
+      d3.select('#checkbox-button').selectAll('input')
+	  .style('color','red');
+	  }
+      );
+	
 
-  d3.select("#showall")
-      .on('click', function(){
-          myBubbleChart.displayTypes(["Media relations: print media, online media", "New media (web, blogs, podcasts, news feeds etc.)", "Media relations: radio, television", "Talks/events/exhibitions", "Print (books, brochures, leaflets)", "Other activities", "Video/Film", "Start-up", "Software"]);
-      })
 
-	d3.select('#software')
-    	.on('change', function(){
-			var softwareBubbles =  d3.selectAll('circle')
-								   .filter(function(d) {return d.group == 'Software'});	
-		if(this.checked) softwareBubbles.attr("visibility", "visible");
-		else {
-			softwareBubbles.attr("visibility", "hidden");
-			softwareBubbles.attr("schubidu", function (d){return d.radius});
-			softwareBubbles.each(function(d){d.radius = 0;});
-		}
-    });
-		
-	d3.select('#mediarelation1')
-    	.on('change', function(){
-			var mediarelation1Bubbles =  d3.selectAll('circle')
-								   .filter(function(d) {return d.group == "Media relations: print media, online media"});	
-		if(this.checked) mediarelation1Bubbles.attr("visibility", "visible");
-		else {
-			mediarelation1Bubbles.attr("visibility", "hidden");
-			mediarelation1Bubbles.attr("schubidu", function (d){return d.radius});
-			mediarelation1Bubbles.attr("radius",0);
-		}
-    });
+	
 	
   var axisFactory = AxisFactory();
 
