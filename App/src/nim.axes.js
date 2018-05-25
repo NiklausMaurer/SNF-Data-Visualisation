@@ -55,57 +55,11 @@ DiscreteAxis = function(axisParam){
         return levelcaptions[levelvalues.indexOf(d.data[property])];
     }
 
-    function getAdditonalNodeXOffset(nodeGroupProperty) {
-        switch(nodeGroupProperty) {
-            case "Media relations: print media, online media":
-                return 1;
-            case "New media (web, blogs, podcasts, news feeds etc.)":
-                return 0.77;
-            case "Media relations: radio, television":
-                return 0.17;
-            case "Talks/events/exhibitions":
-                return -0.5;
-            case "Print (books, brochures, leaflets)":
-                return -0.94;
-            case "Other activities":
-                return -0.94;
-            case "Video/Film":
-                return -0.5;
-            case "Start-up":
-                return 0.17;
-            case "Software":
-                return 0.77;
-        }
-    }
-
-    function getAdditonalNodeYOffset(nodeGroupProperty) {
-        switch(nodeGroupProperty) {
-            case "Media relations: print media, online media":
-                return 0;
-            case "New media (web, blogs, podcasts, news feeds etc.)":
-                return 0.64;
-            case "Media relations: radio, television":
-                return 0.98;
-            case "Talks/events/exhibitions":
-                return 0.87;
-            case "Print (books, brochures, leaflets)":
-                return 0.34;
-            case "Other activities":
-                return -0.34
-            case "Video/Film":
-                return -0.87;
-            case "Start-up":
-                return -0.98;
-            case "Software":
-                return -0.64;
-        }
-    }
-
     axis.getNodeOffset = function(d) {
         if(property === 'none') return center;
 
-        if(orientation === 'x') return getCenterOffset(d.data[property]) /*+ getAdditonalNodeXOffset(d.group) * 90*/;
-        else if(orientation === 'y') return getCenterOffset(d.data[property]) /*+ getAdditonalNodeYOffset(d.group) * 90*/;
+        if(orientation === 'x') return getCenterOffset(d.data[property]);
+        else if(orientation === 'y') return getCenterOffset(d.data[property]);
         else throw 'orientation ' + orientation + ' is not supported.'
     }
 
@@ -116,7 +70,6 @@ DiscreteAxis = function(axisParam){
 
     return axis;    
 }
-
 
 AxisFactory = function() {
 
