@@ -69,8 +69,31 @@
             <div id="bubblecharttoolbar">
                 X-Achse <select name="selectXAxis" id="selectXAxis"> </select>
                 Y-Achse <select name="selectYAxis" id="selectYAxis" disabled> </select>
-                <button id="softwareonly" >Software only</button>
-                <button id="showall">All</button>
+      
+			<div id="checkbox-button">
+                <label> 
+                  <input id="medienarbeit" type="checkbox" name="Medienarbeit" checked="checked"><span> Medienarbeit</span>
+					
+                  <input id="software" type="checkbox" name="software" checked="checked"><span> Software</span>
+					
+                  <input id="radioundfernsehen"type="checkbox" name="radioundfernsehen" checked="checked"><span> Radio und Fernsehen</span>
+					
+                  <input id="neuemedien" type="checkbox" name="neuemedien" checked="checked"><span> Neue Medien</span>
+					
+                  <input id="druckerzeugnisse" type="checkbox" name="druckerzeugnisse" checked="checked"><span> Druckerzeugnisse</span>
+					
+                  <input id="startups" type="checkbox" name="startups" checked="checked"><span> Start-up's</span>
+					
+                  <input id="events" type="checkbox" name="events" checked="checked"><span> Events</span>
+					
+                  <input id="videofilm" type="checkbox" name="videofilm" checked="checked"><span> Video und Film</span>
+					
+					<input id="andere" type="checkbox" name="andere" checked="checked"><span> Andere</span>
+					
+					<input id="showall" type="checkbox" name="showall" checked="checked"><span> Alle</span>
+                 
+                </label>
+              </div>
               </div>
           </div>
         </div>
@@ -83,20 +106,7 @@
                 </div>
     
         
-              <div id="checkbox-button" style="display:none;">
-                <label> 
-                  <input id="mediarelation1" type="checkbox"><span> Mediarelation1</span>
-                  <input id="software" type="checkbox"><span> Software</span>
-                  <input id="mediarelation2"type="checkbox"><span> Mediarelation 2</span>
-                  <input id="newmedia" type="checkbox"><span> New Media</span>
-                  <input id="otheractivities" type="checkbox"><span> Other Activities</span>
-                  <input id="print" type="checkbox"><span> Print</span>
-                  <input id="startup" type="checkbox"><span> Start-up</span>
-                  <input id="talksevents" type="checkbox"><span> Talks/Events</span>
-                  <input id="videofilm" type="checkbox"><span> Video/Film</span>
-                  
-                </label>
-              </div>
+              
               
               <script src="src/nim.axes.js"></script>
               <script src="src/nim.clustermanager.js"></script>
