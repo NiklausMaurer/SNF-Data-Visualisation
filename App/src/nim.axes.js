@@ -264,7 +264,7 @@ AxisFactory = function() {
             property: 'none',
             levels: ['Alle'],
             padding: 50,
-            length: 1200,
+            length: 600,
             center: 300,
             orientation: 'y'
           })

@@ -37,9 +37,6 @@ function bubbleChart(param) {
   var xAxis = axisFactory.getXAxis('none');
   var yAxis = axisFactory.getYAxis('none');
 
-  var width = 1600;
-  var height = 1600;
-
   var forceStrength = 0.032;
   var clusterForceStrength = 0.8;
 
@@ -156,8 +153,8 @@ function bubbleChart(param) {
   function initializeBubbles() {
     svg = d3.select('#vis')
       .append('svg')
-      .attr('width', width)
-      .attr('height', height);
+      .attr('width', 1600)
+      .attr('height', yAxis.getLength() + 'px');
 
     bubbles = svg.selectAll('.bubble')
       .data(nodes, function (d) { return d.id; });
@@ -200,6 +197,8 @@ function bubbleChart(param) {
 
     simulation.alpha(alpha).restart();
     alpha = laterAlpha;
+
+    svg.transition().duration(1000).attr('height', yAxis.getLength() + 'px');
   }
 
   function showXAxisTitles() {
