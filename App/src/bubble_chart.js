@@ -401,14 +401,18 @@ function setupButtons() {
 
   d3.select('#selectXAxis')
     .on('change', function(){
-      myBubbleChart.setXAxis(this.value);
-      if(this.value == 'none') {
+      var selectedXValue = this.value;
+      myBubbleChart.setXAxis(selectedXValue);
+      if(selectedXValue == 'none' || d3.select('#selectYAxis').property('value') == selectedXValue) {
         d3.select('#selectYAxis').attr('disabled', true);
         d3.select('#selectYAxis').property('value', 'none') ;
         myBubbleChart.setYAxis('none');
       }
-      else d3.select('#selectYAxis').attr('disabled', null);
-    });
+      else {
+        d3.select('#selectYAxis').attr('disabled', null);
+        var options = d3.select('#selectYAxis').selectAll('option').style('display', null);
+        options.filter(function(d) {return d === selectedXValue;}).style('display', 'none');
+    }});
 
     d3.select('#selectYAxis')
     .selectAll("option")
