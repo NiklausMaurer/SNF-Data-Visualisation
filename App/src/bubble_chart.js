@@ -223,7 +223,7 @@ function bubbleChart(param) {
 
     var yTitles = svg.selectAll('.yAxisTitle').data(yAxis.getLevels());
 
-    yTitles.attr('y', function (d) { return yAxis.getCenterOffset(d.value); })
+    yTitles.attr('y', function (d) { return yAxis.getLowerBoundry(d.value) + 5; })
       .text(function (d) { return d.caption; });
 
     yTitles.exit().remove();
@@ -231,7 +231,7 @@ function bubbleChart(param) {
     yTitles.enter().append('text')
       .attr('class', 'yAxisTitle')
       .attr('x', 10)
-      .attr('y', function (d) { return yAxis.getCenterOffset(d.value); })
+      .attr('y', function (d) { return yAxis.getLowerBoundry(d.value) + 5; })
       .attr('text-anchor', 'left')
       .text(function (d) { return d.caption; });
   }
