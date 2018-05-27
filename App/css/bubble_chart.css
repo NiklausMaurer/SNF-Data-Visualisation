@@ -56,4 +56,7 @@ a, a:visited, a:active {
   text-align: center;
 }
 
-/*! Buttons*/
+.verlinkung 
+{color: deepskyblue;
+text-decoration: none;
+background-color: none;}
