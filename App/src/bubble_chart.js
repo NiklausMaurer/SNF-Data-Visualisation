@@ -159,14 +159,16 @@ function bubbleChart(param) {
 		bubbles = svg.selectAll('.bubble')
 			.data(nodes, function (d) { return d.id; });
 
+    var typeAxis = axisFactory.getXAxis('Type');
+
 		var bubblesE = bubbles.enter().append('circle')
 		.classed('bubble', true)
 		.attr('r', 0)
 		.attr('fill', function (d) { return fillColor(d.group); })
 		.attr('stroke', function (d) { return d3.rgb(fillColor(d.group)).darker(); })
 		.attr('stroke-width', 1.3)
-		.attr('cx', function (d) { return d.x = xAxis.getCenter() + Math.cos(((types.indexOf(d.group) + 2) % 9) / 9 * 2 * Math.PI) * 800 + Math.random(); })
-		.attr('cy', function (d) { return d.y = yAxis.getCenter() + Math.sin(((types.indexOf(d.group) + 2) % 9) / 9 * 2 * Math.PI) * 800 + Math.random(); })
+		.attr('cx', function (d) { return d.x = xAxis.getCenter() - xAxis.getLength()* 2.5 * 0.5 + typeAxis.getCenterOffset(d.group) * 2.5 + (Math.random() - 0.5) * 10; })
+		.attr('cy', function (d) { return d.y = yAxis.getCenter() + (Math.random() - 0.5) * 50; })
 		.on('mouseover', showDetail)
 		.on('mouseout', hideDetail);
 

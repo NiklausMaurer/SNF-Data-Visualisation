@@ -137,9 +137,9 @@ AxisFactory = function() {
             levels: [
                 {value: 'Print (books, brochures, leaflets)', caption: 'Druckerzeugnisse'},
                 {value: 'Media relations: radio, television', caption: 'Radio und Fernsehen'},
-                {value: 'Media relations: print media, online media', caption: 'Medienarbeit'},
                 {value: 'New media (web, blogs, podcasts, news feeds etc.)', caption: 'Neue Medien'},
                 {value: 'Software', caption: 'Software'},
+                {value: 'Media relations: print media, online media', caption: 'Medienarbeit'},
                 {value: 'Start-up', caption: 'Start-up\'s'},
                 {value: 'Talks/events/exhibitions', caption: 'Events'},
                 {value: 'Video/Film', caption: 'Video und Film'},
