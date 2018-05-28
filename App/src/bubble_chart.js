@@ -37,14 +37,13 @@ function bubbleChart(param) {
 	var xAxis = axisFactory.getXAxis('none');
 	var yAxis = axisFactory.getYAxis('none');
 
-	var forceStrength = 0.032;
+	var forceStrength = 0.038;
 	var clusterForceStrength = 0.8;
 
 	var svg = null;
 	var bubbles = null;
 	var nodesBackup = [];
 	var nodes = [];
-	var doClustering = true;
 	var clusterManager = ClusterManager();
 
 	var alpha = 0.3;
@@ -57,7 +56,6 @@ function bubbleChart(param) {
 			strength = 0.4;
 		function force (alpha) {
       // scale + curve alpha value
-			if(!doClustering) return;
 
 			alpha *= clusterForceStrength * alpha;
 
@@ -96,7 +94,7 @@ function bubbleChart(param) {
 	.velocityDecay(0.15)
 	.force('collision', d3.forceCollide().radius(function(d) {
 		return d.radius
-	}).iterations(15))
+	}).iterations(15).strength(.3))
 	.force('cluster', cluster().strength(clusterForceStrength))
 	.on('tick', ticked);
 
@@ -190,7 +188,7 @@ function bubbleChart(param) {
 		else showYAxisTitles();
 
 		if(xAxis.getProperty() !== 'none' || yAxis.getProperty() !== 'none') {
-			doClustering = false;
+			simulation.force('cluster', null);
 			forceStrength = 0.03;
 		}
 
@@ -323,15 +321,15 @@ function bubbleChart(param) {
 		bubbles.each(function(d) {d.radius = radiusScale(d.data['Count'])})
 
 		bubbles.transition()
-			.duration(1000)
+			.duration(500)
 			.attr('r', function (d) { return d.radius; });
 
 		simulation.nodes(nodes);
 
     clusterManager.reset();
-    doClustering = false;
+    simulation.force('cluster', null);
 
-		simulation.alpha(alpha).restart();
+		simulation.alpha(Math.max(simulation.alpha(), .5)).restart();
 	}
 
 	return chart;
