@@ -167,7 +167,7 @@ function bubbleChart(param) {
 		.attr('fill', function (d) { return fillColor(d.group); })
 		.attr('stroke', function (d) { return d3.rgb(fillColor(d.group)).darker(); })
 		.attr('stroke-width', 1.3)
-		.attr('cx', function (d) { return d.x = xAxis.getCenter() - xAxis.getLength()* 2.5 * 0.5 + typeAxis.getCenterOffset(d.group) * 2.5 + (Math.random() - 0.5) * 10; })
+		.attr('cx', function (d) { return d.x = xAxis.getCenter() - xAxis.getLength()* 3 * 0.5 + typeAxis.getCenterOffset(d.group) * 3 + (Math.random() - 0.5) * 20; })
 		.attr('cy', function (d) { return d.y = yAxis.getCenter() + (Math.random() - 0.5) * 50; })
 		.on('mouseover', showDetail)
 		.on('mouseout', hideDetail);
