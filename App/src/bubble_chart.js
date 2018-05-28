@@ -57,7 +57,6 @@ function bubbleChart(param) {
 			strength = 0.4;
 		function force (alpha) {
       // scale + curve alpha value
-      return;
 			if(!doClustering) return;
 
 			alpha *= clusterForceStrength * alpha;
@@ -305,8 +304,8 @@ function bubbleChart(param) {
 		.attr('fill', function (d) { return fillColor(d.group); })
 		.attr('stroke', function (d) { return d3.rgb(fillColor(d.group)).darker(); })
 		.attr('stroke-width', 1.3)
-		.attr('cx', function (d) { return d.x = xAxis.getCenter() + Math.cos(((types.indexOf(d.group) + 2) % 9) / 9 * 2 * Math.PI) * 800 + Math.random(); })
-		.attr('cy', function (d) { return d.y = yAxis.getCenter() + Math.sin(((types.indexOf(d.group) + 2) % 9) / 9 * 2 * Math.PI) * 800 + Math.random(); })
+		.attr('cx', function (d) { return d.x = xAxis.getNodeOffset(d) + (Math.random() - 0.5) * 50; })
+		.attr('cy', function (d) { return d.y = yAxis.getNodeOffset(d) + (Math.random() - 0.5) * 50; })
 		.on('mouseover', showDetail)
 		.on('mouseout', hideDetail);
 
@@ -330,6 +329,7 @@ function bubbleChart(param) {
 		simulation.nodes(nodes);
 
     clusterManager.reset();
+    doClustering = false;
 
 		simulation.alpha(alpha).restart();
 	}

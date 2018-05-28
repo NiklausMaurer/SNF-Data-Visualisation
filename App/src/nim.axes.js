@@ -15,6 +15,7 @@ DiscreteAxis = function(axisParam){
     var axis = Object();
 
     var getCenterOffset = function(level) {
+        if(property === 'none') return center;
         if(orientation == 'y') return padding + Math.round(columnWidth/2) + levelvalues.indexOf(level) * columnWidth;
         else return center -  Math.round((length - 2 * padding) / 2) + Math.round(columnWidth/2) + levelvalues.indexOf(level) * columnWidth;
     }
