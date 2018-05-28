@@ -170,7 +170,7 @@ AxisFactory = function() {
                 {value: 'Mathematics, Natural- and Engineering Sciences', caption: 'Mathematik, Natur- und Ingenieurwissenschaften'}
             ],
             padding: 50,
-            length: 600,
+            length: 800,
             center: 300,
             orientation: 'y'
           }),
@@ -199,7 +199,7 @@ AxisFactory = function() {
                 {value: '800\'000+', caption: '800\'000+'}
             ],
             padding: 50,
-            length: 900,
+            length: 1100,
             center: 300,
             orientation: 'y'
         }),
@@ -214,7 +214,7 @@ AxisFactory = function() {
                 {value: 'Science communication', caption: 'Wissenschaftskommunikation'}
             ],
             padding: 50,
-            length: 1000,
+            length: 1200,
             center: 300,
             orientation: 'y'
         }),
