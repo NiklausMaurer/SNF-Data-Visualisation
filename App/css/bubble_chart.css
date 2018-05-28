@@ -95,9 +95,40 @@ body {
     top:-20px;
 }
 
-#ck-button input:checked + span {
+#ck-button.btn-eins input:checked + span {
+    background-color:#92c0e0;
+}
+
+#ck-button.btn-zwei input:checked + span {
+    background-color:#F93;
+}
+#ck-button.btn-drei input:checked + span {
+    background-color:#e6f2fa;
+
+}
+#ck-button.btn-vier input:checked + span {
+    background-color:#2a8dd4;
+ 
+}
+#ck-button.btn-fuenf input:checked + span {
+    background-color:#b1b1b1;
+
+}
+#ck-button.btn-sechs input:checked + span {
+    background-color:#b95f00;
+
+}
+#ck-button.btn-sieben input:checked + span {
     background-color:#004d85;
-    color:#fff;
+    color:whitesmoke;
+}
+#ck-button.btn-acht input:checked + span {
+    background-color:#663399;
+    color:whitesmoke;
+}
+#ck-button.btn-neun input:checked + span {
+    background-color:#e1e1e1;
+
 }
 
 
