@@ -56,7 +56,8 @@ function bubbleChart(param) {
 		var nodes,
 			strength = 0.4;
 		function force (alpha) {
-			// scale + curve alpha value
+      // scale + curve alpha value
+      return;
 			if(!doClustering) return;
 
 			alpha *= clusterForceStrength * alpha;
@@ -328,6 +329,8 @@ function bubbleChart(param) {
 
 		simulation.nodes(nodes);
 
+    clusterManager.reset();
+
 		simulation.alpha(alpha).restart();
 	}
 
@@ -356,7 +359,7 @@ function updateDataTypes(){
 			choices.push(cb.property("name"));
 		}
 	});
-	myBubbleChart.displayTypes(choices);
+  myBubbleChart.displayTypes(choices);
 }
 
 function setupButtons() {

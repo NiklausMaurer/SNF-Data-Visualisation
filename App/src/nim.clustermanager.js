@@ -53,5 +53,11 @@ ClusterManager = function() {
         return clusterNode;
     }
 
+    manager.reset = function() {
+        nodesCache = null;
+        clusterCache = new Array();
+        clusterNodeCache = new Array();
+    }
+
     return manager;
 }
