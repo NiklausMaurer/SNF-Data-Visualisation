@@ -60,3 +60,46 @@ a, a:visited, a:active {
 {color: deepskyblue;
 text-decoration: none;
 background-color: none;}
+
+
+div label input {
+   margin-right:100px;
+	display: none;
+}
+body {
+    font-family:sans-serif;
+}
+
+#ck-button {
+    margin:4px;
+    background-color:#EFEFEF;
+    border-radius:5px;
+    border:1px solid #D0D0D0;
+    overflow:auto;
+    float:left;
+}
+
+#ck-button label {
+    float:left;
+    width: 10.0em;
+}
+
+#ck-button label span {
+    text-align:center;
+    padding:3px 0px;
+    display:block;
+}
+
+#ck-button label input {
+    position:absolute;
+    top:-20px;
+}
+
+#ck-button input:checked + span {
+    background-color:#004d85;
+    color:#fff;
+}
+
+
+/* Einfügen der Farben oben
+range(['#92c0e0', '#2a8dd4', '#e6f2fa', '#004d85', '#b1b1b1', '#e1e1e1', '#663399', '#b95f00', '#F93']); */
