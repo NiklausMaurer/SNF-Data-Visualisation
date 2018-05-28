@@ -1,0 +1,11 @@
+{
+"title": "Output von Forschungsprojekten",
+"description": "Bubble-Chart zur explorativen Visualisierung des Outputs von Forschungsprojekten, die vom SNF gefördert wurden. Outputs sind zusätzlich zu Publikationen entstandene Produkte oder erbrachte Arbeiten wie z.B. Software oder Medienarbeit. Fläche und Farbe der Bubbles entsprechen Anzahl und Art der enthaltenen Outputs. Ordnen Sie die Bubbles nach jenen Kriterien an, die Sie interessieren. Für Sie weniger interessante Output-Arten können Sie ausblenden.",
+"authors": [
+    {"name": "Debora Balzli", "email": "debora.balzli@students.unibe.ch"},
+    {"name": "Niklaus Maurer", "email": "niklaus.maurer@students.unibe.ch"}
+],
+"date": "2018-05-31",
+"category": "research",
+"software_license": "GNU General Public License v3"
+}
