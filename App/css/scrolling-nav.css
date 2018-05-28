@@ -19,12 +19,13 @@ section {
 }
 
 body {
+	width: 1700px;
   padding-top: 54px;
 }
 
 @media (min-width: 992px) {
   body {
-    padding-top: 56px;
+    padding-top: 10px;
   }
 }
 
