@@ -13,8 +13,7 @@ a, a:visited, a:active {
 }
 
 #bubblecharttoolbar {
-  margin-top: 30px;
-margin:0
+margin:0;
 padding:0;
 text-align: center;	
 }
@@ -72,69 +71,6 @@ div label input {
 body {
     font-family:sans-serif;
 }
-
-
-/* ClearAll-Button 
-#clearAll {
-    background-color:#EFEFEF;
-	height: 20px;
-    border-radius:1px;
-    border:0px solid #D0D0D0;
-    overflow:auto;
-    float:left;
-}
-#clearAll label{
-    float:left;
-    width: 10.0em;
-}
-
-#clearAll label span 
-{
-    text-align:center;
-    padding:3px 0px;
-    display:block;
-}
-
-#clearAll label input{
-    position:absolute;
-    top:-20px;
-}
-
-#clearAll input:checked + span {
-    background-color:#92c0e0;
-}
-
-*/
-
-/* ShowAll-Button 
-#showall {
-
-    background-color:#EFEFEF;
-	height: 30px;
-    border-radius:1px;
-    border:0px solid #D0D0D0;
-    overflow:auto;
-    float:left;
-}
-
-#showall label{
-    float:left;
-    width: 20.0em;
-}
-
-#showall label span 
-{
-    text-align:center;
-    padding:3px 0px;
-    display:block;
-}
-
-#showalllabel input{
-    position:absolute;
-    top:-20px;
-}
-*/
-
 
 /* Output-Type-Buttons */
 #ck-button {
