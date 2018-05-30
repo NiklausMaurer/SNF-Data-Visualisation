@@ -53,9 +53,9 @@
 			<div class="container text-center">
 
 				<h1>Output der Forschung </h1>
-				<p class="lead" style="color: red">Visualisierung von Open Data --> NEU</p>
+				<p class="lead">Eine Visualisierung von Open Data des Schweizerischen Nationalfonds</p>
 
-				<p> Eine Webapplikation entwickelt zur Visualisierung von Daten des Schweizerischen Nationalfonds (SNF), im Rahmen der <a href=http://www.digitale-nachhaltigkeit.unibe.ch/studium/open_data_vorlesung/index_ger.html> Open Data Vorlesung </a>an der Universität Bern.</p>
+				<p> Entwickelt im Rahmen der <a href=http://www.digitale-nachhaltigkeit.unibe.ch/studium/open_data_vorlesung/index_ger.html style="color: blue"> Open Data Vorlesung </a>an der Universität Bern.</p>
 
 			</div>
 		</header>
@@ -68,39 +68,16 @@
 						<p> <strong>Outputs von SNF-finanzierter Forschung aus den Jahren 2011-2018 </strong>
 												</p>	
 							<ul>
-								<li> Farben: Kennzeichnung der verschiedenen Output-Typen</li>
-								<li> Grösse der Bubbles: Die Summe aller gleichfarbigen Bubbles steht für den Umfang des generierten Outputs</li>
+								<li> Farbe: Output-Typen</li>
+								<li> Fläche: Anzahl Outputs 
+						</li>
 						</ul>
 						
 						
-						<div id="bubblecharttoolbar"> 
-							X-Achse <select name="selectXAxis" id="selectXAxis"> </select>
-							Y-Achse <select name="selectYAxis" id="selectYAxis" disabled> </select>
-
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="bubblechartcontainer">
-
-				<div id="vis"></div>
-				<div class="footer">
-				</div>
-			</div>
-
-			<div class="container"> 
-				<div class="row"> 
-					<div class="col-lg-8 mx-auto"> 
+					
 						
 						
-							
-							
-							
-							<p>
-								<button type="button" id="clearAll" >Alle löschen</button> 
-							
-								<button type="button" id="showall">Alle anzeigen</button>
-							</p> <br>
+						
 					
 						<form>
 		
@@ -143,11 +120,32 @@
 								
 									
 							</form>
+						 <br>
+						<p>
+								<button type="button" id="clearAll">Alle löschen</button> 
 							
+								<button type="button" id="showall">Alle anzeigen</button>
+							</p> 
+						
+						
+						<br>
+							<div id="bubblecharttoolbar"> 
+							X-Achse <select name="selectXAxis" id="selectXAxis"> </select>
+							Y-Achse <select name="selectYAxis" id="selectYAxis" disabled> </select>
+
+						</div>
 						
 					</div>
 				</div>
 			</div>
+			<div class="bubblechartcontainer">
+
+				<div id="vis"></div>
+				<div class="footer">
+				</div>
+			</div>
+
+
 
 
 
@@ -179,8 +177,8 @@
 
 						
 						<p><strong>Datenausschluss.</strong> <br> 
-							Explizit von der Visualisierung ausgeschlossen wurden Daten über wissenschaftliche Publikationen, da alleine dieser Output-Typ über 95% des gesamten generierten Outputs ausmacht. <br>
-							Eine relationale Gegenüberstellung der wissenschaftlichen Publikationen mit den übrigen Output-Typen wäre aufgrund dieses unausgewogenen Mengenverhältnisses nicht sinnvoll. 
+							Explizit von der Visualisierung ausgeschlossen wurden Daten über wissenschaftliche Publikationen, da alleine dieser Output-Typ über 84% aller generierten Outputs ausmacht.
+							Eine Gegenüberstellung der wissenschaftlichen Publikationen mit den übrigen Output-Typen wäre aufgrund dieses unausgewogenen Mengenverhältnisses nicht sinnvoll. 
  						</p>
 						
 						<p>
@@ -214,7 +212,7 @@
 							<tbody>
 								<tr>
 									<td>SNF-Datensatz</td>
-									<td><a href="http://p3.snf.ch/Pages/DataAndDocumentation.aspx">P3 Schweizerischer Nationalfonds</a></td>
+									<td><a href="http://p3.snf.ch/Pages/DataAndDocumentation.aspx/#DataDownload">P3 Schweizerischer Nationalfonds</a></td>
 								</tr>
 								<tr>
 									<td>Introbild</td>
@@ -225,13 +223,10 @@
 									<td><a href="https://startbootstrap.com">Startbootstrap</a></td>
 								</tr>
 								<tr>
-									<td>D3-Template</td>
+									<td>D3-Framework</td>
 									<td><a href="https://d3js.org/">d3js</a></td>
 								</tr>
-								<tr>
-									<td>Quellcode der Applikation</td>
-									<td style="color: red">LINK</td>
-								</tr>
+								
 							</tbody>
 						</table>
 					</div>
